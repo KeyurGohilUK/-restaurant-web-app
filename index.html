@@ -52,15 +52,27 @@
         </aside>
       </section>
 
-      <section class="section" id="menu" aria-labelledby="menu-title">
+      <section class="section menu-section" id="menu" aria-labelledby="menu-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Signature picks</p>
-            <h2 id="menu-title">A taste of the menu</h2>
+            <p class="eyebrow">Full menu</p>
+            <h2 id="menu-title">Explore by category.</h2>
           </div>
-          <p>Start with a few customer favourites. The full structured menu comes next.</p>
+          <p>
+            Browse the current menu by category. Prices are shown for reference and may change.
+          </p>
         </div>
-        <div class="card-grid" id="featured-dishes" aria-live="polite"></div>
+
+        <div class="menu-toolbar" aria-label="Menu categories">
+          <button class="menu-filter is-active" type="button" data-menu-filter="all" aria-pressed="true">All</button>
+          <div id="menu-filters"></div>
+        </div>
+
+        <p class="menu-note">
+          Please speak to the restaurant directly about allergies or dietary requirements before ordering food.
+        </p>
+
+        <div id="menu-categories" class="menu-categories" aria-live="polite"></div>
       </section>
 
       <section class="split-section" id="catering" aria-labelledby="catering-title">

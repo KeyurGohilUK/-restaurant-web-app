@@ -13,13 +13,24 @@ test('loads the branded homepage and exposes accessible primary navigation', asy
   await expect(navigation.getByRole('link', { name: 'Contact' })).toBeVisible();
 });
 
-test('shows structured visit details and featured dishes', async ({ page }) => {
+test('shows structured visit details and menu content', async ({ page }) => {
   await page.goto('./');
 
   await expect(page.getByText('664 Fishponds Rd, Bristol BS16 3HJ')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Samosa Chaat' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Paneer Frankie' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Opening hours' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Chaat', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Mumbai Special', exact: true })).toBeVisible();
+});
+
+test('filters the menu by category', async ({ page }) => {
+  await page.goto('./');
+
+  await page.getByRole('button', { name: 'Mumbai Special', exact: true }).click();
+
+  await expect(page.getByRole('heading', { name: 'Mumbai Special', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Vada Pav', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Chaat', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Mumbai Special', exact: true })).toHaveAttribute('aria-pressed', 'true');
 });
 
 test('does not present online ordering in the initial site scope', async ({ page }) => {

@@ -25,13 +25,15 @@ This file tracks the planned public-facing restaurant website. The current produ
 - [x] Catering highlight
 
 ### Menu
-- [ ] Structured, data-driven menu
-- [ ] Menu categories and category navigation
-- [ ] Dish name, description, price, image where available
+- [x] Structured, data-driven menu
+- [x] Menu categories and category navigation
+- [x] Dish name, description and price
+- [ ] Dish images where suitable approved assets are available
 - [ ] Vegetarian/vegan/spice/dietary indicators where verified
-- [ ] Allergen-information notice and link
-- [ ] Search/filtering only if it improves usability
-- [ ] Easy content maintenance without duplicating markup
+- [ ] Dedicated allergen-information link/page
+- [x] Allergen/dietary contact notice
+- [x] Category filtering for faster browsing
+- [x] Easy content maintenance without duplicating markup
 
 ### Reviews
 - [ ] Dedicated reviews page/section
@@ -71,10 +73,10 @@ This file tracks the planned public-facing restaurant website. The current produ
 - [ ] Accessibility information where available
 
 ### Dietary & Allergen Information
-- [ ] Clear allergen disclaimer
+- [x] Clear allergen contact notice
 - [ ] Verified dietary labels only
-- [ ] Contact guidance for allergen questions
-- [ ] Avoid unverified safety claims
+- [x] Contact guidance for allergen questions
+- [x] Avoid unverified safety claims
 
 ## Phase 3 — Discoverability & trust
 
