@@ -1,4 +1,10 @@
 import './styles.css';
+import {
+  cateringMenuIdeas,
+  cateringNotice,
+  cateringOccasions,
+  cateringPlanningSteps,
+} from './content/catering-content';
 import { menuCategories } from './content/menu-content';
 import { externalRatings, reviewGroups, verifiedTestimonials } from './content/review-content';
 import { featuredDishes, openingHours, restaurant } from './content/site-content';
@@ -10,10 +16,7 @@ if (dishesContainer) {
       (dish) => `
         <article class="dish-card">
           <div class="dish-card-art" aria-hidden="true">✦</div>
-          <div>
-            <h3>${dish.name}</h3>
-            <p>${dish.description}</p>
-          </div>
+          <div><h3>${dish.name}</h3><p>${dish.description}</p></div>
         </article>`,
     )
     .join('');
@@ -24,29 +27,20 @@ const menuCategoriesContainer = document.querySelector<HTMLDivElement>('#menu-ca
 
 const renderMenu = (categoryId = 'all') => {
   if (!menuCategoriesContainer) return;
-
-  const categories =
-    categoryId === 'all' ? menuCategories : menuCategories.filter((category) => category.id === categoryId);
+  const categories = categoryId === 'all' ? menuCategories : menuCategories.filter((category) => category.id === categoryId);
 
   menuCategoriesContainer.innerHTML = categories
     .map(
       (category) => `
         <section class="menu-category" aria-labelledby="menu-${category.id}">
-          <div class="menu-category-heading">
-            <h3 id="menu-${category.id}">${category.name}</h3>
-            <span>${category.items.length} ${category.items.length === 1 ? 'item' : 'items'}</span>
-          </div>
+          <div class="menu-category-heading"><h3 id="menu-${category.id}">${category.name}</h3><span>${category.items.length} ${category.items.length === 1 ? 'item' : 'items'}</span></div>
           <div class="menu-item-grid">
             ${category.items
               .map(
                 (item) => `
                   <article class="menu-item-card">
-                    <div class="menu-item-title-row">
-                      <h4>${item.name}</h4>
-                      <strong>${item.price}</strong>
-                    </div>
-                    <p>${item.description}</p>
-                    ${item.popular ? '<span class="popular-badge">Popular</span>' : ''}
+                    <div class="menu-item-title-row"><h4>${item.name}</h4><strong>${item.price}</strong></div>
+                    <p>${item.description}</p>${item.popular ? '<span class="popular-badge">Popular</span>' : ''}
                   </article>`,
               )
               .join('')}
@@ -58,19 +52,13 @@ const renderMenu = (categoryId = 'all') => {
 
 if (menuFilters) {
   menuFilters.innerHTML = menuCategories
-    .map(
-      (category) => `
-        <button class="menu-filter" type="button" data-menu-filter="${category.id}" aria-pressed="false">
-          ${category.name}
-        </button>`,
-    )
+    .map((category) => `<button class="menu-filter" type="button" data-menu-filter="${category.id}" aria-pressed="false">${category.name}</button>`)
     .join('');
 
   const toolbar = menuFilters.closest('.menu-toolbar');
   toolbar?.addEventListener('click', (event) => {
     const target = event.target;
     if (!(target instanceof HTMLButtonElement)) return;
-
     const categoryId = target.dataset.menuFilter;
     if (!categoryId) return;
 
@@ -79,29 +67,46 @@ if (menuFilters) {
       button.classList.toggle('is-active', isActive);
       button.setAttribute('aria-pressed', String(isActive));
     });
-
     renderMenu(categoryId);
   });
 }
-
 renderMenu();
+
+const cateringOccasionsContainer = document.querySelector<HTMLDivElement>('#catering-occasions');
+if (cateringOccasionsContainer) {
+  cateringOccasionsContainer.innerHTML = cateringOccasions
+    .map(
+      (occasion) => `<article class="catering-card"><span aria-hidden="true">✦</span><h3>${occasion.name}</h3><p>${occasion.description}</p></article>`,
+    )
+    .join('');
+}
+
+const cateringStepsContainer = document.querySelector<HTMLOListElement>('#catering-steps');
+if (cateringStepsContainer) {
+  cateringStepsContainer.innerHTML = cateringPlanningSteps.map((step) => `<li>${step}</li>`).join('');
+}
+
+const cateringIdeasContainer = document.querySelector<HTMLDivElement>('#catering-menu-ideas');
+if (cateringIdeasContainer) {
+  cateringIdeasContainer.innerHTML = cateringMenuIdeas
+    .map((idea) => `<article class="catering-idea"><h4>${idea.title}</h4><p>${idea.description}</p></article>`)
+    .join('');
+}
+
+const cateringNoticeElement = document.querySelector<HTMLParagraphElement>('#catering-notice');
+if (cateringNoticeElement) cateringNoticeElement.textContent = cateringNotice;
+
+const cateringPhoneLink = document.querySelector<HTMLAnchorElement>('#catering-phone-link');
+if (cateringPhoneLink) {
+  cateringPhoneLink.href = restaurant.phoneHref;
+  cateringPhoneLink.setAttribute('aria-label', `Call ${restaurant.shortName} about catering on ${restaurant.phoneDisplay}`);
+}
 
 const ratingSummary = document.querySelector<HTMLDivElement>('#external-ratings');
 if (ratingSummary) {
   ratingSummary.innerHTML = externalRatings
     .map(
-      (rating) => `
-    <article class="rating-card">
-      <div>
-        <span class="rating-platform">${rating.platform}</span>
-        <strong>${rating.rating.toFixed(1)}<small> / ${rating.scale}</small></strong>
-        <p>${rating.reviewCount} reviews</p>
-      </div>
-      <div>
-        <a href="${rating.href}" target="_blank" rel="noreferrer">View on ${rating.platform} ↗</a>
-        <small>Checked ${rating.checkedDate}</small>
-      </div>
-    </article>`,
+      (rating) => `<article class="rating-card"><div><span class="rating-platform">${rating.platform}</span><strong>${rating.rating.toFixed(1)}<small> / ${rating.scale}</small></strong><p>${rating.reviewCount} reviews</p></div><div><a href="${rating.href}" target="_blank" rel="noreferrer">View on ${rating.platform} ↗</a><small>Checked ${rating.checkedDate}</small></div></article>`,
     )
     .join('');
 }
@@ -115,33 +120,18 @@ const renderReviews = (categoryId: string = reviewGroups[0].id) => {
   const testimonials = verifiedTestimonials.filter((item) => item.category === group.id);
 
   if (testimonials.length === 0) {
-    reviewResults.innerHTML = `
-      <div class="review-empty-state">
-        <span>${group.name}</span>
-        <h4>Verified testimonials coming here.</h4>
-        <p>${group.description}</p>
-        <p>We only publish individual customer feedback after its source and wording have been verified.</p>
-      </div>`;
+    reviewResults.innerHTML = `<div class="review-empty-state"><span>${group.name}</span><h4>Verified testimonials coming here.</h4><p>${group.description}</p><p>We only publish individual customer feedback after its source and wording have been verified.</p></div>`;
     return;
   }
 
   reviewResults.innerHTML = testimonials
-    .map(
-      (testimonial) => `
-    <blockquote class="review-card">
-      <p>“${testimonial.quote}”</p>
-      <footer>${testimonial.customerName} · ${testimonial.source}</footer>
-    </blockquote>`,
-    )
+    .map((testimonial) => `<blockquote class="review-card"><p>“${testimonial.quote}”</p><footer>${testimonial.customerName} · ${testimonial.source}</footer></blockquote>`)
     .join('');
 };
 
 if (reviewFilters) {
   reviewFilters.innerHTML = reviewGroups
-    .map(
-      (group, index) => `
-    <button class="review-filter${index === 0 ? ' is-active' : ''}" type="button" data-review-filter="${group.id}" aria-pressed="${index === 0}">${group.name}</button>`,
-    )
+    .map((group, index) => `<button class="review-filter${index === 0 ? ' is-active' : ''}" type="button" data-review-filter="${group.id}" aria-pressed="${index === 0}">${group.name}</button>`)
     .join('');
 
   reviewFilters.addEventListener('click', (event) => {
@@ -174,7 +164,5 @@ if (phoneLink) {
 
 const hoursContainer = document.querySelector<HTMLDListElement>('#opening-hours');
 if (hoursContainer) {
-  hoursContainer.innerHTML = openingHours
-    .map(({ day, hours }) => `<div><dt>${day}</dt><dd>${hours}</dd></div>`)
-    .join('');
+  hoursContainer.innerHTML = openingHours.map(({ day, hours }) => `<div><dt>${day}</dt><dd>${hours}</dd></div>`).join('');
 }
