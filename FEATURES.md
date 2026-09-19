@@ -18,7 +18,7 @@ This file tracks the planned public-facing restaurant website. The current produ
 ### Home
 - [x] Hero section with restaurant positioning and primary calls to action
 - [x] Signature dishes / highlights
-- [ ] Short restaurant story
+- [x] Short restaurant/food story based on verified public information
 - [x] Opening-hours summary
 - [x] Location/contact summary
 - [x] Review trust signals / external rating summaries
@@ -55,10 +55,10 @@ This file tracks the planned public-facing restaurant website. The current produ
 - [ ] Optional downloadable catering information in a later phase
 
 ### About
-- [ ] Restaurant/business story
-- [ ] Cuisine and food philosophy
-- [ ] Team/founder information where approved
-- [ ] Values and differentiators
+- [x] Restaurant/food story using verified public information only
+- [x] Cuisine and food philosophy
+- [ ] Team/founder information when approved source information is available
+- [x] Values/differentiators expressed through the verified menu proposition
 
 ### Gallery
 - [ ] Responsive image gallery
