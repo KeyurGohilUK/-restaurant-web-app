@@ -9,6 +9,7 @@ section[id] {
   width: 4.25rem;
   height: 4.25rem;
   flex: 0 0 auto;
+  align-items: center;
   justify-content: center;
 }
 
@@ -97,11 +98,32 @@ nav a {
     box-shadow 160ms ease;
 }
 
+.footer-links a[href='#home']::before,
+.footer-links a[href='#home']::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  display: block;
+  color: currentColor;
+}
+
 .footer-links a[href='#home']::before {
-  content: '↑';
-  font-size: 1.45rem;
-  font-weight: 800;
-  line-height: 1;
+  top: 50%;
+  width: 3px;
+  height: 1.05rem;
+  border-radius: 999px;
+  background: currentColor;
+  transform: translate(-50%, -34%);
+}
+
+.footer-links a[href='#home']::after {
+  top: 39%;
+  width: 0.62rem;
+  height: 0.62rem;
+  border-top: 3px solid currentColor;
+  border-left: 3px solid currentColor;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transform-origin: center;
 }
 
 .footer-links a[href='#home']:hover {
@@ -122,11 +144,16 @@ nav a {
   .brand {
     width: 3.75rem;
     height: 3.75rem;
+    align-self: center;
   }
 
   .brand::before {
     width: 3.5rem;
     height: 3.5rem;
+  }
+
+  .nav-toggle {
+    align-self: center;
   }
 
   .footer-links a[href='#home'] {
