@@ -1,14 +1,41 @@
-Copyright (c) 2026 Keyur Gohil
-All rights reserved.
+PROPRIETARY SOFTWARE — ALL RIGHTS RESERVED
 
-This source code and all associated files, documentation, assets, designs, and other materials in this repository (collectively, the "Software") are proprietary and protected by applicable copyright and intellectual property laws.
+Copyright © 2026 Keyur Gohil. All rights reserved.
 
-The Software is made publicly accessible for viewing and reference purposes only. Public availability of this repository does not grant any licence or permission to use, copy, reproduce, modify, adapt, merge, publish, distribute, sublicense, sell, commercially exploit, or create derivative works from the Software, in whole or in part, without prior written permission from the copyright holder.
+This software, including its source code, object code, user interface, design,
+documentation, calculations, branding, and associated materials (the
+“Software”), is proprietary to Keyur Gohil (the “Copyright Owner”).
 
-No rights are granted under any patent, trademark, trade dress, copyright, database right, or other intellectual property right except where expressly agreed in writing by the copyright holder.
+No licence or permission is granted to any person to use, copy, modify, adapt,
+translate, publish, distribute, sublicense, sell, commercially exploit, host,
+deploy, incorporate into another product, or create derivative works from the
+Software, except with the Copyright Owner’s prior written permission.
 
-Unauthorised use, reproduction, modification, distribution, or commercial exploitation of the Software is prohibited.
+The public availability of this repository does not make the Software open
+source and must not be interpreted as granting any rights beyond those strictly
+required by GitHub’s applicable Terms of Service.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE COPYRIGHT HOLDER SHALL NOT BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR ITS USE.
+GitHub users may view this repository and may technically fork or clone it where
+permitted by GitHub’s services and Terms of Service. Such availability does not
+grant permission to use, modify, redistribute, publish, deploy, or exploit the
+Software outside the limited operation of GitHub’s services.
 
-For permission to use any part of this repository, prior written authorisation from the copyright holder is required.
+Forks, clones, and other copies are not supported by the Copyright Owner. No
+maintenance, updates, security fixes, compatibility assistance, or technical
+support will be provided for them.
+
+The Software is provided “as is”, without warranties of any kind, whether
+express or implied, including warranties of accuracy, reliability,
+availability, fitness for a particular purpose, and non-infringement.
+
+To the fullest extent permitted by applicable law, the Copyright Owner will not
+be liable for any loss, damage, cost, business interruption, loss of revenue,
+loss of data, or other consequence arising from access to, use of, inability to
+use, or reliance upon the Software.
+
+Nothing in this notice excludes or limits liability where exclusion or
+limitation would be unlawful.
+
+Third-party software, libraries, assets, and other materials included in or
+used by this project remain subject to their respective licences and copyright
+notices.
