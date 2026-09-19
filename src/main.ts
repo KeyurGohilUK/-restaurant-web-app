@@ -86,9 +86,11 @@ if (menuFilters) {
 
 renderMenu();
 
-const ratingSummary = document.querySelector<HTMLDivElement>('#rating-summary');
+const ratingSummary = document.querySelector<HTMLDivElement>('#external-ratings');
 if (ratingSummary) {
-  ratingSummary.innerHTML = externalRatings.map((rating) => `
+  ratingSummary.innerHTML = externalRatings
+    .map(
+      (rating) => `
     <article class="rating-card">
       <div>
         <span class="rating-platform">${rating.platform}</span>
@@ -99,7 +101,9 @@ if (ratingSummary) {
         <a href="${rating.href}" target="_blank" rel="noreferrer">View on ${rating.platform} ↗</a>
         <small>Checked ${rating.checkedDate}</small>
       </div>
-    </article>`).join('');
+    </article>`,
+    )
+    .join('');
 }
 
 const reviewFilters = document.querySelector<HTMLDivElement>('#review-filters');
@@ -121,16 +125,24 @@ const renderReviews = (categoryId: string = reviewGroups[0].id) => {
     return;
   }
 
-  reviewResults.innerHTML = testimonials.map((testimonial) => `
+  reviewResults.innerHTML = testimonials
+    .map(
+      (testimonial) => `
     <blockquote class="review-card">
       <p>“${testimonial.quote}”</p>
       <footer>${testimonial.customerName} · ${testimonial.source}</footer>
-    </blockquote>`).join('');
+    </blockquote>`,
+    )
+    .join('');
 };
 
 if (reviewFilters) {
-  reviewFilters.innerHTML = reviewGroups.map((group, index) => `
-    <button class="review-filter${index === 0 ? ' is-active' : ''}" type="button" data-review-filter="${group.id}" aria-pressed="${index === 0}">${group.name}</button>`).join('');
+  reviewFilters.innerHTML = reviewGroups
+    .map(
+      (group, index) => `
+    <button class="review-filter${index === 0 ? ' is-active' : ''}" type="button" data-review-filter="${group.id}" aria-pressed="${index === 0}">${group.name}</button>`,
+    )
+    .join('');
 
   reviewFilters.addEventListener('click', (event) => {
     const target = event.target;
