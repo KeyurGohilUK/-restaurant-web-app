@@ -9,7 +9,7 @@ import {
 } from './content/catering-content';
 import { menuCategories } from './content/menu-content';
 import { externalRatings, reviewGroups, verifiedTestimonials } from './content/review-content';
-import { featuredDishes, openingHours, restaurant } from './content/site-content';
+import { openingHours, restaurant } from './content/site-content';
 
 const aboutEyebrow = document.querySelector<HTMLParagraphElement>('#about-eyebrow');
 const aboutTitle = document.querySelector<HTMLHeadingElement>('#about-title');
@@ -33,19 +33,6 @@ if (aboutVerificationElement) {
   aboutVerificationElement.innerHTML = `<strong>About our story</strong><p>${aboutVerificationNote}</p>`;
 }
 
-const dishesContainer = document.querySelector<HTMLDivElement>('#featured-dishes');
-if (dishesContainer) {
-  dishesContainer.innerHTML = featuredDishes
-    .map(
-      (dish) => `
-        <article class="dish-card">
-          <div class="dish-card-art" aria-hidden="true">✦</div>
-          <div><h3>${dish.name}</h3><p>${dish.description}</p></div>
-        </article>`,
-    )
-    .join('');
-}
-
 const menuFilters = document.querySelector<HTMLDivElement>('#menu-filters');
 const menuCategoriesContainer = document.querySelector<HTMLDivElement>('#menu-categories');
 
@@ -64,7 +51,7 @@ const renderMenu = (categoryId = 'all') => {
                 (item) => `
                   <article class="menu-item-card">
                     <div class="menu-item-title-row"><h4>${item.name}</h4><strong>${item.price}</strong></div>
-                    <p>${item.description}</p>${item.popular ? '<span class="popular-badge">Popular</span>' : ''}
+                    <p>${item.description}</p>
                   </article>`,
               )
               .join('')}
@@ -124,6 +111,15 @@ const cateringPhoneLink = document.querySelector<HTMLAnchorElement>('#catering-p
 if (cateringPhoneLink) {
   cateringPhoneLink.href = restaurant.phoneHref;
   cateringPhoneLink.setAttribute('aria-label', `Call ${restaurant.shortName} about catering on ${restaurant.phoneDisplay}`);
+}
+
+const dietaryPhoneLink = document.querySelector<HTMLAnchorElement>('#dietary-phone-link');
+if (dietaryPhoneLink) {
+  dietaryPhoneLink.href = restaurant.phoneHref;
+  dietaryPhoneLink.setAttribute(
+    'aria-label',
+    `Call ${restaurant.shortName} about allergies or dietary requirements on ${restaurant.phoneDisplay}`,
+  );
 }
 
 const ratingSummary = document.querySelector<HTMLDivElement>('#external-ratings');
