@@ -46,10 +46,12 @@ This file tracks the planned public-facing restaurant website. The current produ
 
 ### Catering & Events
 - [x] Catering overview/teaser on home page
-- [ ] Event types supported
-- [ ] Sample catering/menu options where approved
-- [x] Enquiry/contact call to action
-- [ ] Catering reviews/testimonials
+- [x] Event/use-case types supported
+- [x] Flexible catering/menu starting points without unverified package pricing
+- [x] Catering planning guidance
+- [x] Direct enquiry/contact call to action
+- [x] Dietary/allergen confirmation guidance
+- [ ] Catering reviews/testimonials once verified source text is available
 - [ ] Optional downloadable catering information in a later phase
 
 ### About
