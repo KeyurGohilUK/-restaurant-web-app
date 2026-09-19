@@ -2,7 +2,7 @@
   display: none;
   width: 3rem;
   height: 3rem;
-  padding: 0.7rem;
+  padding: 0.72rem;
   border: 1px solid var(--line);
   border-radius: 0.85rem;
   background: var(--white);
@@ -12,11 +12,12 @@
 
 .nav-toggle-line {
   display: block;
-  width: 100%;
+  width: 1.5rem;
   height: 2px;
   border-radius: 999px;
   background: currentColor;
-  transition: transform 160ms ease, opacity 160ms ease;
+  transform-origin: center;
+  transition: transform 220ms ease, opacity 180ms ease;
 }
 
 .nav-toggle-line + .nav-toggle-line {
@@ -29,6 +30,7 @@
 
 .nav-toggle[aria-expanded='true'] .nav-toggle-line:nth-child(2) {
   opacity: 0;
+  transform: scaleX(0.2);
 }
 
 .nav-toggle[aria-expanded='true'] .nav-toggle-line:nth-child(3) {
@@ -68,19 +70,38 @@
   }
 
   #primary-navigation {
-    display: none;
+    display: flex;
     grid-column: 1 / -1;
     width: 100%;
-    overflow: visible;
+    max-height: 0;
+    overflow: hidden;
     flex-direction: column;
     flex-wrap: nowrap;
     gap: 0;
-    padding: 0.4rem 0 0.6rem;
-    border-top: 1px solid var(--line);
+    padding: 0;
+    border-top: 1px solid transparent;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      max-height 280ms ease,
+      opacity 180ms ease,
+      padding 280ms ease,
+      border-color 280ms ease,
+      visibility 0s linear 280ms;
   }
 
   #primary-navigation.is-open {
-    display: flex;
+    max-height: 32rem;
+    padding: 0.4rem 0 0.6rem;
+    border-top-color: var(--line);
+    opacity: 1;
+    visibility: visible;
+    transition:
+      max-height 320ms ease,
+      opacity 180ms ease,
+      padding 320ms ease,
+      border-color 320ms ease,
+      visibility 0s;
   }
 
   #primary-navigation a {
@@ -98,7 +119,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nav-toggle-line {
+  .nav-toggle-line,
+  #primary-navigation,
+  #primary-navigation.is-open {
     transition: none;
   }
 }
