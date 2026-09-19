@@ -93,9 +93,27 @@ nav a {
   font-size: 0;
   text-decoration: none;
   backdrop-filter: blur(0.75rem);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(0.6rem) scale(0.88);
   transition:
-    transform 160ms ease,
-    box-shadow 160ms ease;
+    opacity 180ms ease,
+    transform 220ms ease,
+    box-shadow 160ms ease,
+    visibility 0s linear 220ms;
+}
+
+.footer-links a[href='#home'].is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 180ms ease,
+    transform 220ms ease,
+    box-shadow 160ms ease,
+    visibility 0s;
 }
 
 .footer-links a[href='#home']::before,
@@ -126,8 +144,8 @@ nav a {
   transform-origin: center;
 }
 
-.footer-links a[href='#home']:hover {
-  transform: translateY(-0.15rem);
+.footer-links a[href='#home'].is-visible:hover {
+  transform: translateY(-0.15rem) scale(1);
 }
 
 @media (max-width: 52rem) {
@@ -165,7 +183,8 @@ nav a {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .footer-links a[href='#home'] {
+  .footer-links a[href='#home'],
+  .footer-links a[href='#home'].is-visible {
     transition: none;
   }
 }
