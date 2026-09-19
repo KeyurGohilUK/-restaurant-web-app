@@ -1,8 +1,6 @@
 import './styles.css';
 import { featuredDishes, openingHours, restaurant, reviewCategories } from './content/site-content';
 
-export const navigationItems = ['Home', 'Menu', 'Catering', 'Reviews', 'Contact'] as const;
-
 const dishesContainer = document.querySelector<HTMLDivElement>('#featured-dishes');
 if (dishesContainer) {
   dishesContainer.innerHTML = featuredDishes
