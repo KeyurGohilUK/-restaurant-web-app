@@ -1,4 +1,5 @@
 import './styles.css';
+import './reviews.css';
 import { menuCategories } from './content/menu-content';
 import { externalRatings, reviewGroups, verifiedTestimonials } from './content/review-content';
 import { featuredDishes, openingHours, restaurant } from './content/site-content';
