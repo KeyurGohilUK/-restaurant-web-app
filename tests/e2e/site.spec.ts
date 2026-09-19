@@ -7,10 +7,23 @@ test('loads the branded homepage and exposes accessible primary navigation', asy
 
   const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
   await expect(navigation).toBeVisible();
+  await expect(navigation.getByRole('link', { name: 'About' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Menu' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Catering' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Reviews' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Contact' })).toBeVisible();
+});
+
+test('shows the verified food story without inventing founder history', async ({ page }) => {
+  await page.goto('./');
+
+  await expect(
+    page.getByRole('heading', { name: 'Indian street-food favourites, café comforts and curries in Bristol.' }),
+  ).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Street-food variety' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Comforting classics' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Made for different occasions' })).toBeVisible();
+  await expect(page.getByText(/does not publish a verified founder biography or founding history/)).toBeVisible();
 });
 
 test('shows structured visit details and menu content', async ({ page }) => {
