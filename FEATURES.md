@@ -61,12 +61,7 @@ This file tracks the planned public-facing restaurant website. The current produ
 - [x] Values/differentiators expressed through the verified menu proposition
 
 ### Gallery
-- [x] Responsive image gallery
-- [x] Food gallery using images already published by the restaurant
-- [ ] Venue, catering and event categories when approved assets are available
-- [x] Responsive image sizing and lazy loading
-- [x] Accessible alt text
-- [ ] Optional lightbox only if it remains accessible and lightweight
+- Removed from the website by product decision.
 
 ### Contact & Location
 - [x] Address and directions
@@ -84,15 +79,16 @@ This file tracks the planned public-facing restaurant website. The current produ
 
 ## Phase 3 — Discoverability & trust
 
-- [x] Initial page title and meta description
-- [ ] Per-page titles and meta descriptions as routes/pages are added
-- [ ] Canonical URLs
-- [ ] Open Graph/social sharing metadata
-- [ ] Restaurant/LocalBusiness structured data
-- [ ] Consistent name/address/phone/opening-hours data across all future pages
-- [ ] Sitemap
-- [ ] robots.txt
-- [ ] Favicon/app icons
+- [x] Page title and meta description
+- [x] Canonical URL for the current GitHub Pages deployment
+- [x] Open Graph metadata
+- [x] Twitter summary metadata
+- [x] Restaurant structured data (JSON-LD)
+- [x] Consistent name/address/phone/opening-hours data between page content and structured data
+- [x] Sitemap
+- [x] robots.txt
+- [x] Favicon
+- [ ] App/touch icons
 - [ ] Privacy policy where required
 - [ ] Cookie/consent handling only if tracking or non-essential cookies are introduced
 - [ ] Performance/Core Web Vitals review
@@ -109,7 +105,7 @@ These are not part of the initial release and require explicit approval.
 - [ ] Analytics with privacy/consent review
 - [ ] Instagram/social content integration
 - [ ] Multi-language support
-- [ ] Custom domain migration from GitHub Pages
+- [ ] Custom domain migration from GitHub Pages (update canonical, sitemap and structured-data URL at the same time)
 
 ## Explicitly out of scope for now
 
