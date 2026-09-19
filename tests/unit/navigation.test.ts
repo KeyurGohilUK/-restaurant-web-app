@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { navigationItems } from '../../src/main';
+import { navigationItems } from '../../src/content/site-content';
 
 describe('primary navigation', () => {
   it('contains the core informational sections', () => {
