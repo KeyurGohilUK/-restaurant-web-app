@@ -1,0 +1,104 @@
+.nav-toggle {
+  display: none;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 0.85rem;
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.nav-toggle-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.nav-toggle-line + .nav-toggle-line {
+  margin-top: 0.32rem;
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle-line:nth-child(1) {
+  transform: translateY(0.64rem) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle-line:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded='true'] .nav-toggle-line:nth-child(3) {
+  transform: translateY(-0.64rem) rotate(-45deg);
+}
+
+@media (max-width: 52rem) and (min-width: 40.01rem) {
+  .header-inner {
+    flex-direction: row;
+    align-items: center;
+    padding-block: 0;
+  }
+
+  #primary-navigation {
+    width: auto;
+    overflow: visible;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 40rem) {
+  .header-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding-block: 0.7rem;
+  }
+
+  .nav-toggle {
+    display: inline-grid;
+    place-content: center;
+    justify-self: end;
+  }
+
+  #primary-navigation {
+    display: none;
+    grid-column: 1 / -1;
+    width: 100%;
+    overflow: visible;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    padding: 0.4rem 0 0.6rem;
+    border-top: 1px solid var(--line);
+  }
+
+  #primary-navigation.is-open {
+    display: flex;
+  }
+
+  #primary-navigation a {
+    display: flex;
+    align-items: center;
+    min-height: 3rem;
+    padding: 0.6rem 0.15rem;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+  }
+
+  #primary-navigation a:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-toggle-line {
+    transition: none;
+  }
+}
