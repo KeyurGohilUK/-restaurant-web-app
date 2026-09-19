@@ -21,7 +21,7 @@ This file tracks the planned public-facing restaurant website. The current produ
 - [ ] Short restaurant story
 - [x] Opening-hours summary
 - [x] Location/contact summary
-- [ ] Featured reviews
+- [x] Review trust signals / external rating summaries
 - [x] Catering highlight
 
 ### Menu
@@ -36,12 +36,13 @@ This file tracks the planned public-facing restaurant website. The current produ
 - [x] Easy content maintenance without duplicating markup
 
 ### Reviews
-- [ ] Dedicated reviews page/section
+- [x] Dedicated reviews section
 - [x] Review categories: restaurant experience, catering, events, large orders
-- [ ] Featured testimonials on home page
-- [ ] Clear source attribution for externally sourced reviews
-- [ ] Links to original review platforms where appropriate
-- [ ] No fabricated or unattributed reviews
+- [x] External rating summaries on the main site
+- [x] Clear source attribution for externally sourced ratings
+- [x] Links to original review platforms where appropriate
+- [x] No fabricated or unattributed reviews
+- [ ] Verified individual testimonials once approved source text is available
 
 ### Catering & Events
 - [x] Catering overview/teaser on home page

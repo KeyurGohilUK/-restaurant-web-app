@@ -95,15 +95,28 @@
         </div>
       </section>
 
-      <section class="section" id="reviews" aria-labelledby="reviews-title">
+      <section class="section reviews-section" id="reviews" aria-labelledby="reviews-title">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Reviews</p>
-            <h2 id="reviews-title">Feedback that matches the occasion.</h2>
+            <h2 id="reviews-title">Trusted feedback, clearly sourced.</h2>
           </div>
-          <p>Reviews will be grouped clearly rather than mixed into one generic feed.</p>
+          <p>
+            External ratings are shown with their source and checked date. Individual review text is only published when verified and approved.
+          </p>
         </div>
-        <div class="category-list" id="review-categories"></div>
+
+        <div class="rating-grid" id="external-ratings" aria-label="External review ratings"></div>
+
+        <div class="reviews-browser">
+          <div>
+            <h3>Browse by occasion</h3>
+            <p class="review-helper">Restaurant, catering, events and large-order feedback stay separate so visitors can find what is relevant to them.</p>
+          </div>
+          <div class="review-filter-list" id="review-filters" aria-label="Review categories"></div>
+        </div>
+
+        <div id="review-results" class="review-results" aria-live="polite"></div>
       </section>
 
       <section class="visit-section" id="contact" aria-labelledby="visit-title">

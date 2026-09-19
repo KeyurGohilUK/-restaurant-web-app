@@ -1,6 +1,7 @@
 import './styles.css';
 import { menuCategories } from './content/menu-content';
-import { featuredDishes, openingHours, restaurant, reviewCategories } from './content/site-content';
+import { externalRatings, reviewGroups, verifiedTestimonials } from './content/review-content';
+import { featuredDishes, openingHours, restaurant } from './content/site-content';
 
 const dishesContainer = document.querySelector<HTMLDivElement>('#featured-dishes');
 if (dishesContainer) {
@@ -85,12 +86,79 @@ if (menuFilters) {
 
 renderMenu();
 
-const reviewCategoriesContainer = document.querySelector<HTMLDivElement>('#review-categories');
-if (reviewCategoriesContainer) {
-  reviewCategoriesContainer.innerHTML = reviewCategories
-    .map((category) => `<span class="category-pill">${category}</span>`)
+const ratingSummary = document.querySelector<HTMLDivElement>('#external-ratings');
+if (ratingSummary) {
+  ratingSummary.innerHTML = externalRatings
+    .map(
+      (rating) => `
+    <article class="rating-card">
+      <div>
+        <span class="rating-platform">${rating.platform}</span>
+        <strong>${rating.rating.toFixed(1)}<small> / ${rating.scale}</small></strong>
+        <p>${rating.reviewCount} reviews</p>
+      </div>
+      <div>
+        <a href="${rating.href}" target="_blank" rel="noreferrer">View on ${rating.platform} ↗</a>
+        <small>Checked ${rating.checkedDate}</small>
+      </div>
+    </article>`,
+    )
     .join('');
 }
+
+const reviewFilters = document.querySelector<HTMLDivElement>('#review-filters');
+const reviewResults = document.querySelector<HTMLDivElement>('#review-results');
+
+const renderReviews = (categoryId: string = reviewGroups[0].id) => {
+  if (!reviewResults) return;
+  const group = reviewGroups.find((item) => item.id === categoryId) ?? reviewGroups[0];
+  const testimonials = verifiedTestimonials.filter((item) => item.category === group.id);
+
+  if (testimonials.length === 0) {
+    reviewResults.innerHTML = `
+      <div class="review-empty-state">
+        <span>${group.name}</span>
+        <h4>Verified testimonials coming here.</h4>
+        <p>${group.description}</p>
+        <p>We only publish individual customer feedback after its source and wording have been verified.</p>
+      </div>`;
+    return;
+  }
+
+  reviewResults.innerHTML = testimonials
+    .map(
+      (testimonial) => `
+    <blockquote class="review-card">
+      <p>“${testimonial.quote}”</p>
+      <footer>${testimonial.customerName} · ${testimonial.source}</footer>
+    </blockquote>`,
+    )
+    .join('');
+};
+
+if (reviewFilters) {
+  reviewFilters.innerHTML = reviewGroups
+    .map(
+      (group, index) => `
+    <button class="review-filter${index === 0 ? ' is-active' : ''}" type="button" data-review-filter="${group.id}" aria-pressed="${index === 0}">${group.name}</button>`,
+    )
+    .join('');
+
+  reviewFilters.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLButtonElement)) return;
+    const categoryId = target.dataset.reviewFilter;
+    if (!categoryId) return;
+
+    reviewFilters.querySelectorAll<HTMLButtonElement>('.review-filter').forEach((button) => {
+      const isActive = button === target;
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+    renderReviews(categoryId);
+  });
+}
+renderReviews();
 
 const address = document.querySelector<HTMLParagraphElement>('#restaurant-address');
 if (address) address.textContent = restaurant.address;
