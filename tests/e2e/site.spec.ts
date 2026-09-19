@@ -8,11 +8,29 @@ test('loads the branded homepage and exposes accessible primary navigation', asy
   const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
   await expect(navigation).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'About' })).toBeVisible();
-  await expect(navigation.getByRole('link', { name: 'Gallery' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Menu' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Catering' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Reviews' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Contact' })).toBeVisible();
+  await expect(navigation.getByRole('link', { name: 'Gallery' })).toHaveCount(0);
+});
+
+test('publishes canonical metadata and Restaurant structured data', async ({ page }) => {
+  await page.goto('./');
+
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    'href',
+    'https://keyurgohiluk.github.io/-restaurant-web-app/',
+  );
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
+    'content',
+    'Masala Munch | Indian Street Food in Bristol',
+  );
+
+  const structuredData = await page.locator('script[type="application/ld+json"]').textContent();
+  expect(structuredData).toContain('"@type": "Restaurant"');
+  expect(structuredData).toContain('"telephone": "+447733849772"');
+  expect(structuredData).toContain('"postalCode": "BS16 3HJ"');
 });
 
 test('shows the verified food story without inventing founder history', async ({ page }) => {
@@ -27,21 +45,13 @@ test('shows the verified food story without inventing founder history', async ({
   await expect(page.getByText(/does not publish a verified founder biography or founding history/)).toBeVisible();
 });
 
-test('shows an accessible gallery sourced from approved restaurant images', async ({ page }) => {
-  await page.goto('./');
-
-  await expect(page.getByRole('heading', { name: 'A closer look at the food.' })).toBeVisible();
-  await expect(page.getByRole('img', { name: 'Samosa Chaat served by Masala Munch by Shreeji Food' })).toBeAttached();
-  await expect(page.getByRole('img', { name: 'Dahi Puri served by Masala Munch by Shreeji Food' })).toBeAttached();
-  await expect(page.locator('#gallery-grid img')).toHaveCount(6);
-  await expect(page.getByText(/Venue, catering and event photos will be added when approved assets are available/)).toBeVisible();
-});
-
-test('shows structured visit details and menu content', async ({ page }) => {
+test('shows structured visit details and current opening hours', async ({ page }) => {
   await page.goto('./');
 
   await expect(page.getByText('664 Fishponds Rd, Bristol BS16 3HJ')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Opening hours' })).toBeVisible();
+  await expect(page.getByText('14:00–22:00')).toBeVisible();
+  await expect(page.getByText('17:00–22:00')).toHaveCount(5);
   await expect(page.getByRole('heading', { name: 'Chaat', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Mumbai Special', exact: true })).toBeVisible();
 });

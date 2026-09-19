@@ -8,7 +8,7 @@ export const restaurant = {
   mapHref: 'https://www.google.com/maps/search/?api=1&query=664+Fishponds+Rd+Bristol+BS16+3HJ',
 } as const;
 
-export const navigationItems = ['Home', 'Menu', 'Catering', 'Reviews', 'Contact'] as const;
+export const navigationItems = ['Home', 'About', 'Menu', 'Catering', 'Reviews', 'Contact'] as const;
 
 export const openingHours = [
   { day: 'Monday', hours: '17:00–22:00' },
@@ -16,8 +16,8 @@ export const openingHours = [
   { day: 'Wednesday', hours: '17:00–22:00' },
   { day: 'Thursday', hours: '17:00–22:00' },
   { day: 'Friday', hours: '17:00–22:00' },
-  { day: 'Saturday', hours: '12:00–22:00' },
-  { day: 'Sunday', hours: '12:00–22:00' },
+  { day: 'Saturday', hours: '14:00–22:00' },
+  { day: 'Sunday', hours: '17:00–22:00' },
 ] as const;
 
 export const featuredDishes = [
