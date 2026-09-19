@@ -1,6 +1,7 @@
 import './styles.css';
 import './about.css';
 import './release.css';
+import './media.css';
 import { aboutIntro, aboutPrinciples, aboutVerificationNote } from './content/about-content';
 import {
   cateringMenuIdeas,
@@ -8,9 +9,16 @@ import {
   cateringOccasions,
   cateringPlanningSteps,
 } from './content/catering-content';
+import { getMenuImage, restaurantMedia } from './content/media-content';
 import { menuCategories } from './content/menu-content';
 import { externalRatings, reviewGroups, verifiedTestimonials } from './content/review-content';
 import { openingHours, restaurant } from './content/site-content';
+
+const heroFoodImage = document.querySelector<HTMLImageElement>('#hero-food-image');
+if (heroFoodImage) {
+  heroFoodImage.src = restaurantMedia.hero.src;
+  heroFoodImage.alt = restaurantMedia.hero.alt;
+}
 
 const aboutEyebrow = document.querySelector<HTMLParagraphElement>('#about-eyebrow');
 const aboutTitle = document.querySelector<HTMLHeadingElement>('#about-title');
@@ -48,13 +56,21 @@ const renderMenu = (categoryId = 'all') => {
           <div class="menu-category-heading"><h3 id="menu-${category.id}">${category.name}</h3><span>${category.items.length} ${category.items.length === 1 ? 'item' : 'items'}</span></div>
           <div class="menu-item-grid">
             ${category.items
-              .map(
-                (item) => `
-                  <article class="menu-item-card">
-                    <div class="menu-item-title-row"><h4>${item.name}</h4><strong>${item.price}</strong></div>
-                    <p>${item.description}</p>
-                  </article>`,
-              )
+              .map((item) => {
+                const image = getMenuImage(item.name);
+                return `
+                  <article class="menu-item-card${image ? ' has-image' : ''}">
+                    ${
+                      image
+                        ? `<img class="menu-item-image" src="${image}?fit=cover&format=auto&width=640&quality=85" alt="${item.name} from Masala Munch by Shreeji Food" loading="lazy" decoding="async" />`
+                        : ''
+                    }
+                    <div class="menu-item-card-copy">
+                      <div class="menu-item-title-row"><h4>${item.name}</h4><strong>${item.price}</strong></div>
+                      <p>${item.description}</p>
+                    </div>
+                  </article>`;
+              })
               .join('')}
           </div>
         </section>`,
