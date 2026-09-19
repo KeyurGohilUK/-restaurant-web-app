@@ -1,5 +1,4 @@
 import './styles.css';
-import './reviews.css';
 import { menuCategories } from './content/menu-content';
 import { externalRatings, reviewGroups, verifiedTestimonials } from './content/review-content';
 import { featuredDishes, openingHours, restaurant } from './content/site-content';
@@ -25,7 +24,9 @@ const menuCategoriesContainer = document.querySelector<HTMLDivElement>('#menu-ca
 
 const renderMenu = (categoryId = 'all') => {
   if (!menuCategoriesContainer) return;
-  const categories = categoryId === 'all' ? menuCategories : menuCategories.filter((category) => category.id === categoryId);
+
+  const categories =
+    categoryId === 'all' ? menuCategories : menuCategories.filter((category) => category.id === categoryId);
 
   menuCategoriesContainer.innerHTML = categories
     .map(
@@ -36,15 +37,19 @@ const renderMenu = (categoryId = 'all') => {
             <span>${category.items.length} ${category.items.length === 1 ? 'item' : 'items'}</span>
           </div>
           <div class="menu-item-grid">
-            ${category.items.map((item) => `
-              <article class="menu-item-card">
-                <div class="menu-item-title-row">
-                  <h4>${item.name}</h4>
-                  <strong>${item.price}</strong>
-                </div>
-                <p>${item.description}</p>
-                ${item.popular ? '<span class="popular-badge">Popular</span>' : ''}
-              </article>`).join('')}
+            ${category.items
+              .map(
+                (item) => `
+                  <article class="menu-item-card">
+                    <div class="menu-item-title-row">
+                      <h4>${item.name}</h4>
+                      <strong>${item.price}</strong>
+                    </div>
+                    <p>${item.description}</p>
+                    ${item.popular ? '<span class="popular-badge">Popular</span>' : ''}
+                  </article>`,
+              )
+              .join('')}
           </div>
         </section>`,
     )
@@ -53,28 +58,37 @@ const renderMenu = (categoryId = 'all') => {
 
 if (menuFilters) {
   menuFilters.innerHTML = menuCategories
-    .map((category) => `<button class="menu-filter" type="button" data-menu-filter="${category.id}" aria-pressed="false">${category.name}</button>`)
+    .map(
+      (category) => `
+        <button class="menu-filter" type="button" data-menu-filter="${category.id}" aria-pressed="false">
+          ${category.name}
+        </button>`,
+    )
     .join('');
 
-  menuFilters.closest('.menu-toolbar')?.addEventListener('click', (event) => {
+  const toolbar = menuFilters.closest('.menu-toolbar');
+  toolbar?.addEventListener('click', (event) => {
     const target = event.target;
     if (!(target instanceof HTMLButtonElement)) return;
+
     const categoryId = target.dataset.menuFilter;
     if (!categoryId) return;
 
-    target.closest('.menu-toolbar')?.querySelectorAll<HTMLButtonElement>('.menu-filter').forEach((button) => {
+    toolbar.querySelectorAll<HTMLButtonElement>('.menu-filter').forEach((button) => {
       const isActive = button === target;
       button.classList.toggle('is-active', isActive);
       button.setAttribute('aria-pressed', String(isActive));
     });
+
     renderMenu(categoryId);
   });
 }
+
 renderMenu();
 
-const externalRatingsContainer = document.querySelector<HTMLDivElement>('#external-ratings');
-if (externalRatingsContainer) {
-  externalRatingsContainer.innerHTML = externalRatings.map((rating) => `
+const ratingSummary = document.querySelector<HTMLDivElement>('#rating-summary');
+if (ratingSummary) {
+  ratingSummary.innerHTML = externalRatings.map((rating) => `
     <article class="rating-card">
       <div>
         <span class="rating-platform">${rating.platform}</span>
@@ -91,7 +105,7 @@ if (externalRatingsContainer) {
 const reviewFilters = document.querySelector<HTMLDivElement>('#review-filters');
 const reviewResults = document.querySelector<HTMLDivElement>('#review-results');
 
-const renderReviews = (categoryId = reviewGroups[0].id) => {
+const renderReviews = (categoryId: string = reviewGroups[0].id) => {
   if (!reviewResults) return;
   const group = reviewGroups.find((item) => item.id === categoryId) ?? reviewGroups[0];
   const testimonials = verifiedTestimonials.filter((item) => item.category === group.id);
@@ -148,5 +162,7 @@ if (phoneLink) {
 
 const hoursContainer = document.querySelector<HTMLDListElement>('#opening-hours');
 if (hoursContainer) {
-  hoursContainer.innerHTML = openingHours.map(({ day, hours }) => `<div><dt>${day}</dt><dd>${hours}</dd></div>`).join('');
+  hoursContainer.innerHTML = openingHours
+    .map(({ day, hours }) => `<div><dt>${day}</dt><dd>${hours}</dd></div>`)
+    .join('');
 }
