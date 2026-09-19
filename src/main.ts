@@ -1,4 +1,5 @@
 import './styles.css';
+import { aboutIntro, aboutPrinciples, aboutVerificationNote } from './content/about-content';
 import {
   cateringMenuIdeas,
   cateringNotice,
@@ -8,6 +9,28 @@ import {
 import { menuCategories } from './content/menu-content';
 import { externalRatings, reviewGroups, verifiedTestimonials } from './content/review-content';
 import { featuredDishes, openingHours, restaurant } from './content/site-content';
+
+const aboutEyebrow = document.querySelector<HTMLParagraphElement>('#about-eyebrow');
+const aboutTitle = document.querySelector<HTMLHeadingElement>('#about-title');
+const aboutIntroContainer = document.querySelector<HTMLDivElement>('#about-intro');
+const aboutPrinciplesContainer = document.querySelector<HTMLDivElement>('#about-principles');
+const aboutVerificationElement = document.querySelector<HTMLDivElement>('#about-verification-note');
+
+if (aboutEyebrow) aboutEyebrow.textContent = aboutIntro.eyebrow;
+if (aboutTitle) aboutTitle.textContent = aboutIntro.title;
+if (aboutIntroContainer) {
+  aboutIntroContainer.innerHTML = aboutIntro.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join('');
+}
+if (aboutPrinciplesContainer) {
+  aboutPrinciplesContainer.innerHTML = aboutPrinciples
+    .map(
+      (principle, index) => `<article class="about-card"><span>0${index + 1}</span><h3>${principle.title}</h3><p>${principle.description}</p></article>`,
+    )
+    .join('');
+}
+if (aboutVerificationElement) {
+  aboutVerificationElement.innerHTML = `<strong>About our story</strong><p>${aboutVerificationNote}</p>`;
+}
 
 const dishesContainer = document.querySelector<HTMLDivElement>('#featured-dishes');
 if (dishesContainer) {
