@@ -14,6 +14,36 @@ import { menuCategories } from './content/menu-content';
 import { externalRatings, reviewGroups, verifiedTestimonials } from './content/review-content';
 import { openingHours, restaurant } from './content/site-content';
 
+const navToggle = document.querySelector<HTMLButtonElement>('#nav-toggle');
+const primaryNavigation = document.querySelector<HTMLElement>('#primary-navigation');
+
+const setNavigationOpen = (isOpen: boolean) => {
+  if (!navToggle || !primaryNavigation) return;
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+  navToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+  primaryNavigation.classList.toggle('is-open', isOpen);
+};
+
+navToggle?.addEventListener('click', () => {
+  setNavigationOpen(navToggle.getAttribute('aria-expanded') !== 'true');
+});
+
+primaryNavigation?.addEventListener('click', (event) => {
+  if (event.target instanceof HTMLAnchorElement) setNavigationOpen(false);
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && navToggle?.getAttribute('aria-expanded') === 'true') {
+    setNavigationOpen(false);
+    navToggle.focus();
+  }
+});
+
+const phoneNavigation = window.matchMedia('(max-width: 40rem)');
+phoneNavigation.addEventListener('change', (event) => {
+  if (!event.matches) setNavigationOpen(false);
+});
+
 const heroFoodImage = document.querySelector<HTMLImageElement>('#hero-food-image');
 if (heroFoodImage) {
   heroFoodImage.src = restaurantMedia.hero.src;
@@ -60,11 +90,7 @@ const renderMenu = (categoryId = 'all') => {
                 const image = getMenuImage(item.name);
                 return `
                   <article class="menu-item-card${image ? ' has-image' : ''}">
-                    ${
-                      image
-                        ? `<img class="menu-item-image" src="${image}?fit=cover&format=auto&width=640&quality=85" alt="${item.name} from Masala Munch by Shreeji Food" loading="lazy" decoding="async" />`
-                        : ''
-                    }
+                    ${image ? `<img class="menu-item-image" src="${image}?fit=cover&format=auto&width=640&quality=85" alt="${item.name} from Masala Munch by Shreeji Food" loading="lazy" decoding="async" />` : ''}
                     <div class="menu-item-card-copy">
                       <div class="menu-item-title-row"><h4>${item.name}</h4><strong>${item.price}</strong></div>
                       <p>${item.description}</p>
@@ -103,9 +129,7 @@ renderMenu();
 const cateringOccasionsContainer = document.querySelector<HTMLDivElement>('#catering-occasions');
 if (cateringOccasionsContainer) {
   cateringOccasionsContainer.innerHTML = cateringOccasions
-    .map(
-      (occasion) => `<article class="catering-card"><span aria-hidden="true">✦</span><h3>${occasion.name}</h3><p>${occasion.description}</p></article>`,
-    )
+    .map((occasion) => `<article class="catering-card"><span aria-hidden="true">✦</span><h3>${occasion.name}</h3><p>${occasion.description}</p></article>`)
     .join('');
 }
 
@@ -142,9 +166,7 @@ if (dietaryPhoneLink) {
 const ratingSummary = document.querySelector<HTMLDivElement>('#external-ratings');
 if (ratingSummary) {
   ratingSummary.innerHTML = externalRatings
-    .map(
-      (rating) => `<article class="rating-card"><div><span class="rating-platform">${rating.platform}</span><strong>${rating.rating.toFixed(1)}<small> / ${rating.scale}</small></strong><p>${rating.reviewCount} reviews</p></div><div><a href="${rating.href}" target="_blank" rel="noreferrer">View on ${rating.platform} ↗</a><small>Checked ${rating.checkedDate}</small></div></article>`,
-    )
+    .map((rating) => `<article class="rating-card"><div><span class="rating-platform">${rating.platform}</span><strong>${rating.rating.toFixed(1)}<small> / ${rating.scale}</small></strong><p>${rating.reviewCount} reviews</p></div><div><a href="${rating.href}" target="_blank" rel="noreferrer">View on ${rating.platform} ↗</a><small>Checked ${rating.checkedDate}</small></div></article>`)
     .join('');
 }
 
