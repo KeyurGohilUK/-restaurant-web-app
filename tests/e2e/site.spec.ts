@@ -32,6 +32,18 @@ test('filters the menu by category', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Mumbai Special', exact: true })).toHaveAttribute('aria-pressed', 'true');
 });
 
+test('shows catering occasions, planning guidance and direct enquiry action', async ({ page }) => {
+  await page.goto('./');
+
+  await expect(page.getByRole('heading', { name: 'Plan food for your occasion.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Celebrations' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Community events' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Workplace & group meals' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Large orders' })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Call Masala Munch about catering/ })).toHaveAttribute('href', 'tel:+447733849772');
+  await expect(page.getByText(/Catering availability, menu suitability, quantities and pricing/)).toBeVisible();
+});
+
 test('shows attributed external ratings and review categories', async ({ page }) => {
   await page.goto('./');
 
