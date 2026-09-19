@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('loads the branded homepage and exposes accessible primary navigation', async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 768 });
   await page.goto('./');
 
   await expect(page.getByRole('heading', { level: 1, name: 'Big flavour. Street-food soul.' })).toBeVisible();
