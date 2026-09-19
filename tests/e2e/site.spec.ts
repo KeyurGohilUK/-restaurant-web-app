@@ -8,6 +8,7 @@ test('loads the branded homepage and exposes accessible primary navigation', asy
   const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
   await expect(navigation).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'About' })).toBeVisible();
+  await expect(navigation.getByRole('link', { name: 'Gallery' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Menu' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Catering' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Reviews' })).toBeVisible();
@@ -24,6 +25,16 @@ test('shows the verified food story without inventing founder history', async ({
   await expect(page.getByRole('heading', { name: 'Comforting classics' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Made for different occasions' })).toBeVisible();
   await expect(page.getByText(/does not publish a verified founder biography or founding history/)).toBeVisible();
+});
+
+test('shows an accessible gallery sourced from approved restaurant images', async ({ page }) => {
+  await page.goto('./');
+
+  await expect(page.getByRole('heading', { name: 'A closer look at the food.' })).toBeVisible();
+  await expect(page.getByRole('img', { name: 'Samosa Chaat served by Masala Munch by Shreeji Food' })).toBeAttached();
+  await expect(page.getByRole('img', { name: 'Dahi Puri served by Masala Munch by Shreeji Food' })).toBeAttached();
+  await expect(page.locator('#gallery-grid img')).toHaveCount(6);
+  await expect(page.getByText(/Venue, catering and event photos will be added when approved assets are available/)).toBeVisible();
 });
 
 test('shows structured visit details and menu content', async ({ page }) => {
