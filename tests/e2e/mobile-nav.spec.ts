@@ -1,22 +1,36 @@
 import { expect, test } from '@playwright/test';
 
-test('uses a hamburger menu on phone-sized screens', async ({ page }) => {
+test('uses an animated hamburger menu on phone-sized screens and expands in page flow', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
 
   const toggle = page.locator('#nav-toggle');
   const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
+  const hero = page.locator('#home');
+  const lines = toggle.locator('.nav-toggle-line');
 
   await expect(toggle).toBeVisible();
+  await expect(lines).toHaveCount(3);
+  await expect(lines.first()).toBeVisible();
   await expect(toggle).toHaveAccessibleName('Open navigation menu');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
   await expect(navigation).not.toBeVisible();
+
+  const heroTopBefore = await hero.evaluate((element) => element.getBoundingClientRect().top);
 
   await toggle.click();
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
   await expect(toggle).toHaveAccessibleName('Close navigation menu');
   await expect(navigation).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Menu' })).toBeVisible();
+  await expect
+    .poll(() => hero.evaluate((element) => element.getBoundingClientRect().top))
+    .toBeGreaterThan(heroTopBefore + 100);
+
+  const firstLineTransform = await lines.nth(0).evaluate((element) => getComputedStyle(element).transform);
+  const middleLineOpacity = await lines.nth(1).evaluate((element) => getComputedStyle(element).opacity);
+  expect(firstLineTransform).not.toBe('none');
+  expect(Number(middleLineOpacity)).toBeLessThan(1);
 
   await page.keyboard.press('Escape');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
