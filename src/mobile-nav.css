@@ -2,37 +2,49 @@
   display: none;
   width: 3rem;
   height: 3rem;
-  padding: 0.7rem;
+  padding: 0;
   border: 1px solid var(--line);
   border-radius: 0.85rem;
   background: var(--white);
   color: var(--ink);
   cursor: pointer;
+  place-items: center;
 }
 
 .nav-toggle-line {
+  position: absolute;
   display: block;
-  width: 100%;
+  width: 1.45rem;
   height: 2px;
   border-radius: 999px;
   background: currentColor;
-  transition: transform 160ms ease, opacity 160ms ease;
+  transform-origin: center;
+  transition: transform 220ms ease, opacity 160ms ease;
 }
 
-.nav-toggle-line + .nav-toggle-line {
-  margin-top: 0.32rem;
+.nav-toggle-line:nth-child(1) {
+  transform: translateY(-0.42rem);
+}
+
+.nav-toggle-line:nth-child(2) {
+  transform: translateY(0);
+}
+
+.nav-toggle-line:nth-child(3) {
+  transform: translateY(0.42rem);
 }
 
 .nav-toggle[aria-expanded='true'] .nav-toggle-line:nth-child(1) {
-  transform: translateY(0.64rem) rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .nav-toggle[aria-expanded='true'] .nav-toggle-line:nth-child(2) {
   opacity: 0;
+  transform: scaleX(0.2);
 }
 
 .nav-toggle[aria-expanded='true'] .nav-toggle-line:nth-child(3) {
-  transform: translateY(-0.64rem) rotate(-45deg);
+  transform: rotate(-45deg);
 }
 
 @media (max-width: 52rem) and (min-width: 40.01rem) {
@@ -62,25 +74,40 @@
   }
 
   .nav-toggle {
+    position: relative;
     display: inline-grid;
-    place-content: center;
     justify-self: end;
   }
 
   #primary-navigation {
-    display: none;
+    display: flex;
     grid-column: 1 / -1;
     width: 100%;
-    overflow: visible;
+    max-height: 0;
+    overflow: hidden;
     flex-direction: column;
     flex-wrap: nowrap;
     gap: 0;
-    padding: 0.4rem 0 0.6rem;
-    border-top: 1px solid var(--line);
+    padding: 0;
+    border-top: 0 solid transparent;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      max-height 280ms ease,
+      opacity 180ms ease,
+      padding 280ms ease,
+      border-color 180ms ease;
   }
 
   #primary-navigation.is-open {
-    display: flex;
+    max-height: 32rem;
+    padding: 0.4rem 0 0.6rem;
+    border-top-width: 1px;
+    border-top-color: var(--line);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   #primary-navigation a {
@@ -98,7 +125,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nav-toggle-line {
+  .nav-toggle-line,
+  #primary-navigation {
     transition: none;
   }
 }
