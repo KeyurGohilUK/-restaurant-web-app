@@ -124,9 +124,11 @@
   #primary-navigation a {
     display: flex;
     align-items: center;
+    justify-content: center;
     min-height: 3rem;
     padding: 0.6rem 0.15rem;
     border-bottom: 1px solid var(--line);
+    text-align: center;
     text-decoration: none;
   }
 
