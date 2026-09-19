@@ -10,13 +10,15 @@ test('loads the branded homepage and exposes accessible primary navigation', asy
 
   const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
   await expect(navigation).toBeVisible();
-  await expect(navigation.getByRole('link', { name: 'About' })).toBeVisible();
+  await expect(navigation.getByRole('link', { name: 'About' })).toHaveCount(0);
   await expect(navigation.getByRole('link', { name: 'Menu' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Dietary' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Catering' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Reviews' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Contact' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Gallery' })).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Our food story' })).toHaveCount(0);
+  await expect(page.locator('#about')).toHaveCount(0);
 });
 
 test('uses current restaurant imagery without reintroducing a gallery', async ({ page }) => {
@@ -62,18 +64,6 @@ test('publishes canonical metadata and Restaurant structured data', async ({ pag
   expect(structuredData).toContain('"telephone": "+447733849772"');
   expect(structuredData).toContain('"postalCode": "BS16 3HJ"');
   expect(structuredData).toContain('"image": "https://masalamunchbyshreejifood.com/');
-});
-
-test('shows the verified food story without inventing founder history', async ({ page }) => {
-  await page.goto('./');
-
-  await expect(
-    page.getByRole('heading', { name: 'Indian street-food favourites, café comforts and curries in Bristol.' }),
-  ).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Street-food variety' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Comforting classics' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Made for different occasions' })).toBeVisible();
-  await expect(page.getByText(/does not publish a verified founder biography or founding history/)).toBeVisible();
 });
 
 test('shows structured visit details and current opening hours', async ({ page }) => {
