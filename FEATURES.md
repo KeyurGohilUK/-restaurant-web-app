@@ -61,10 +61,11 @@ This file tracks the planned public-facing restaurant website. The current produ
 - [x] Values/differentiators expressed through the verified menu proposition
 
 ### Gallery
-- [ ] Responsive image gallery
-- [ ] Food, venue, catering and event categories
-- [ ] Optimised responsive images
-- [ ] Accessible alt text
+- [x] Responsive image gallery
+- [x] Food gallery using images already published by the restaurant
+- [ ] Venue, catering and event categories when approved assets are available
+- [x] Responsive image sizing and lazy loading
+- [x] Accessible alt text
 - [ ] Optional lightbox only if it remains accessible and lightweight
 
 ### Contact & Location

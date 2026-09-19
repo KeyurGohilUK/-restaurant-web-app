@@ -1,5 +1,6 @@
 import './styles.css';
 import './about.css';
+import './gallery.css';
 import { aboutIntro, aboutPrinciples, aboutVerificationNote } from './content/about-content';
 import {
   cateringMenuIdeas,
@@ -7,6 +8,7 @@ import {
   cateringOccasions,
   cateringPlanningSteps,
 } from './content/catering-content';
+import { galleryAssetNote, galleryItems } from './content/gallery-content';
 import { menuCategories } from './content/menu-content';
 import { externalRatings, reviewGroups, verifiedTestimonials } from './content/review-content';
 import { featuredDishes, openingHours, restaurant } from './content/site-content';
@@ -32,6 +34,29 @@ if (aboutPrinciplesContainer) {
 if (aboutVerificationElement) {
   aboutVerificationElement.innerHTML = `<strong>About our story</strong><p>${aboutVerificationNote}</p>`;
 }
+
+const galleryGrid = document.querySelector<HTMLDivElement>('#gallery-grid');
+if (galleryGrid) {
+  galleryGrid.innerHTML = galleryItems
+    .map(
+      (item) => `
+        <figure class="gallery-card">
+          <img
+            src="${item.image}?fit=cover&format=auto&width=720&quality=85"
+            srcset="${item.image}?fit=cover&format=auto&width=480&quality=82 480w, ${item.image}?fit=cover&format=auto&width=720&quality=85 720w, ${item.image}?fit=cover&format=auto&width=1080&quality=85 1080w"
+            sizes="(max-width: 34rem) 100vw, (max-width: 52rem) 50vw, 33vw"
+            alt="${item.alt}"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption><span>Food</span><strong>${item.title}</strong></figcaption>
+        </figure>`,
+    )
+    .join('');
+}
+
+const galleryNote = document.querySelector<HTMLParagraphElement>('#gallery-note');
+if (galleryNote) galleryNote.textContent = galleryAssetNote;
 
 const dishesContainer = document.querySelector<HTMLDivElement>('#featured-dishes');
 if (dishesContainer) {
@@ -148,7 +173,8 @@ const renderReviews = (categoryId: string = reviewGroups[0].id) => {
     return;
   }
 
-  reviewResults.innerHTML = testimonials
+  reviewResults.innerHTML = verifiedTestimonials
+    .filter((testimonial) => testimonial.category === group.id)
     .map((testimonial) => `<blockquote class="review-card"><p>“${testimonial.quote}”</p><footer>${testimonial.customerName} · ${testimonial.source}</footer></blockquote>`)
     .join('');
 };
