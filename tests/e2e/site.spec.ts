@@ -9,10 +9,23 @@ test('loads the branded homepage and exposes accessible primary navigation', asy
   await expect(navigation).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'About' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Menu' })).toBeVisible();
+  await expect(navigation.getByRole('link', { name: 'Dietary' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Catering' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Reviews' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Contact' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Gallery' })).toHaveCount(0);
+});
+
+test('supports keyboard access and avoids horizontal page overflow', async ({ page }) => {
+  await page.goto('./');
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused();
+
+  const dimensions = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    clientWidth: document.documentElement.clientWidth,
+  }));
+  expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
 });
 
 test('publishes canonical metadata and Restaurant structured data', async ({ page }) => {
@@ -66,6 +79,20 @@ test('filters the menu by category', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Mumbai Special', exact: true })).toHaveAttribute('aria-pressed', 'true');
 });
 
+test('provides conservative allergen and dietary guidance with a direct contact action', async ({ page }) => {
+  await page.goto('./');
+
+  await expect(page.getByRole('heading', { name: 'Check with us before you choose.' })).toBeVisible();
+  await expect(page.getByText(/do not currently publish item-by-item allergen, vegan or other dietary badges/i)).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Before you visit' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'At the restaurant' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Website labels' })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Call Masala Munch about allergies or dietary requirements/ })).toHaveAttribute(
+    'href',
+    'tel:+447733849772',
+  );
+});
+
 test('shows catering occasions, planning guidance and direct enquiry action', async ({ page }) => {
   await page.goto('./');
 
@@ -90,6 +117,13 @@ test('shows attributed external ratings and review categories', async ({ page })
   await page.getByRole('button', { name: 'Catering', exact: true }).click();
   await expect(page.getByText('Verified testimonials coming here.')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Catering', exact: true })).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('ships a branded noindex 404 page', async ({ page }) => {
+  await page.goto('./404.html');
+  await expect(page.getByRole('heading', { name: 'This page isn’t on the menu.' })).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
+  await expect(page.getByRole('link', { name: 'Back to Masala Munch' })).toHaveAttribute('href', '/-restaurant-web-app/');
 });
 
 test('does not present online ordering in the initial site scope', async ({ page }) => {

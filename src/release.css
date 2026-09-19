@@ -1,0 +1,51 @@
+section[id] {
+  scroll-margin-top: 7rem;
+}
+
+nav a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  padding-inline: 0.15rem;
+}
+
+.menu-note a {
+  color: inherit;
+  font-weight: 750;
+  text-underline-offset: 0.2em;
+}
+
+.dietary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.dietary-card {
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--white);
+}
+
+.dietary-card h3 {
+  margin: 0 0 0.4rem;
+}
+
+.dietary-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 52rem) {
+  .dietary-grid {
+    grid-template-columns: 1fr;
+  }
+}

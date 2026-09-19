@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { featuredDishes, openingHours, restaurant, reviewCategories } from '../../src/content/site-content';
+import { openingHours, restaurant, reviewCategories } from '../../src/content/site-content';
 
 describe('site content', () => {
   it('keeps the core restaurant contact details available', () => {
@@ -14,8 +14,7 @@ describe('site content', () => {
     expect(openingHours.find(({ day }) => day === 'Sunday')?.hours).toBe('17:00–22:00');
   });
 
-  it('keeps homepage highlights populated', () => {
-    expect(featuredDishes.length).toBeGreaterThanOrEqual(3);
+  it('keeps review categories available without dead featured content', () => {
     expect(reviewCategories).toContain('Catering');
     expect(reviewCategories).toContain('Large orders');
   });

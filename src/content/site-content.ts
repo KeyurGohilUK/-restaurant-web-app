@@ -8,7 +8,7 @@ export const restaurant = {
   mapHref: 'https://www.google.com/maps/search/?api=1&query=664+Fishponds+Rd+Bristol+BS16+3HJ',
 } as const;
 
-export const navigationItems = ['Home', 'About', 'Menu', 'Catering', 'Reviews', 'Contact'] as const;
+export const navigationItems = ['Home', 'About', 'Menu', 'Dietary', 'Catering', 'Reviews', 'Contact'] as const;
 
 export const openingHours = [
   { day: 'Monday', hours: '17:00–22:00' },
@@ -18,21 +18,6 @@ export const openingHours = [
   { day: 'Friday', hours: '17:00–22:00' },
   { day: 'Saturday', hours: '14:00–22:00' },
   { day: 'Sunday', hours: '17:00–22:00' },
-] as const;
-
-export const featuredDishes = [
-  {
-    name: 'Samosa Chaat',
-    description: 'Crisp samosa, chickpea curry, yogurt, chutneys and sev.',
-  },
-  {
-    name: 'Indori Kachori Chaat',
-    description: 'Crisp kachori layered with potatoes, yogurt, chutneys and pomegranate.',
-  },
-  {
-    name: 'Paneer Frankie',
-    description: 'Marinated paneer with salad, sauces and cheese in a street-food wrap.',
-  },
 ] as const;
 
 export const reviewCategories = ['Restaurant', 'Catering', 'Events', 'Large orders'] as const;

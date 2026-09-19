@@ -3,7 +3,7 @@ import { navigationItems } from '../../src/content/site-content';
 
 describe('primary navigation', () => {
   it('contains the core informational sections', () => {
-    expect(navigationItems).toEqual(['Home', 'About', 'Menu', 'Catering', 'Reviews', 'Contact']);
+    expect(navigationItems).toEqual(['Home', 'About', 'Menu', 'Dietary', 'Catering', 'Reviews', 'Contact']);
   });
 
   it('does not expose removed gallery or ordering features', () => {

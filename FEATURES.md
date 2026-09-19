@@ -1,6 +1,6 @@
 # Feature Roadmap
 
-This file tracks the planned public-facing restaurant website. The current product is informational only: no online ordering, checkout, payments, delivery management, or customer accounts.
+This file tracks the public-facing restaurant website. The current product is informational only: no online ordering, checkout, payments, delivery management, or customer accounts.
 
 ## Phase 1 — Foundation
 
@@ -10,14 +10,13 @@ This file tracks the planned public-facing restaurant website. The current produ
 - [x] GitHub Pages-compatible build configuration
 - [x] CI for type checking, unit tests, production build, and browser tests
 - [x] Automated GitHub Pages deployment from `main`
-- [ ] Error/404 experience suitable for static hosting
+- [x] Branded static-hosting 404 experience
 - [x] Baseline accessibility and keyboard navigation
 
 ## Phase 2 — Core visitor experience
 
 ### Home
 - [x] Hero section with restaurant positioning and primary calls to action
-- [x] Signature dishes / highlights
 - [x] Short restaurant/food story based on verified public information
 - [x] Opening-hours summary
 - [x] Location/contact summary
@@ -28,12 +27,12 @@ This file tracks the planned public-facing restaurant website. The current produ
 - [x] Structured, data-driven menu
 - [x] Menu categories and category navigation
 - [x] Dish name, description and price
-- [ ] Dish images where suitable approved assets are available
-- [ ] Vegetarian/vegan/spice/dietary indicators where verified
-- [ ] Dedicated allergen-information link/page
-- [x] Allergen/dietary contact notice
+- [x] Unverified `Popular` labels removed
+- [x] Allergen/dietary guidance linked directly from the menu
 - [x] Category filtering for faster browsing
 - [x] Easy content maintenance without duplicating markup
+- [ ] Dish images only if approved assets are introduced later
+- [ ] Item-level vegetarian/vegan/spice/dietary indicators only when verified
 
 ### Reviews
 - [x] Dedicated reviews section
@@ -57,8 +56,8 @@ This file tracks the planned public-facing restaurant website. The current produ
 ### About
 - [x] Restaurant/food story using verified public information only
 - [x] Cuisine and food philosophy
-- [ ] Team/founder information when approved source information is available
 - [x] Values/differentiators expressed through the verified menu proposition
+- [ ] Team/founder information when approved source information is available
 
 ### Gallery
 - Removed from the website by product decision.
@@ -68,14 +67,15 @@ This file tracks the planned public-facing restaurant website. The current produ
 - [x] Click-to-call/contact actions
 - [x] Opening hours
 - [x] Map link with graceful fallback
-- [ ] Social links
-- [ ] Accessibility information where available
+- [ ] Social links only when verified/approved
+- [ ] Venue accessibility information when verified/approved
 
 ### Dietary & Allergen Information
-- [x] Clear allergen contact notice
-- [ ] Verified dietary labels only
-- [x] Contact guidance for allergen questions
-- [x] Avoid unverified safety claims
+- [x] Dedicated dietary/allergen guidance section
+- [x] Direct contact action for allergy/dietary questions
+- [x] Guidance to reconfirm requirements when choosing food
+- [x] No unverified item-level dietary badges
+- [x] No allergen-safety guarantees or unsupported claims
 
 ## Phase 3 — Discoverability & trust
 
@@ -88,11 +88,15 @@ This file tracks the planned public-facing restaurant website. The current produ
 - [x] Sitemap
 - [x] robots.txt
 - [x] Favicon
-- [ ] App/touch icons
-- [ ] Privacy policy where required
-- [ ] Cookie/consent handling only if tracking or non-essential cookies are introduced
-- [ ] Performance/Core Web Vitals review
-- [ ] Accessibility review targeting WCAG 2.2 AA
+- [x] Final keyboard/focus/mobile-overflow accessibility regression coverage
+- [x] Performance cleanup of dead featured-dish rendering/data and unsupported popularity badges
+- [x] Reduced-motion handling retained
+- [ ] App/touch icons if install-like presentation is wanted later
+- [ ] Formal external WCAG audit if certification is required
+
+## Privacy / cookies
+
+The current static site does not include analytics, advertising trackers, accounts, forms that submit personal data, or non-essential cookies. A dedicated privacy/cookie consent flow is therefore not part of the current implementation. Reassess this if tracking, forms, accounts, or third-party embeds are introduced.
 
 ## Phase 4 — Optional future enhancements
 
@@ -107,7 +111,7 @@ These are not part of the initial release and require explicit approval.
 - [ ] Multi-language support
 - [ ] Custom domain migration from GitHub Pages (update canonical, sitemap and structured-data URL at the same time)
 
-## Explicitly out of scope for now
+## Explicitly out of scope
 
 - Online ordering
 - Checkout
