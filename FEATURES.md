@@ -17,6 +17,8 @@ This file tracks the public-facing restaurant website. The current product is in
 
 ### Home
 - [x] Hero section with restaurant positioning and primary calls to action
+- [x] Current restaurant hero image reused from the existing website
+- [x] Current restaurant name treatment used as the header wordmark
 - [x] Short restaurant/food story based on verified public information
 - [x] Opening-hours summary
 - [x] Location/contact summary
@@ -27,11 +29,11 @@ This file tracks the public-facing restaurant website. The current product is in
 - [x] Structured, data-driven menu
 - [x] Menu categories and category navigation
 - [x] Dish name, description and price
+- [x] Six dish images reused from the current restaurant website and attached to matching menu items
 - [x] Unverified `Popular` labels removed
 - [x] Allergen/dietary guidance linked directly from the menu
 - [x] Category filtering for faster browsing
 - [x] Easy content maintenance without duplicating markup
-- [ ] Dish images only if approved assets are introduced later
 - [ ] Item-level vegetarian/vegan/spice/dietary indicators only when verified
 
 ### Reviews
@@ -81,9 +83,9 @@ This file tracks the public-facing restaurant website. The current product is in
 
 - [x] Page title and meta description
 - [x] Canonical URL for the current GitHub Pages deployment
-- [x] Open Graph metadata
-- [x] Twitter summary metadata
-- [x] Restaurant structured data (JSON-LD)
+- [x] Open Graph metadata using current restaurant imagery
+- [x] Twitter summary metadata using current restaurant imagery
+- [x] Restaurant structured data (JSON-LD) with current restaurant image
 - [x] Consistent name/address/phone/opening-hours data between page content and structured data
 - [x] Sitemap
 - [x] robots.txt

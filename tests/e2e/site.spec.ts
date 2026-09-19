@@ -4,6 +4,8 @@ test('loads the branded homepage and exposes accessible primary navigation', asy
   await page.goto('./');
 
   await expect(page.getByRole('heading', { level: 1, name: 'Big flavour. Street-food soul.' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Masala Munch by Shreeji Food home' })).toContainText('Masala Munch');
+  await expect(page.getByRole('link', { name: 'Masala Munch by Shreeji Food home' })).toContainText('by Shreeji Food');
 
   const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
   await expect(navigation).toBeVisible();
@@ -14,6 +16,19 @@ test('loads the branded homepage and exposes accessible primary navigation', asy
   await expect(navigation.getByRole('link', { name: 'Reviews' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Contact' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Gallery' })).toHaveCount(0);
+});
+
+test('uses current restaurant imagery without reintroducing a gallery', async ({ page }) => {
+  await page.goto('./');
+
+  const heroImage = page.getByRole('img', { name: /Indian dishes, rice and naan/ });
+  await expect(heroImage).toHaveAttribute('src', /masalamunchbyshreejifood\.com\/cf-cgi\/families\/43185\/resource-types\/background\.png/);
+
+  const menuImages = page.locator('.menu-item-image');
+  await expect(menuImages).toHaveCount(6);
+  await expect(page.getByRole('img', { name: 'Samosa Chaat from Masala Munch by Shreeji Food' })).toBeAttached();
+  await expect(page.getByRole('img', { name: 'Paneer Bhurji from Masala Munch by Shreeji Food' })).toBeAttached();
+  await expect(page.locator('#gallery')).toHaveCount(0);
 });
 
 test('supports keyboard access and avoids horizontal page overflow', async ({ page }) => {
@@ -39,11 +54,13 @@ test('publishes canonical metadata and Restaurant structured data', async ({ pag
     'content',
     'Masala Munch | Indian Street Food in Bristol',
   );
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /masalamunchbyshreejifood\.com/);
 
   const structuredData = await page.locator('script[type="application/ld+json"]').textContent();
   expect(structuredData).toContain('"@type": "Restaurant"');
   expect(structuredData).toContain('"telephone": "+447733849772"');
   expect(structuredData).toContain('"postalCode": "BS16 3HJ"');
+  expect(structuredData).toContain('"image": "https://masalamunchbyshreejifood.com/');
 });
 
 test('shows the verified food story without inventing founder history', async ({ page }) => {
