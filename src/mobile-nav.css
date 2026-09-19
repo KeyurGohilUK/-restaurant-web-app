@@ -1,8 +1,9 @@
 .nav-toggle {
   display: none;
+  position: relative;
   width: 3rem;
   height: 3rem;
-  padding: 0.72rem;
+  padding: 0;
   border: 1px solid var(--line);
   border-radius: 0.85rem;
   background: var(--white);
@@ -11,30 +12,42 @@
 }
 
 .nav-toggle-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
   display: block;
-  width: 1.5rem;
+  width: 1.45rem;
   height: 2px;
+  margin: 0;
   border-radius: 999px;
   background: currentColor;
   transform-origin: center;
-  transition: transform 220ms ease, opacity 180ms ease;
+  transition: transform 220ms ease, opacity 160ms ease;
 }
 
-.nav-toggle-line + .nav-toggle-line {
-  margin-top: 0.32rem;
+.nav-toggle-line:nth-child(1) {
+  transform: translate(-50%, -50%) translateY(-0.42rem);
+}
+
+.nav-toggle-line:nth-child(2) {
+  transform: translate(-50%, -50%);
+}
+
+.nav-toggle-line:nth-child(3) {
+  transform: translate(-50%, -50%) translateY(0.42rem);
 }
 
 .nav-toggle[aria-expanded='true'] .nav-toggle-line:nth-child(1) {
-  transform: translateY(0.64rem) rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .nav-toggle[aria-expanded='true'] .nav-toggle-line:nth-child(2) {
   opacity: 0;
-  transform: scaleX(0.2);
+  transform: translate(-50%, -50%) scaleX(0.2);
 }
 
 .nav-toggle[aria-expanded='true'] .nav-toggle-line:nth-child(3) {
-  transform: translateY(-0.64rem) rotate(-45deg);
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 @media (max-width: 52rem) and (min-width: 40.01rem) {
@@ -54,6 +67,11 @@
 }
 
 @media (max-width: 40rem) {
+  .site-header {
+    position: relative;
+    top: auto;
+  }
+
   .header-inner {
     position: relative;
     display: grid;
@@ -64,8 +82,7 @@
   }
 
   .nav-toggle {
-    display: inline-grid;
-    place-content: center;
+    display: block;
     justify-self: end;
   }
 

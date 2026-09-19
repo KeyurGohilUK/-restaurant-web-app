@@ -1,5 +1,9 @@
 import { expect, test } from '@playwright/test';
 
+const waitForNavigationAnimation = async (page: import('@playwright/test').Page) => {
+  await page.waitForTimeout(350);
+};
+
 test('uses an animated hamburger menu on phone-sized screens', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
@@ -15,6 +19,7 @@ test('uses an animated hamburger menu on phone-sized screens', async ({ page }) 
   await expect(toggle).toHaveAccessibleName('Open navigation menu');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
   await expect(navigation).not.toBeVisible();
+  await expect(page.locator('.site-header')).toHaveCSS('position', 'relative');
 
   const heroTopClosed = await hero.evaluate((element) => element.getBoundingClientRect().top);
 
@@ -24,9 +29,24 @@ test('uses an animated hamburger menu on phone-sized screens', async ({ page }) 
   await expect(navigation).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Menu' })).toBeVisible();
   await expect(lines.nth(1)).toHaveCSS('opacity', '0');
+  await waitForNavigationAnimation(page);
 
-  const heroTopOpen = await hero.evaluate((element) => element.getBoundingClientRect().top);
-  expect(heroTopOpen).toBeGreaterThan(heroTopClosed + 100);
+  const heroTopFirstOpen = await hero.evaluate((element) => element.getBoundingClientRect().top);
+  expect(heroTopFirstOpen).toBeGreaterThan(heroTopClosed + 100);
+
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(navigation).not.toBeVisible();
+  await waitForNavigationAnimation(page);
+
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+  await expect(navigation).toBeVisible();
+  await waitForNavigationAnimation(page);
+
+  const heroTopSecondOpen = await hero.evaluate((element) => element.getBoundingClientRect().top);
+  expect(heroTopSecondOpen).toBeGreaterThan(heroTopClosed + 100);
+  expect(Math.abs(heroTopSecondOpen - heroTopFirstOpen)).toBeLessThan(8);
 
   await page.keyboard.press('Escape');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
@@ -53,6 +73,7 @@ test('keeps the full navigation visible on iPad and tablet widths', async ({ pag
   await page.goto('./');
 
   await expect(page.locator('#nav-toggle')).not.toBeVisible();
+  await expect(page.locator('.site-header')).toHaveCSS('position', 'sticky');
   const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
   await expect(navigation).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Home' })).toBeVisible();
