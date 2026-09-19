@@ -296,6 +296,110 @@ main {
   color: var(--muted);
 }
 
+.menu-toolbar {
+  display: flex;
+  gap: 0.65rem;
+  overflow-x: auto;
+  padding: 0.25rem 0 0.6rem;
+  scrollbar-width: thin;
+}
+
+.menu-toolbar > div {
+  display: contents;
+}
+
+.menu-filter {
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink);
+  padding: 0.7rem 1rem;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.menu-filter.is-active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--white);
+}
+
+.menu-note {
+  margin: 1rem 0 2rem;
+  padding: 1rem 1.1rem;
+  border-left: 0.25rem solid var(--accent);
+  background: var(--surface-strong);
+  color: var(--muted);
+}
+
+.menu-categories {
+  display: grid;
+  gap: 3rem;
+}
+
+.menu-category-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+
+.menu-category-heading h3 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 4vw, 2.75rem);
+}
+
+.menu-category-heading span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.menu-item-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.menu-item-card {
+  position: relative;
+  padding: 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--white);
+}
+
+.menu-item-title-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: start;
+}
+
+.menu-item-title-row h4,
+.menu-item-title-row strong {
+  margin: 0;
+}
+
+.menu-item-card p {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+}
+
+.popular-badge {
+  display: inline-flex;
+  margin-top: 0.8rem;
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+  background: var(--surface-strong);
+  color: var(--accent-dark);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
 .feature-panel ul {
   padding-left: 1.1rem;
   margin-bottom: 0;
@@ -392,7 +496,8 @@ main {
     transform: none;
   }
 
-  .card-grid {
+  .card-grid,
+  .menu-item-grid {
     grid-template-columns: 1fr;
   }
 
