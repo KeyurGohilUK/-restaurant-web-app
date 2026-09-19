@@ -1,22 +1,32 @@
 import { expect, test } from '@playwright/test';
 
-test('uses a hamburger menu on phone-sized screens', async ({ page }) => {
+test('uses an animated hamburger menu on phone-sized screens', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
 
   const toggle = page.locator('#nav-toggle');
+  const lines = toggle.locator('.nav-toggle-line');
   const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
+  const hero = page.locator('#home');
 
   await expect(toggle).toBeVisible();
+  await expect(lines).toHaveCount(3);
+  await expect(lines.first()).toBeVisible();
   await expect(toggle).toHaveAccessibleName('Open navigation menu');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
   await expect(navigation).not.toBeVisible();
+
+  const heroTopClosed = await hero.evaluate((element) => element.getBoundingClientRect().top);
 
   await toggle.click();
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
   await expect(toggle).toHaveAccessibleName('Close navigation menu');
   await expect(navigation).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Menu' })).toBeVisible();
+  await expect(lines.nth(1)).toHaveCSS('opacity', '0');
+
+  const heroTopOpen = await hero.evaluate((element) => element.getBoundingClientRect().top);
+  expect(heroTopOpen).toBeGreaterThan(heroTopClosed + 100);
 
   await page.keyboard.press('Escape');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
