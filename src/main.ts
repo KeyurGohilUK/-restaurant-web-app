@@ -1,4 +1,5 @@
 import './styles.css';
+import './about.css';
 import { aboutIntro, aboutPrinciples, aboutVerificationNote } from './content/about-content';
 import {
   cateringMenuIdeas,
