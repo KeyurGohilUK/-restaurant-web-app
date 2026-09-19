@@ -3,6 +3,7 @@ import './about.css';
 import './release.css';
 import './media.css';
 import './mobile-nav.css';
+import './back-to-top';
 import { aboutIntro, aboutPrinciples, aboutVerificationNote } from './content/about-content';
 import {
   cateringMenuIdeas,
