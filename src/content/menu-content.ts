@@ -2,7 +2,6 @@ export type MenuItem = {
   name: string;
   price: string;
   description: string;
-  popular?: boolean;
 };
 
 export type MenuCategory = {
@@ -16,7 +15,7 @@ export const menuCategories: readonly MenuCategory[] = [
     id: 'combos',
     name: 'Combos',
     items: [
-      { name: 'Bun Maska and Chai', price: '£5.15', description: 'Buttered bun served with warming Indian chai.', popular: true },
+      { name: 'Bun Maska and Chai', price: '£5.15', description: 'Buttered bun served with warming Indian chai.' },
       { name: 'Vada Pav and Chai', price: '£5.15', description: 'Mumbai-style vada pav paired with hot chai.' },
     ],
   },
@@ -33,12 +32,12 @@ export const menuCategories: readonly MenuCategory[] = [
     name: 'Chaat',
     items: [
       { name: 'Sev Puri', price: '£5.20', description: 'Crisp puris with potato, chutneys and crunchy sev.' },
-      { name: 'Dahi Puri', price: '£5.20', description: 'Crisp puris filled with potato, chickpeas, yogurt and chutneys.', popular: true },
+      { name: 'Dahi Puri', price: '£5.20', description: 'Crisp puris filled with potato, chickpeas, yogurt and chutneys.' },
       { name: 'Pani Puri (6)', price: '£3.90', description: 'Six crisp puris with spiced filling and tangy pani.' },
-      { name: 'Samosa Chaat', price: '£6.50', description: 'Samosa, chickpea curry, yogurt, chutneys and sev.', popular: true },
+      { name: 'Samosa Chaat', price: '£6.50', description: 'Samosa, chickpea curry, yogurt, chutneys and sev.' },
       { name: 'Bhel', price: '£5.20', description: 'A light, crunchy Mumbai-style chaat.' },
       { name: 'Ragada Patties', price: '£6.50', description: 'Potato patties served with white-pea ragada and chutneys.' },
-      { name: 'Indori Kachori Chaat', price: '£6.50', description: 'Crisp kachori layered with yogurt, chutneys and colourful toppings.', popular: true },
+      { name: 'Indori Kachori Chaat', price: '£6.50', description: 'Crisp kachori layered with yogurt, chutneys and colourful toppings.' },
       { name: 'Raj Kachori Chaat', price: '£6.50', description: 'Large crisp kachori filled and finished with yogurt and chutneys.' },
     ],
   },
@@ -72,11 +71,11 @@ export const menuCategories: readonly MenuCategory[] = [
     name: 'Punjabi Curries',
     items: [
       { name: 'Paneer Tikka Masala', price: '£9.05', description: 'Paneer in a rich tomato-based masala gravy.' },
-      { name: 'Mattar Paneer', price: '£7.75', description: 'Paneer and green peas in a gently spiced gravy.', popular: true },
-      { name: 'Paneer Frankie', price: '£7.50', description: 'Marinated paneer, salad, sauces and cheese in a wrap.', popular: true },
-      { name: 'Paneer Bhurji', price: '£8.45', description: 'Crumbled paneer cooked with onion, tomato and spices.', popular: true },
+      { name: 'Mattar Paneer', price: '£7.75', description: 'Paneer and green peas in a gently spiced gravy.' },
+      { name: 'Paneer Frankie', price: '£7.50', description: 'Marinated paneer, salad, sauces and cheese in a wrap.' },
+      { name: 'Paneer Bhurji', price: '£8.45', description: 'Crumbled paneer cooked with onion, tomato and spices.' },
       { name: 'Dal Fry', price: '£5.15', description: 'Cooked lentils finished with a savoury tempering.' },
-      { name: 'Dal Tadka', price: '£5.85', description: 'Lentils finished with an aromatic hot tadka.', popular: true },
+      { name: 'Dal Tadka', price: '£5.85', description: 'Lentils finished with an aromatic hot tadka.' },
       { name: 'Steam Rice', price: '£2.60', description: 'Light steamed long-grain rice.' },
       { name: 'Jeera Rice', price: '£3.25', description: 'Rice flavoured with toasted cumin and aromatics.' },
     ],
@@ -89,7 +88,7 @@ export const menuCategories: readonly MenuCategory[] = [
       { name: 'Filter Coffee', price: '£3.25', description: 'Strong South Indian-style filter coffee with milk.' },
       { name: 'Salted Lassi', price: '£3.25', description: 'Cooling yogurt drink with salt and roasted cumin.' },
       { name: 'Sweet Lassi', price: '£3.25', description: 'Sweet, creamy yogurt drink with cardamom.' },
-      { name: 'Mango Lassi', price: '£5.20', description: 'Creamy mango and yogurt drink.', popular: true },
+      { name: 'Mango Lassi', price: '£5.20', description: 'Creamy mango and yogurt drink.' },
       { name: 'Limbu Soda', price: '£2.60', description: 'Fresh lime, soda and Indian-style seasoning.' },
       { name: 'Masala Chaas', price: '£2.60', description: 'Light spiced buttermilk with cumin and seasoning.' },
     ],
