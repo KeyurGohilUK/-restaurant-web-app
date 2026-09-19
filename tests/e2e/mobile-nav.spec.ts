@@ -4,7 +4,7 @@ test('uses a hamburger menu on phone-sized screens', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
 
-  const toggle = page.locator('#mobile-nav-toggle');
+  const toggle = page.locator('#nav-toggle');
   const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
 
   await expect(toggle).toBeVisible();
@@ -29,7 +29,7 @@ test('closes the phone menu after selecting a navigation item', async ({ page })
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
 
-  const toggle = page.locator('#mobile-nav-toggle');
+  const toggle = page.locator('#nav-toggle');
   await toggle.click();
   await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Menu' }).click();
 
@@ -42,7 +42,7 @@ test('keeps the full navigation visible on iPad and tablet widths', async ({ pag
   await page.setViewportSize({ width: 768, height: 1024 });
   await page.goto('./');
 
-  await expect(page.locator('#mobile-nav-toggle')).not.toBeVisible();
+  await expect(page.locator('#nav-toggle')).not.toBeVisible();
   const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
   await expect(navigation).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Home' })).toBeVisible();
