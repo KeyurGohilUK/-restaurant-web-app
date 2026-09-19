@@ -74,7 +74,7 @@
           <span><strong>Masala Munch</strong><small>by Shreeji Food</small></span>
         </a>
         <nav aria-label="Primary navigation">
-          <a href="#home">Home</a><a href="#about">About</a><a href="#menu">Menu</a><a href="#catering">Catering</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
+          <a href="#home">Home</a><a href="#about">About</a><a href="#menu">Menu</a><a href="#dietary">Dietary</a><a href="#catering">Catering</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
         </nav>
       </div>
     </header>
@@ -102,8 +102,32 @@
       <section class="section menu-section" id="menu" aria-labelledby="menu-title">
         <div class="section-heading"><div><p class="eyebrow">Full menu</p><h2 id="menu-title">Explore by category.</h2></div><p>Browse the current menu by category. Prices are shown for reference and may change.</p></div>
         <div class="menu-toolbar" aria-label="Menu categories"><button class="menu-filter is-active" type="button" data-menu-filter="all" aria-pressed="true">All</button><div id="menu-filters"></div></div>
-        <p class="menu-note">Please speak to the restaurant directly about allergies or dietary requirements before ordering food.</p>
+        <p class="menu-note">Allergies or dietary requirements? <a href="#dietary">Read our dietary guidance</a> and speak to the restaurant before choosing food.</p>
         <div id="menu-categories" class="menu-categories" aria-live="polite"></div>
+      </section>
+
+      <section class="section dietary-section" id="dietary" aria-labelledby="dietary-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">Allergies & dietary needs</p><h2 id="dietary-title">Check with us before you choose.</h2></div>
+          <div>
+            <p>We do not currently publish item-by-item allergen, vegan or other dietary badges unless that information has been specifically verified.</p>
+            <a class="button button-primary" id="dietary-phone-link">Call about dietary requirements</a>
+          </div>
+        </div>
+        <div class="dietary-grid">
+          <article class="dietary-card">
+            <h3>Before you visit</h3>
+            <p>Tell us about any allergy, intolerance or dietary requirement so the team can confirm current ingredients and suitability.</p>
+          </article>
+          <article class="dietary-card">
+            <h3>At the restaurant</h3>
+            <p>Recipes, garnishes and preparation can change. Please confirm your requirements again when choosing your food.</p>
+          </article>
+          <article class="dietary-card">
+            <h3>Website labels</h3>
+            <p>No dietary badge on this website should be treated as an allergen-safety guarantee. Unverified labels are intentionally not shown.</p>
+          </article>
+        </div>
       </section>
 
       <section class="section catering-section" id="catering" aria-labelledby="catering-title">
@@ -132,7 +156,7 @@
       </section>
     </main>
 
-    <footer class="site-footer"><div><strong>Masala Munch by Shreeji Food</strong><p>Indian street food, chaat, catering and comfort classics in Bristol.</p></div><a href="#home">Back to top ↑</a></footer>
+    <footer class="site-footer"><div><strong>Masala Munch by Shreeji Food</strong><p>Indian street food, chaat, catering and comfort classics in Bristol.</p></div><div class="footer-links"><a href="#dietary">Dietary guidance</a><a href="#home">Back to top ↑</a></div></footer>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
