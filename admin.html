@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#c5221f" />
+    <title>Admin | Masala Munch</title>
+  </head>
+  <body class="admin-body">
+    <main class="admin-shell">
+      <header class="admin-header">
+        <div><p class="admin-eyebrow">Masala Munch</p><h1>Content admin</h1></div>
+        <div class="admin-header-actions"><a href="./">View site</a><button id="admin-sign-out" type="button" hidden>Sign out</button></div>
+      </header>
+
+      <section id="admin-setup" class="admin-panel" hidden>
+        <h2>Admin setup required</h2>
+        <p>Supabase environment variables are not configured for this deployment. See <code>docs/admin.md</code>.</p>
+      </section>
+
+      <section id="admin-login" class="admin-panel admin-login-panel">
+        <form id="admin-login-form" class="admin-form">
+          <h2>Admin login</h2>
+          <label>Email<input id="admin-email" name="email" type="email" autocomplete="username" required /></label>
+          <label>Password<input name="password" type="password" autocomplete="current-password" required /></label>
+          <button class="admin-primary" type="submit">Sign in</button>
+          <p id="admin-login-message" class="admin-message" role="status"></p>
+        </form>
+      </section>
+
+      <section id="admin-app" hidden>
+        <nav class="admin-tabs" aria-label="Admin sections">
+          <button type="button" data-tab="site" class="is-active">Site</button>
+          <button type="button" data-tab="hours">Opening hours</button>
+          <button type="button" data-tab="categories">Categories</button>
+          <button type="button" data-tab="items">Menu items</button>
+          <button type="button" data-tab="reviews">Reviews</button>
+        </nav>
+        <div id="admin-content" class="admin-content" aria-live="polite"></div>
+      </section>
+    </main>
+    <script type="module" src="/src/admin.ts"></script>
+  </body>
+</html>
