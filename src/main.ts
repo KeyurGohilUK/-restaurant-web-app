@@ -26,8 +26,19 @@ navToggle?.addEventListener('click', () => {
   setNavigationOpen(navToggle.getAttribute('aria-expanded') !== 'true');
 });
 
-primaryNavigation?.addEventListener('click', (event) => {
-  if (event.target instanceof HTMLAnchorElement) setNavigationOpen(false);
+primaryNavigation?.addEventListener('click', async (event) => {
+  if (!(event.target instanceof HTMLAnchorElement)) return;
+
+  const wasOpen = navToggle?.getAttribute('aria-expanded') === 'true';
+  const destination = document.querySelector<HTMLElement>(event.target.hash);
+  setNavigationOpen(false);
+
+  if (!phoneNavigation.matches || !wasOpen || !destination) return;
+
+  event.preventDefault();
+  await Promise.allSettled(primaryNavigation.getAnimations().map((animation) => animation.finished));
+  window.history.pushState(null, '', event.target.hash);
+  destination.scrollIntoView();
 });
 
 document.addEventListener('keydown', (event) => {
