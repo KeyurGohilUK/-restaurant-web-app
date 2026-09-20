@@ -31,3 +31,22 @@ test('applies the restaurant brand palette and professional component styling', 
   const heading = page.getByRole('heading', { level: 1, name: 'Masala Munch' });
   await expect(heading).toHaveCSS('font-family', /Epilogue/);
 });
+
+test('clearly highlights the current section in primary navigation', async ({ page }) => {
+  await page.goto('./');
+
+  const navToggle = page.locator('#nav-toggle');
+  if (await navToggle.isVisible()) await navToggle.click();
+
+  const homeLink = page.locator("#primary-navigation a[href='#home']");
+  const reviewsLink = page.locator("#primary-navigation a[href='#reviews']");
+
+  await expect(homeLink).toHaveCSS('background-color', 'rgb(197, 34, 31)');
+  await expect(homeLink).toHaveCSS('color', 'rgb(255, 255, 255)');
+
+  await reviewsLink.click();
+  await expect(page).toHaveURL(/#reviews$/);
+  await expect(reviewsLink).toHaveCSS('background-color', 'rgb(197, 34, 31)');
+  await expect(reviewsLink).toHaveCSS('color', 'rgb(255, 255, 255)');
+  await expect(homeLink).not.toHaveCSS('background-color', 'rgb(197, 34, 31)');
+});
