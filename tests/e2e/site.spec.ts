@@ -102,11 +102,12 @@ test('keeps dietary guidance inside the menu instead of a separate section', asy
 test('shows concise catering options and direct enquiry action', async ({ page }) => {
   await page.goto('./');
 
+  const cateringOccasions = page.locator('#catering-occasions');
   await expect(page.getByRole('heading', { name: 'Food worth gathering for.' })).toBeVisible();
-  await expect(page.getByText('Celebrations', { exact: true })).toBeVisible();
-  await expect(page.getByText('Community events', { exact: true })).toBeVisible();
-  await expect(page.getByText('Workplace & group meals', { exact: true })).toBeVisible();
-  await expect(page.getByText('Large orders', { exact: true })).toBeVisible();
+  await expect(cateringOccasions.getByText('Celebrations', { exact: true })).toBeVisible();
+  await expect(cateringOccasions.getByText('Community events', { exact: true })).toBeVisible();
+  await expect(cateringOccasions.getByText('Workplace & group meals', { exact: true })).toBeVisible();
+  await expect(cateringOccasions.getByText('Large orders', { exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: /Call Masala Munch about catering/ })).toHaveAttribute('href', 'tel:+447733849772');
 });
 
