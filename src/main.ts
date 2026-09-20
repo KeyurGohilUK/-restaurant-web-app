@@ -184,9 +184,6 @@ if (ratingSummary) {
 const address = document.querySelector<HTMLParagraphElement>('#restaurant-address');
 if (address) address.textContent = restaurant.address;
 
-const mapLink = document.querySelector<HTMLAnchorElement>('#map-link');
-if (mapLink) mapLink.href = restaurant.mapHref;
-
 const visitMain = document.querySelector<HTMLElement>('.visit-main');
 if (visitMain) {
   const encodedAddress = encodeURIComponent(restaurant.address);
@@ -201,15 +198,14 @@ if (visitMain) {
       tabindex="-1"
       aria-hidden="true"
     ></iframe>
-    <a class="visit-map-link" href="${restaurant.mapHref}" target="_blank" rel="noreferrer" aria-label="Open directions to ${restaurant.shortName} in Google Maps">
-      <span>Tap map for directions ↗</span>
-    </a>`;
+    <a class="visit-map-link" href="${restaurant.mapHref}" target="_blank" rel="noreferrer" aria-label="Open directions to ${restaurant.shortName} in Google Maps"></a>`;
   visitMain.append(mapPreview);
 }
 
 const phoneLink = document.querySelector<HTMLAnchorElement>('#phone-link');
 if (phoneLink) {
   phoneLink.href = restaurant.phoneHref;
+  phoneLink.textContent = `Call ${restaurant.phoneDisplay}`;
   phoneLink.setAttribute('aria-label', `Call ${restaurant.shortName} on ${restaurant.phoneDisplay}`);
 }
 
