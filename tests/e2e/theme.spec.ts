@@ -84,6 +84,10 @@ test('positions selected sections directly below the navigation instead of showi
 
 test('uses the brand colour for back to top and stops just below the absolute page top', async ({ page }) => {
   await page.goto('./');
+
+  const cookieAccept = page.locator('#cookie-accept');
+  if (await cookieAccept.isVisible()) await cookieAccept.click();
+
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
 
   const backToTop = page.locator(".footer-links a[href='#home']");
