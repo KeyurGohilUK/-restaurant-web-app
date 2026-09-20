@@ -119,16 +119,18 @@ test('shows concise catering options and direct enquiry action', async ({ page }
   await expect(page.getByRole('link', { name: /Call Masala Munch about catering/ })).toHaveAttribute('href', 'tel:+447733849772');
 });
 
-test('shows attributed external ratings and review categories', async ({ page }) => {
+test('shows modern external rating cards without review category placeholders', async ({ page }) => {
   await page.goto('./');
 
   await expect(page.getByRole('heading', { name: 'What people are saying.' })).toBeVisible();
   await expect(page.getByText('75 reviews')).toBeVisible();
   await expect(page.getByText('32 reviews')).toBeVisible();
-
-  await page.getByRole('button', { name: 'Catering', exact: true }).click();
-  await expect(page.getByText('Verified feedback coming soon.')).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Catering', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('.rating-platform-icon')).toHaveCount(2);
+  await expect(page.getByRole('link', { name: 'View Google reviews' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'View Deliveroo reviews' })).toBeVisible();
+  await expect(page.locator('#review-filters')).toHaveCount(0);
+  await expect(page.locator('#review-results')).toHaveCount(0);
+  await expect(page.getByText('Verified feedback coming soon.')).toHaveCount(0);
 });
 
 test('ships a branded noindex 404 page', async ({ page }) => {
