@@ -81,3 +81,21 @@ test('positions selected sections directly below the navigation instead of showi
   expect(position.top).toBeGreaterThanOrEqual(position.scrollPaddingTop - 2);
   expect(position.top).toBeLessThanOrEqual(position.scrollPaddingTop + 24);
 });
+
+test('uses the brand colour for back to top and stops just below the absolute page top', async ({ page }) => {
+  await page.goto('./');
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+
+  const backToTop = page.locator(".footer-links a[href='#home']");
+  await expect(backToTop).toHaveClass(/is-visible/);
+  await expect(backToTop).toHaveCSS('background-color', 'rgb(197, 34, 31)');
+  await expect(backToTop).toHaveCSS('color', 'rgb(255, 255, 255)');
+
+  await backToTop.click();
+  await expect(page).toHaveURL(/#home$/);
+  await expect
+    .poll(() => page.evaluate(() => window.scrollY))
+    .toBeLessThan(480);
+
+  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThanOrEqual(40);
+});
