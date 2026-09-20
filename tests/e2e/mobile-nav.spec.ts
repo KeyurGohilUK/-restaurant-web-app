@@ -78,5 +78,5 @@ test('keeps the full navigation visible on iPad and tablet widths', async ({ pag
   await expect(navigation).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Home' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Menu' })).toBeVisible();
-  await expect(navigation.getByRole('link', { name: 'Contact' })).toBeVisible();
+  await expect(navigation.getByRole('link', { name: 'Visit' })).toBeVisible();
 });
