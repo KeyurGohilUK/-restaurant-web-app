@@ -9,7 +9,7 @@ import './cookie-consent';
 import { cateringOccasions } from './content/catering-content';
 import { getMenuImage, restaurantMedia } from './content/media-content';
 import { menuCategories } from './content/menu-content';
-import { externalRatings, reviewGroups, verifiedTestimonials } from './content/review-content';
+import { externalRatings } from './content/review-content';
 import { openingHours, restaurant } from './content/site-content';
 
 const navToggle = document.querySelector<HTMLButtonElement>('#nav-toggle');
@@ -154,51 +154,31 @@ if (dietaryPhoneLink) {
   );
 }
 
+const ratingIcons: Record<string, string> = {
+  google: 'https://cdn.simpleicons.org/google/4285F4',
+  deliveroo: 'https://cdn.simpleicons.org/deliveroo/00CCBC',
+};
+
 const ratingSummary = document.querySelector<HTMLDivElement>('#external-ratings');
 if (ratingSummary) {
   ratingSummary.innerHTML = externalRatings
-    .map((rating) => `<article class="rating-card"><div><span class="rating-platform">${rating.platform}</span><strong>${rating.rating.toFixed(1)}<small> / ${rating.scale}</small></strong><p>${rating.reviewCount} reviews</p></div><div><a href="${rating.href}" target="_blank" rel="noreferrer">View ↗</a><small>Checked ${rating.checkedDate}</small></div></article>`)
+    .map(
+      (rating) => `<article class="rating-card rating-card--${rating.id}">
+        <div class="rating-card-brand">
+          <span class="rating-icon-wrap"><img class="rating-platform-icon" src="${ratingIcons[rating.id]}" alt="" width="30" height="30" loading="lazy" /></span>
+          <span class="rating-platform">${rating.platform}</span>
+        </div>
+        <div class="rating-score-row">
+          <strong>${rating.rating.toFixed(1)}</strong><span class="rating-scale">/ ${rating.scale}</span>
+        </div>
+        <div class="rating-card-footer">
+          <div><b>${rating.reviewCount} reviews</b><small>Checked ${rating.checkedDate}</small></div>
+          <a href="${rating.href}" target="_blank" rel="noreferrer" aria-label="View ${rating.platform} reviews">View reviews <span aria-hidden="true">↗</span></a>
+        </div>
+      </article>`,
+    )
     .join('');
 }
-
-const reviewFilters = document.querySelector<HTMLDivElement>('#review-filters');
-const reviewResults = document.querySelector<HTMLDivElement>('#review-results');
-
-const renderReviews = (categoryId: string = reviewGroups[0].id) => {
-  if (!reviewResults) return;
-  const group = reviewGroups.find((item) => item.id === categoryId) ?? reviewGroups[0];
-  const testimonials = verifiedTestimonials.filter((item) => item.category === group.id);
-
-  if (testimonials.length === 0) {
-    reviewResults.innerHTML = `<div class="review-empty-state"><strong>${group.name}</strong><span>Verified feedback coming soon.</span></div>`;
-    return;
-  }
-
-  reviewResults.innerHTML = testimonials
-    .map((testimonial) => `<blockquote class="review-card"><p>“${testimonial.quote}”</p><footer>${testimonial.customerName} · ${testimonial.source}</footer></blockquote>`)
-    .join('');
-};
-
-if (reviewFilters) {
-  reviewFilters.innerHTML = reviewGroups
-    .map((group, index) => `<button class="review-filter${index === 0 ? ' is-active' : ''}" type="button" data-review-filter="${group.id}" aria-pressed="${index === 0}">${group.name}</button>`)
-    .join('');
-
-  reviewFilters.addEventListener('click', (event) => {
-    const target = event.target;
-    if (!(target instanceof HTMLButtonElement)) return;
-    const categoryId = target.dataset.reviewFilter;
-    if (!categoryId) return;
-
-    reviewFilters.querySelectorAll<HTMLButtonElement>('.review-filter').forEach((button) => {
-      const isActive = button === target;
-      button.classList.toggle('is-active', isActive);
-      button.setAttribute('aria-pressed', String(isActive));
-    });
-    renderReviews(categoryId);
-  });
-}
-renderReviews();
 
 const address = document.querySelector<HTMLParagraphElement>('#restaurant-address');
 if (address) address.textContent = restaurant.address;
