@@ -62,10 +62,21 @@ test('positions selected sections directly below the navigation instead of showi
   await page.locator("#primary-navigation a[href='#menu']").click();
   await expect(page).toHaveURL(/#menu$/);
 
-  const position = await page.locator('#menu').evaluate((section) => ({
-    top: section.getBoundingClientRect().top,
-    scrollPaddingTop: Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop),
-  }));
+  const menuSection = page.locator('#menu');
+  const readPosition = () =>
+    menuSection.evaluate((section) => ({
+      top: section.getBoundingClientRect().top,
+      scrollPaddingTop: Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop),
+    }));
+
+  await expect
+    .poll(async () => {
+      const position = await readPosition();
+      return position.top - position.scrollPaddingTop;
+    })
+    .toBeLessThanOrEqual(24);
+
+  const position = await readPosition();
 
   expect(position.top).toBeGreaterThanOrEqual(position.scrollPaddingTop - 2);
   expect(position.top).toBeLessThanOrEqual(position.scrollPaddingTop + 24);
