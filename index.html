@@ -135,7 +135,24 @@
       </section>
     </main>
 
-    <footer class="site-footer"><strong>Masala Munch by Shreeji Food</strong><div class="footer-links"><a href="#menu">Menu</a><a href="#contact">Visit</a><a href="#home">Top ↑</a></div></footer>
+    <footer class="site-footer">
+      <strong>Masala Munch by Shreeji Food</strong>
+      <div class="footer-links"><a href="#menu">Menu</a><a href="#contact">Visit</a><button class="cookie-settings" id="cookie-settings" type="button">Cookie settings</button><a href="#home">Top ↑</a></div>
+    </footer>
+
+    <aside class="cookie-consent" id="cookie-consent" aria-label="Cookie consent" hidden>
+      <div class="cookie-consent-inner">
+        <div class="cookie-consent-copy">
+          <strong>This website uses cookies</strong>
+          <span>Choose whether to allow optional cookies. Essential site functionality will still work if you deny them.</span>
+        </div>
+        <div class="cookie-consent-actions">
+          <button class="cookie-choice" id="cookie-deny" type="button">Deny</button>
+          <button class="cookie-choice cookie-choice-primary" id="cookie-accept" type="button">Accept</button>
+        </div>
+      </div>
+    </aside>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
