@@ -73,7 +73,8 @@ test('publishes canonical metadata and Restaurant structured data', async ({ pag
   expect(structuredData).toContain('"image": "https://masalamunchbyshreejifood.com/');
 });
 
-test('shows structured visit details, map preview and current opening hours', async ({ page }) => {
+test('shows streamlined visit actions, clickable map and current opening hours', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
 
   await expect(page.getByText('664 Fishponds Rd, Bristol BS16 3HJ')).toBeVisible();
@@ -82,7 +83,22 @@ test('shows structured visit details, map preview and current opening hours', as
     'href',
     /google\.com\/maps\/search\/\?api=1&query=664\+Fishponds\+Rd\+Bristol\+BS16\+3HJ/,
   );
-  await expect(page.getByText('Tap map for directions ↗')).toBeVisible();
+  await expect(page.getByText('Tap map for directions ↗')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Directions', exact: true })).toHaveCount(0);
+
+  const callLink = page.getByRole('link', { name: /Call Masala Munch on 07733 849772/ });
+  await expect(callLink).toHaveAttribute('href', 'tel:+447733849772');
+  await expect(callLink).toContainText('07733 849772');
+
+  const widths = await page.locator('.contact-actions').evaluate((actions) => {
+    const call = actions.querySelector<HTMLElement>('#phone-link');
+    return {
+      actions: actions.getBoundingClientRect().width,
+      call: call?.getBoundingClientRect().width ?? 0,
+    };
+  });
+  expect(Math.abs(widths.actions - widths.call)).toBeLessThanOrEqual(1);
+
   await expect(page.getByRole('heading', { name: 'Opening hours' })).toBeVisible();
   await expect(page.getByText('14:00–22:00')).toBeVisible();
   await expect(page.getByText('17:00–22:00')).toHaveCount(5);
