@@ -1,36 +1,35 @@
 import { expect, test } from '@playwright/test';
 
-test('loads the branded homepage and exposes accessible primary navigation', async ({ page }) => {
+test('loads the visual homepage and exposes accessible primary navigation', async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 768 });
   await page.goto('./');
 
-  await expect(page.getByRole('heading', { level: 1, name: 'Big flavour. Street-food soul.' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Masala Munch by Shreeji Food home' })).toContainText('Masala Munch');
-  await expect(page.getByRole('link', { name: 'Masala Munch by Shreeji Food home' })).toContainText('by Shreeji Food');
+  await expect(page.getByRole('heading', { level: 1, name: 'Masala Munch' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Masala Munch by Shreeji Food home' })).toBeVisible();
 
   const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
   await expect(navigation).toBeVisible();
-  await expect(navigation.getByRole('link', { name: 'About' })).toHaveCount(0);
   await expect(navigation.getByRole('link', { name: 'Menu' })).toBeVisible();
-  await expect(navigation.getByRole('link', { name: 'Dietary' })).toBeVisible();
+  await expect(navigation.getByRole('link', { name: 'Dietary' })).toHaveCount(0);
   await expect(navigation.getByRole('link', { name: 'Catering' })).toBeVisible();
   await expect(navigation.getByRole('link', { name: 'Reviews' })).toBeVisible();
-  await expect(navigation.getByRole('link', { name: 'Contact' })).toBeVisible();
-  await expect(navigation.getByRole('link', { name: 'Gallery' })).toHaveCount(0);
-  await expect(page.getByRole('link', { name: 'Our food story' })).toHaveCount(0);
-  await expect(page.locator('#about')).toHaveCount(0);
+  await expect(navigation.getByRole('link', { name: 'Visit' })).toBeVisible();
+  await expect(page.locator('#dietary')).toHaveCount(0);
 });
 
-test('uses current restaurant imagery without reintroducing a gallery', async ({ page }) => {
+test('uses restaurant imagery as the primary visual language', async ({ page }) => {
   await page.goto('./');
 
   const heroImage = page.getByRole('img', { name: /Indian dishes, rice and naan/ });
-  await expect(heroImage).toHaveAttribute('src', /masalamunchbyshreejifood\.com\/cf-cgi\/families\/43185\/resource-types\/background\.png/);
+  await expect(heroImage).toHaveAttribute(
+    'src',
+    /masalamunchbyshreejifood\.com\/cf-cgi\/families\/43185\/resource-types\/background\.png/,
+  );
 
-  const menuImages = page.locator('.menu-item-image');
-  await expect(menuImages).toHaveCount(6);
-  await expect(page.getByRole('img', { name: 'Samosa Chaat from Masala Munch by Shreeji Food' })).toBeAttached();
-  await expect(page.getByRole('img', { name: 'Paneer Bhurji from Masala Munch by Shreeji Food' })).toBeAttached();
+  await expect(page.locator('.favourite-card')).toHaveCount(3);
+  await expect(page.getByRole('img', { name: 'Samosa Chaat from Masala Munch by Shreeji Food' }).first()).toBeVisible();
+  await expect(page.getByRole('img', { name: 'Dahi Puri from Masala Munch by Shreeji Food' }).first()).toBeVisible();
+  await expect(page.getByRole('img', { name: 'Mattar Paneer from Masala Munch by Shreeji Food' }).first()).toBeVisible();
   await expect(page.locator('#gallery')).toHaveCount(0);
 });
 
@@ -87,43 +86,40 @@ test('filters the menu by category', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Mumbai Special', exact: true })).toHaveAttribute('aria-pressed', 'true');
 });
 
-test('provides conservative allergen and dietary guidance with a direct contact action', async ({ page }) => {
+test('keeps dietary guidance inside the menu instead of a separate section', async ({ page }) => {
   await page.goto('./');
 
-  await expect(page.getByRole('heading', { name: 'Check with us before you choose.' })).toBeVisible();
-  await expect(page.getByText(/do not currently publish item-by-item allergen, vegan or other dietary badges/i)).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Before you visit' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'At the restaurant' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Website labels' })).toBeVisible();
-  await expect(page.getByRole('link', { name: /Call Masala Munch about allergies or dietary requirements/ })).toHaveAttribute(
+  const note = page.getByRole('complementary', { name: 'Dietary information' });
+  await expect(note).toBeVisible();
+  await expect(note).toContainText('Tell us about allergies or dietary requirements before choosing food.');
+  await expect(note.getByRole('link', { name: /Call Masala Munch about allergies or dietary requirements/ })).toHaveAttribute(
     'href',
     'tel:+447733849772',
   );
+  await expect(page.locator('#dietary')).toHaveCount(0);
 });
 
-test('shows catering occasions, planning guidance and direct enquiry action', async ({ page }) => {
+test('shows concise catering options and direct enquiry action', async ({ page }) => {
   await page.goto('./');
 
-  await expect(page.getByRole('heading', { name: 'Plan food for your occasion.' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Celebrations' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Community events' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Workplace & group meals' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Large orders' })).toBeVisible();
+  const cateringOccasions = page.locator('#catering-occasions');
+  await expect(page.getByRole('heading', { name: 'Food worth gathering for.' })).toBeVisible();
+  await expect(cateringOccasions.getByText('Celebrations', { exact: true })).toBeVisible();
+  await expect(cateringOccasions.getByText('Community events', { exact: true })).toBeVisible();
+  await expect(cateringOccasions.getByText('Workplace & group meals', { exact: true })).toBeVisible();
+  await expect(cateringOccasions.getByText('Large orders', { exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: /Call Masala Munch about catering/ })).toHaveAttribute('href', 'tel:+447733849772');
-  await expect(page.getByText(/Catering availability, menu suitability, quantities and pricing/)).toBeVisible();
 });
 
 test('shows attributed external ratings and review categories', async ({ page }) => {
   await page.goto('./');
 
-  await expect(page.getByRole('heading', { name: 'Trusted feedback, clearly sourced.' })).toBeVisible();
-  await expect(page.getByRole('link', { name: /View on Google/ })).toBeVisible();
-  await expect(page.getByRole('link', { name: /View on Deliveroo/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'What people are saying.' })).toBeVisible();
   await expect(page.getByText('75 reviews')).toBeVisible();
   await expect(page.getByText('32 reviews')).toBeVisible();
 
   await page.getByRole('button', { name: 'Catering', exact: true }).click();
-  await expect(page.getByText('Verified testimonials coming here.')).toBeVisible();
+  await expect(page.getByText('Verified feedback coming soon.')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Catering', exact: true })).toHaveAttribute('aria-pressed', 'true');
 });
 
