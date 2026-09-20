@@ -28,11 +28,6 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Capture formatted theme stylesheet
-        run: |
-          npx prettier --write src/theme.css
-          echo "THEME_CSS_BASE64=$(base64 -w0 src/theme.css)"
-
       - name: Format check
         run: npm run format:check
 
