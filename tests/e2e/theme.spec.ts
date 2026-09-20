@@ -1,0 +1,33 @@
+import { expect, test } from '@playwright/test';
+
+test('applies the restaurant brand palette and professional component styling', async ({ page }) => {
+  await page.goto('./');
+
+  const tokens = await page.evaluate(() => {
+    const styles = getComputedStyle(document.documentElement);
+    return {
+      primary: styles.getPropertyValue('--primary').trim(),
+      secondary: styles.getPropertyValue('--secondary').trim(),
+      tertiary: styles.getPropertyValue('--tertiary').trim(),
+      neutral: styles.getPropertyValue('--neutral').trim(),
+    };
+  });
+
+  expect(tokens).toEqual({
+    primary: '#c5221f',
+    secondary: '#e86a17',
+    tertiary: '#eaa315',
+    neutral: '#2c140e',
+  });
+
+  const primaryButton = page.locator('.button-primary').first();
+  await expect(primaryButton).toHaveCSS('background-color', 'rgb(197, 34, 31)');
+  await expect(primaryButton).toHaveCSS('border-radius', '12.8px');
+
+  const activeFilter = page.locator('.menu-filter.is-active').first();
+  await expect(activeFilter).toHaveCSS('background-color', 'rgb(197, 34, 31)');
+  await expect(activeFilter).toHaveCSS('color', 'rgb(255, 255, 255)');
+
+  const heading = page.getByRole('heading', { level: 1, name: 'Masala Munch' });
+  await expect(heading).toHaveCSS('font-family', /Epilogue/);
+});
