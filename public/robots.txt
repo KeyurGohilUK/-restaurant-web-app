@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://keyurgohiluk.github.io/-restaurant-web-app/sitemap.xml
+Sitemap: https://keyurgohiluk.github.io/restaurant-web-app/sitemap.xml

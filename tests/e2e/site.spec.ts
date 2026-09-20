@@ -17,6 +17,14 @@ test('loads the visual homepage and exposes accessible primary navigation', asyn
   await expect(page.locator('#dietary')).toHaveCount(0);
 });
 
+test('loads production CSS and JavaScript from the renamed GitHub Pages path', async ({ page }) => {
+  await page.goto('./');
+
+  await expect(page.locator('link[rel="stylesheet"]')).toHaveAttribute('href', /\/restaurant-web-app\/assets\//);
+  await expect(page.locator('script[type="module"]')).toHaveAttribute('src', /\/restaurant-web-app\/assets\//);
+  await expect(page.locator('.hero')).toHaveCSS('position', 'relative');
+});
+
 test('uses restaurant imagery as the primary visual language', async ({ page }) => {
   await page.goto('./');
 
@@ -50,7 +58,7 @@ test('publishes canonical metadata and Restaurant structured data', async ({ pag
 
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
     'href',
-    'https://keyurgohiluk.github.io/-restaurant-web-app/',
+    'https://keyurgohiluk.github.io/restaurant-web-app/',
   );
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
     'content',
@@ -127,7 +135,7 @@ test('ships a branded noindex 404 page', async ({ page }) => {
   await page.goto('./404.html');
   await expect(page.getByRole('heading', { name: 'This page isn’t on the menu.' })).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
-  await expect(page.getByRole('link', { name: 'Back to Masala Munch' })).toHaveAttribute('href', '/-restaurant-web-app/');
+  await expect(page.getByRole('link', { name: 'Back to Masala Munch' })).toHaveAttribute('href', '/restaurant-web-app/');
 });
 
 test('does not present online ordering in the initial site scope', async ({ page }) => {
