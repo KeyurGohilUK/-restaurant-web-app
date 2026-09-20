@@ -35,9 +35,11 @@ test('applies the restaurant brand palette and professional component styling', 
 test('clearly highlights the current section in primary navigation', async ({ page }) => {
   await page.goto('./');
 
-  const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
-  const homeLink = navigation.getByRole('link', { name: 'Home' });
-  const reviewsLink = navigation.getByRole('link', { name: 'Reviews' });
+  const navToggle = page.locator('#nav-toggle');
+  if (await navToggle.isVisible()) await navToggle.click();
+
+  const homeLink = page.locator("#primary-navigation a[href='#home']");
+  const reviewsLink = page.locator("#primary-navigation a[href='#reviews']");
 
   await expect(homeLink).toHaveCSS('background-color', 'rgb(197, 34, 31)');
   await expect(homeLink).toHaveCSS('color', 'rgb(255, 255, 255)');
