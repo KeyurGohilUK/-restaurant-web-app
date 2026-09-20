@@ -37,7 +37,7 @@ primaryNavigation?.addEventListener('click', async (event) => {
 
   event.preventDefault();
   await Promise.allSettled(primaryNavigation.getAnimations().map((animation) => animation.finished));
-  window.history.pushState(null, '', event.target.hash);
+  window.location.hash = event.target.hash;
   destination.scrollIntoView();
 });
 
