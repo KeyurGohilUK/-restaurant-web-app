@@ -51,6 +51,28 @@ test('clearly highlights the current section in primary navigation', async ({ pa
   await expect(homeLink).not.toHaveCSS('background-color', 'rgb(197, 34, 31)');
 });
 
+test('keeps the open mobile navigation compact and uses full-width menu rows', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./');
+
+  await page.locator('#nav-toggle').click();
+  const navigation = page.locator('#primary-navigation');
+  await expect(navigation).toHaveClass(/is-open/);
+
+  const dimensions = await navigation.evaluate((nav) => {
+    const navBox = nav.getBoundingClientRect();
+    const firstLink = nav.querySelector('a')?.getBoundingClientRect();
+    return {
+      height: navBox.height,
+      navWidth: navBox.width,
+      linkWidth: firstLink?.width ?? 0,
+    };
+  });
+
+  expect(dimensions.height).toBeLessThan(300);
+  expect(dimensions.linkWidth).toBeGreaterThan(dimensions.navWidth * 0.9);
+});
+
 test('positions selected sections directly below the navigation instead of showing the previous section', async ({
   page,
 }) => {
