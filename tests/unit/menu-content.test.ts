@@ -9,7 +9,7 @@ describe('menu content', () => {
       'Chaat',
       'Sandwich Special',
       'Mumbai Special',
-      'Punjabi Curries',
+      'North India Curries',
       'Drink',
       'Sweet',
     ]);
