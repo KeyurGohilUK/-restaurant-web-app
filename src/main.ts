@@ -4,13 +4,7 @@ import './release.css';
 import './media.css';
 import './mobile-nav.css';
 import './back-to-top';
-import { aboutIntro, aboutPrinciples, aboutVerificationNote } from './content/about-content';
-import {
-  cateringMenuIdeas,
-  cateringNotice,
-  cateringOccasions,
-  cateringPlanningSteps,
-} from './content/catering-content';
+import { cateringOccasions } from './content/catering-content';
 import { getMenuImage, restaurantMedia } from './content/media-content';
 import { menuCategories } from './content/menu-content';
 import { externalRatings, reviewGroups, verifiedTestimonials } from './content/review-content';
@@ -52,26 +46,23 @@ if (heroFoodImage) {
   heroFoodImage.alt = restaurantMedia.hero.alt;
 }
 
-const aboutEyebrow = document.querySelector<HTMLParagraphElement>('#about-eyebrow');
-const aboutTitle = document.querySelector<HTMLHeadingElement>('#about-title');
-const aboutIntroContainer = document.querySelector<HTMLDivElement>('#about-intro');
-const aboutPrinciplesContainer = document.querySelector<HTMLDivElement>('#about-principles');
-const aboutVerificationElement = document.querySelector<HTMLDivElement>('#about-verification-note');
+const cateringImage = document.querySelector<HTMLImageElement>('#catering-image');
+if (cateringImage) cateringImage.src = restaurantMedia.hero.src;
 
-if (aboutEyebrow) aboutEyebrow.textContent = aboutIntro.eyebrow;
-if (aboutTitle) aboutTitle.textContent = aboutIntro.title;
-if (aboutIntroContainer) {
-  aboutIntroContainer.innerHTML = aboutIntro.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join('');
-}
-if (aboutPrinciplesContainer) {
-  aboutPrinciplesContainer.innerHTML = aboutPrinciples
-    .map(
-      (principle, index) => `<article class="about-card"><span>0${index + 1}</span><h3>${principle.title}</h3><p>${principle.description}</p></article>`,
-    )
+const favouriteNames = ['Samosa Chaat', 'Dahi Puri', 'Mattar Paneer'];
+const favouritesGrid = document.querySelector<HTMLDivElement>('#favourites-grid');
+if (favouritesGrid) {
+  favouritesGrid.innerHTML = favouriteNames
+    .map((name) => {
+      const item = menuCategories.flatMap((category) => category.items).find((menuItem) => menuItem.name === name);
+      const image = getMenuImage(name);
+      if (!item || !image) return '';
+      return `<article class="favourite-card">
+        <img src="${image}?fit=cover&format=auto&width=900&quality=88" alt="${name} from Masala Munch by Shreeji Food" loading="lazy" decoding="async" />
+        <div><h3>${name}</h3><strong>${item.price}</strong></div>
+      </article>`;
+    })
     .join('');
-}
-if (aboutVerificationElement) {
-  aboutVerificationElement.innerHTML = `<strong>About our story</strong><p>${aboutVerificationNote}</p>`;
 }
 
 const menuFilters = document.querySelector<HTMLDivElement>('#menu-filters');
@@ -85,7 +76,7 @@ const renderMenu = (categoryId = 'all') => {
     .map(
       (category) => `
         <section class="menu-category" aria-labelledby="menu-${category.id}">
-          <div class="menu-category-heading"><h3 id="menu-${category.id}">${category.name}</h3><span>${category.items.length} ${category.items.length === 1 ? 'item' : 'items'}</span></div>
+          <div class="menu-category-heading"><h3 id="menu-${category.id}">${category.name}</h3><span>${category.items.length}</span></div>
           <div class="menu-item-grid">
             ${category.items
               .map((item) => {
@@ -131,24 +122,9 @@ renderMenu();
 const cateringOccasionsContainer = document.querySelector<HTMLDivElement>('#catering-occasions');
 if (cateringOccasionsContainer) {
   cateringOccasionsContainer.innerHTML = cateringOccasions
-    .map((occasion) => `<article class="catering-card"><span aria-hidden="true">✦</span><h3>${occasion.name}</h3><p>${occasion.description}</p></article>`)
+    .map((occasion) => `<span class="occasion-pill">${occasion.name}</span>`)
     .join('');
 }
-
-const cateringStepsContainer = document.querySelector<HTMLOListElement>('#catering-steps');
-if (cateringStepsContainer) {
-  cateringStepsContainer.innerHTML = cateringPlanningSteps.map((step) => `<li>${step}</li>`).join('');
-}
-
-const cateringIdeasContainer = document.querySelector<HTMLDivElement>('#catering-menu-ideas');
-if (cateringIdeasContainer) {
-  cateringIdeasContainer.innerHTML = cateringMenuIdeas
-    .map((idea) => `<article class="catering-idea"><h4>${idea.title}</h4><p>${idea.description}</p></article>`)
-    .join('');
-}
-
-const cateringNoticeElement = document.querySelector<HTMLParagraphElement>('#catering-notice');
-if (cateringNoticeElement) cateringNoticeElement.textContent = cateringNotice;
 
 const cateringPhoneLink = document.querySelector<HTMLAnchorElement>('#catering-phone-link');
 if (cateringPhoneLink) {
@@ -168,7 +144,7 @@ if (dietaryPhoneLink) {
 const ratingSummary = document.querySelector<HTMLDivElement>('#external-ratings');
 if (ratingSummary) {
   ratingSummary.innerHTML = externalRatings
-    .map((rating) => `<article class="rating-card"><div><span class="rating-platform">${rating.platform}</span><strong>${rating.rating.toFixed(1)}<small> / ${rating.scale}</small></strong><p>${rating.reviewCount} reviews</p></div><div><a href="${rating.href}" target="_blank" rel="noreferrer">View on ${rating.platform} ↗</a><small>Checked ${rating.checkedDate}</small></div></article>`)
+    .map((rating) => `<article class="rating-card"><div><span class="rating-platform">${rating.platform}</span><strong>${rating.rating.toFixed(1)}<small> / ${rating.scale}</small></strong><p>${rating.reviewCount} reviews</p></div><div><a href="${rating.href}" target="_blank" rel="noreferrer">View ↗</a><small>Checked ${rating.checkedDate}</small></div></article>`)
     .join('');
 }
 
@@ -181,7 +157,7 @@ const renderReviews = (categoryId: string = reviewGroups[0].id) => {
   const testimonials = verifiedTestimonials.filter((item) => item.category === group.id);
 
   if (testimonials.length === 0) {
-    reviewResults.innerHTML = `<div class="review-empty-state"><span>${group.name}</span><h4>Verified testimonials coming here.</h4><p>${group.description}</p><p>We only publish individual customer feedback after its source and wording have been verified.</p></div>`;
+    reviewResults.innerHTML = `<div class="review-empty-state"><strong>${group.name}</strong><span>Verified feedback coming soon.</span></div>`;
     return;
   }
 
