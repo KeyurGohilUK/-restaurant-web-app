@@ -81,14 +81,13 @@ nav a {
   height: 3.25rem;
   place-items: center;
   overflow: hidden;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--primary, #c5221f);
   border-radius: 50%;
-  background: rgb(255 250 244 / 0.96);
-  box-shadow: var(--shadow);
-  color: var(--ink);
+  background: var(--primary, #c5221f);
+  box-shadow: 0 0.8rem 1.8rem rgb(197 34 31 / 0.24);
+  color: var(--white, #ffffff);
   font-size: 0;
   text-decoration: none;
-  backdrop-filter: blur(0.75rem);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -97,6 +96,7 @@ nav a {
     opacity 180ms ease,
     transform 220ms ease,
     box-shadow 160ms ease,
+    background-color 160ms ease,
     visibility 0s linear 220ms;
 }
 
@@ -109,6 +109,7 @@ nav a {
     opacity 180ms ease,
     transform 220ms ease,
     box-shadow 160ms ease,
+    background-color 160ms ease,
     visibility 0s;
 }
 
@@ -141,7 +142,14 @@ nav a {
 }
 
 .footer-links a[href='#home'].is-visible:hover {
+  background: var(--accent-dark, #9d1715);
+  box-shadow: 0 0.95rem 2rem rgb(197 34 31 / 0.3);
   transform: translateY(-0.15rem) scale(1);
+}
+
+.footer-links a[href='#home']:focus-visible {
+  outline: 3px solid var(--tertiary, #eaa315);
+  outline-offset: 3px;
 }
 
 @media (max-width: 52rem) {

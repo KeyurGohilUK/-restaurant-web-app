@@ -89,7 +89,7 @@ const renderMenu = (categoryId = 'all') => {
     .map(
       (category) => `
         <section class="menu-category" aria-labelledby="menu-${category.id}">
-          <div class="menu-category-heading"><h3 id="menu-${category.id}">${category.name}</h3><span>${category.items.length}</span></div>
+          <div class="menu-category-heading"><h3 id="menu-${category.id}">${category.name}</h3></div>
           <div class="menu-item-grid">
             ${category.items
               .map((item) => {
