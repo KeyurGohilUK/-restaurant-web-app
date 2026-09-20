@@ -68,7 +68,7 @@ export const menuCategories: readonly MenuCategory[] = [
   },
   {
     id: 'punjabi-curries',
-    name: 'Punjabi Curries',
+    name: 'North India Curries',
     items: [
       { name: 'Paneer Tikka Masala', price: '£9.05', description: 'Paneer in a rich tomato-based masala gravy.' },
       { name: 'Mattar Paneer', price: '£7.75', description: 'Paneer and green peas in a gently spiced gravy.' },

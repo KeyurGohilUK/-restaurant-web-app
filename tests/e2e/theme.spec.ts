@@ -50,3 +50,34 @@ test('clearly highlights the current section in primary navigation', async ({ pa
   await expect(reviewsLink).toHaveCSS('color', 'rgb(255, 255, 255)');
   await expect(homeLink).not.toHaveCSS('background-color', 'rgb(197, 34, 31)');
 });
+
+test('positions selected sections directly below the navigation instead of showing the previous section', async ({
+  page,
+}) => {
+  await page.goto('./');
+
+  const navToggle = page.locator('#nav-toggle');
+  if (await navToggle.isVisible()) await navToggle.click();
+
+  await page.locator("#primary-navigation a[href='#menu']").click();
+  await expect(page).toHaveURL(/#menu$/);
+
+  const menuSection = page.locator('#menu');
+  const readPosition = () =>
+    menuSection.evaluate((section) => ({
+      top: section.getBoundingClientRect().top,
+      scrollPaddingTop: Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop),
+    }));
+
+  await expect
+    .poll(async () => {
+      const position = await readPosition();
+      return position.top - position.scrollPaddingTop;
+    })
+    .toBeLessThanOrEqual(24);
+
+  const position = await readPosition();
+
+  expect(position.top).toBeGreaterThanOrEqual(position.scrollPaddingTop - 2);
+  expect(position.top).toBeLessThanOrEqual(position.scrollPaddingTop + 24);
+});

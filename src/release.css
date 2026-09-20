@@ -1,9 +1,5 @@
 @import './mobile-nav.css';
 
-section[id] {
-  scroll-margin-top: 8.5rem;
-}
-
 .brand {
   position: relative;
   width: 4.25rem;
@@ -18,7 +14,7 @@ section[id] {
   display: block;
   width: 4rem;
   height: 4rem;
-  background: url('/-restaurant-web-app/masala-munch-logo.png') center / contain no-repeat;
+  background: url('/restaurant-web-app/masala-munch-logo.png') center / contain no-repeat;
 }
 
 .brand-wordmark {
@@ -155,10 +151,6 @@ nav a {
 }
 
 @media (max-width: 40rem) {
-  section[id] {
-    scroll-margin-top: 5rem;
-  }
-
   .brand {
     width: 3.75rem;
     height: 3.75rem;
