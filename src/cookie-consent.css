@@ -1,3 +1,5 @@
+@import './theme.css';
+
 .cookie-consent {
   position: fixed;
   right: 1rem;
@@ -9,8 +11,8 @@
   padding: 1rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  background: rgb(255 255 255 / 0.98);
-  box-shadow: 0 1.25rem 3rem rgb(36 20 10 / 0.2);
+  background: rgb(255 247 244 / 0.98);
+  box-shadow: var(--shadow-lg);
   backdrop-filter: blur(1rem);
 }
 
@@ -32,6 +34,8 @@
 
 .cookie-consent-copy strong {
   margin-bottom: 0.2rem;
+  color: var(--neutral);
+  font-family: Epilogue, "Avenir Next", Avenir, ui-sans-serif, system-ui, sans-serif;
   font-size: 1rem;
 }
 
@@ -51,21 +55,21 @@
 .cookie-settings {
   min-height: 2.75rem;
   padding: 0.65rem 1rem;
-  border-radius: 999px;
+  border-radius: 0.8rem;
   font: inherit;
   font-weight: 800;
   cursor: pointer;
 }
 
 .cookie-choice {
-  border: 1px solid var(--ink);
-  background: transparent;
-  color: var(--ink);
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+  color: var(--neutral);
 }
 
 .cookie-choice-primary {
-  border-color: var(--accent);
-  background: var(--accent);
+  border-color: var(--primary);
+  background: var(--primary);
   color: var(--white);
 }
 

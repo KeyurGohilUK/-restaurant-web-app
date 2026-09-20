@@ -1,0 +1,604 @@
+:root {
+  --primary: #c5221f;
+  --secondary: #e86a17;
+  --tertiary: #eaa315;
+  --neutral: #2c140e;
+  --ink: #2c140e;
+  --muted: #765f58;
+  --surface: #fff7f4;
+  --surface-soft: #fdf0ec;
+  --surface-strong: #f8e7e2;
+  --surface-deep: #f2d8d1;
+  --accent: #c5221f;
+  --accent-dark: #9d1715;
+  --line: #e7c4bc;
+  --white: #ffffff;
+  --radius-xl: 2rem;
+  --radius-lg: 1.5rem;
+  --radius-md: 1rem;
+  --radius-sm: 0.75rem;
+  --shadow-sm: 0 0.5rem 1.4rem rgb(44 20 14 / 0.07);
+  --shadow: 0 1.25rem 3rem rgb(44 20 14 / 0.11);
+  --shadow-lg: 0 2rem 4.5rem rgb(44 20 14 / 0.16);
+}
+
+body {
+  font-family:
+    'Plus Jakarta Sans',
+    'Avenir Next',
+    Avenir,
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 4%, rgb(232 106 23 / 0.08), transparent 24rem),
+    linear-gradient(180deg, var(--surface) 0%, #fffaf8 42%, var(--surface) 100%);
+}
+
+body::selection {
+  background: rgb(197 34 31 / 0.2);
+}
+
+.site-header {
+  border-bottom-color: rgb(231 196 188 / 0.72);
+  background: rgb(255 247 244 / 0.9);
+  box-shadow: 0 0.4rem 1.2rem rgb(44 20 14 / 0.035);
+}
+
+.header-inner {
+  min-height: 5.25rem;
+}
+
+.brand-logo {
+  width: 3.75rem;
+  height: 3.75rem;
+  filter: drop-shadow(0 0.35rem 0.5rem rgb(44 20 14 / 0.08));
+}
+
+nav {
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem;
+  border: 1px solid rgb(231 196 188 / 0.72);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.64);
+  box-shadow: var(--shadow-sm);
+}
+
+nav a {
+  display: inline-flex;
+  min-height: 2.65rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  color: var(--neutral);
+  font-family: Epilogue, 'Avenir Next', Avenir, ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+nav a:hover {
+  background: var(--surface-strong);
+  color: var(--primary);
+}
+
+nav a:active {
+  transform: translateY(1px);
+}
+
+.hero {
+  border: 1px solid rgb(44 20 14 / 0.08);
+  background: var(--neutral);
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-overlay,
+.visual-feature-overlay {
+  background:
+    linear-gradient(180deg, rgb(44 20 14 / 0.03) 20%, rgb(44 20 14 / 0.8) 100%),
+    linear-gradient(90deg, rgb(197 34 31 / 0.16), transparent 52%);
+}
+
+.hero h1,
+.section h2,
+.visit-section h2,
+.visual-feature h2,
+.menu-category-heading h3,
+.favourite-card h3 {
+  font-family: Epilogue, 'Avenir Next', Avenir, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.055em;
+}
+
+.hero h1 {
+  max-width: 9ch;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+.hero-intro {
+  max-width: 30rem;
+  color: rgb(255 255 255 / 0.88);
+  font-weight: 600;
+}
+
+.eyebrow {
+  color: var(--primary);
+  font-family: Epilogue, 'Avenir Next', Avenir, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.hero-eyebrow {
+  color: #fff1ed;
+}
+
+.button {
+  min-height: 3.15rem;
+  padding: 0.78rem 1.25rem;
+  border-radius: 0.8rem;
+  font-family: Epilogue, 'Avenir Next', Avenir, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 750;
+  box-shadow: none;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0.65rem 1.4rem rgb(44 20 14 / 0.12);
+}
+
+.button-primary {
+  border-color: var(--primary);
+  background: var(--primary);
+}
+
+.button-primary:hover {
+  border-color: #ad1d1a;
+  background: #ad1d1a;
+}
+
+.button-secondary {
+  border-color: var(--line);
+  background: var(--surface-soft);
+}
+
+.button-secondary:hover {
+  border-color: #dca79b;
+  background: var(--surface-strong);
+}
+
+.button-light {
+  border-color: rgb(255 255 255 / 0.82);
+  background: rgb(255 247 244 / 0.95);
+  color: var(--neutral);
+}
+
+.section,
+.visit-section {
+  position: relative;
+  border-bottom-color: rgb(231 196 188 / 0.72);
+}
+
+.compact-heading {
+  margin-bottom: 2rem;
+}
+
+.compact-heading .text-link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  padding: 0.45rem 0.8rem;
+  border-radius: 0.7rem;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.compact-heading .text-link:hover {
+  background: var(--surface-strong);
+}
+
+.favourites-grid {
+  gap: 1.1rem;
+}
+
+.favourite-card {
+  border: 1px solid rgb(44 20 14 / 0.08);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.favourite-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.favourite-card::after {
+  background:
+    linear-gradient(180deg, transparent 24%, rgb(44 20 14 / 0.82) 100%),
+    linear-gradient(90deg, rgb(197 34 31 / 0.14), transparent 65%);
+}
+
+.menu-toolbar {
+  gap: 0.7rem;
+  padding-block: 0.35rem 0.9rem;
+}
+
+.menu-filter,
+.review-filter {
+  min-height: 2.7rem;
+  padding: 0.62rem 1rem;
+  border-color: var(--line);
+  background: var(--surface-soft);
+  color: var(--neutral);
+  font-family: Epilogue, 'Avenir Next', Avenir, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.menu-filter:hover,
+.review-filter:hover {
+  border-color: rgb(197 34 31 / 0.36);
+  background: var(--surface-strong);
+}
+
+.menu-filter.is-active,
+.review-filter.is-active {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: 0 0.5rem 1rem rgb(197 34 31 / 0.18);
+}
+
+.dietary-note {
+  padding: 1.05rem 1.15rem;
+  border: 1px solid rgb(232 106 23 / 0.2);
+  border-left: 0.28rem solid var(--secondary);
+  background: linear-gradient(90deg, rgb(232 106 23 / 0.09), var(--surface-soft));
+  color: var(--muted);
+  box-shadow: var(--shadow-sm);
+}
+
+.dietary-note strong {
+  color: var(--neutral);
+}
+
+.dietary-note a {
+  color: var(--primary);
+  text-underline-offset: 0.2em;
+}
+
+.menu-categories {
+  gap: 3.75rem;
+}
+
+.menu-category-heading {
+  margin-bottom: 1.15rem;
+}
+
+.menu-category-heading h3 {
+  color: var(--neutral);
+  font-weight: 750;
+}
+
+.menu-category-heading span {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.menu-item-grid {
+  gap: 1.1rem;
+}
+
+.menu-item-card {
+  border-color: rgb(231 196 188 / 0.8);
+  background: rgb(255 255 255 / 0.82);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.menu-item-card:hover {
+  transform: translateY(-2px);
+  border-color: rgb(197 34 31 / 0.22);
+  box-shadow: var(--shadow);
+}
+
+.menu-item-card-copy {
+  padding: 1.05rem 1.05rem 1.15rem;
+}
+
+.menu-item-title-row strong {
+  color: var(--primary);
+}
+
+.menu-item-card p {
+  color: var(--muted);
+}
+
+.visual-feature {
+  border: 1px solid rgb(44 20 14 / 0.08);
+  background: var(--neutral);
+  box-shadow: var(--shadow);
+}
+
+.occasion-strip {
+  gap: 0.7rem;
+  margin-top: 1.15rem;
+}
+
+.occasion-pill {
+  border-color: rgb(231 196 188 / 0.85);
+  background: var(--surface-soft);
+  color: var(--neutral);
+  box-shadow: var(--shadow-sm);
+}
+
+.occasion-pill:nth-child(2n) {
+  border-color: rgb(232 106 23 / 0.22);
+  background: rgb(232 106 23 / 0.08);
+}
+
+.rating-grid {
+  gap: 1.1rem;
+}
+
+.rating-card,
+.review-empty-state,
+.review-card,
+.hours-card {
+  border-color: rgb(231 196 188 / 0.86);
+  background: rgb(255 255 255 / 0.82);
+  box-shadow: var(--shadow-sm);
+}
+
+.rating-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.rating-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0.25rem;
+  background: linear-gradient(180deg, var(--primary), var(--secondary), var(--tertiary));
+}
+
+.rating-card strong {
+  color: var(--primary);
+}
+
+.rating-card a {
+  color: var(--primary);
+  font-weight: 750;
+}
+
+.review-card {
+  border-left: 0.28rem solid var(--tertiary);
+}
+
+.visit-section {
+  gap: 2.5rem;
+}
+
+.visit-main {
+  padding: 1.25rem 0;
+}
+
+.hours-card {
+  padding: 1.65rem;
+}
+
+.hours-card h3 {
+  color: var(--neutral);
+  font-family: Epilogue, 'Avenir Next', Avenir, ui-sans-serif, system-ui, sans-serif;
+}
+
+.hours-card dl > div {
+  border-bottom-color: rgb(231 196 188 / 0.7);
+}
+
+.site-footer {
+  position: relative;
+  margin-top: 1rem;
+  border-top: 1px solid rgb(231 196 188 / 0.8);
+  color: var(--neutral);
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: min(12rem, 35%);
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--tertiary));
+}
+
+.footer-links {
+  align-items: center;
+}
+
+.footer-links a,
+.cookie-settings {
+  color: var(--neutral);
+}
+
+.nav-toggle {
+  border-color: var(--line);
+  background: var(--surface-soft);
+  color: var(--neutral);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-toggle:hover {
+  border-color: rgb(197 34 31 / 0.35);
+  background: var(--surface-strong);
+}
+
+.cookie-consent {
+  border-color: rgb(231 196 188 / 0.9);
+  background: rgb(255 247 244 / 0.97);
+  box-shadow: var(--shadow-lg);
+}
+
+.cookie-consent-copy strong {
+  color: var(--neutral);
+  font-family: Epilogue, 'Avenir Next', Avenir, ui-sans-serif, system-ui, sans-serif;
+}
+
+.cookie-choice {
+  border-color: var(--line);
+  background: var(--surface-soft);
+  color: var(--neutral);
+}
+
+.cookie-choice-primary {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--white);
+}
+
+.cookie-choice:hover {
+  border-color: rgb(197 34 31 / 0.3);
+  background: var(--surface-strong);
+}
+
+.cookie-choice-primary:hover {
+  border-color: #ad1d1a;
+  background: #ad1d1a;
+}
+
+:focus-visible {
+  outline-color: var(--primary);
+}
+
+@media (max-width: 52rem) {
+  nav {
+    border-radius: 1rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .site-header {
+    background: var(--surface);
+  }
+
+  .header-inner {
+    padding-block: 0.6rem;
+  }
+
+  .brand-logo {
+    width: 3.35rem;
+    height: 3.35rem;
+  }
+
+  #primary-navigation,
+  #primary-navigation.is-open {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  #primary-navigation.is-open {
+    margin-top: 0.35rem;
+    padding: 0.45rem;
+    border-radius: 1rem;
+    background: var(--surface-soft);
+    box-shadow: var(--shadow-sm);
+  }
+
+  #primary-navigation a {
+    border-bottom-color: rgb(231 196 188 / 0.7);
+    border-radius: 0.7rem;
+  }
+
+  #primary-navigation a:hover {
+    background: var(--surface-strong);
+  }
+
+  .hero {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .hero-copy {
+    padding-bottom: 0.5rem;
+  }
+
+  .hero h1 {
+    max-width: 8ch;
+  }
+
+  .section,
+  .visit-section {
+    padding-inline: 1rem;
+  }
+
+  .compact-heading {
+    align-items: flex-start;
+  }
+
+  .dietary-note {
+    align-items: flex-start;
+    border-radius: 0.9rem;
+  }
+
+  .dietary-note a {
+    margin-left: 0;
+  }
+
+  .menu-item-card,
+  .rating-card,
+  .review-empty-state,
+  .review-card,
+  .hours-card {
+    border-radius: 1rem;
+  }
+
+  .visual-feature {
+    border-radius: 1.25rem;
+  }
+
+  .site-footer {
+    padding-inline: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  nav a,
+  .button,
+  .favourite-card,
+  .favourite-card img,
+  .menu-filter,
+  .review-filter,
+  .menu-item-card {
+    transition: none;
+  }
+}

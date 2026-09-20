@@ -1,0 +1,24 @@
+dist
+node_modules
+playwright-report
+test-results
+coverage
+
+# Existing files that predate Prettier adoption. Remove entries as files are formatted.
+FEATURES.md
+index.html
+public/404.html
+src/about.css
+src/content/about-content.ts
+src/content/media-content.ts
+src/content/menu-content.ts
+src/cookie-consent.css
+src/main.ts
+src/media.css
+src/mobile-nav.css
+src/reviews.css
+src/styles.css
+tests/e2e/cookie-consent.spec.ts
+tests/e2e/site.spec.ts
+tests/unit/media-content.test.ts
+tests/unit/review-content.test.ts
