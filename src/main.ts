@@ -4,6 +4,7 @@ import './release.css';
 import './media.css';
 import './mobile-nav.css';
 import './cookie-consent.css';
+import './visit-map.css';
 import './back-to-top';
 import './cookie-consent';
 import { cateringOccasions } from './content/catering-content';
@@ -185,6 +186,26 @@ if (address) address.textContent = restaurant.address;
 
 const mapLink = document.querySelector<HTMLAnchorElement>('#map-link');
 if (mapLink) mapLink.href = restaurant.mapHref;
+
+const visitMain = document.querySelector<HTMLElement>('.visit-main');
+if (visitMain) {
+  const encodedAddress = encodeURIComponent(restaurant.address);
+  const mapPreview = document.createElement('div');
+  mapPreview.className = 'visit-map';
+  mapPreview.innerHTML = `
+    <iframe
+      title="Map showing ${restaurant.shortName} on Fishponds Road"
+      src="https://www.google.com/maps?q=${encodedAddress}&output=embed"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      tabindex="-1"
+      aria-hidden="true"
+    ></iframe>
+    <a class="visit-map-link" href="${restaurant.mapHref}" target="_blank" rel="noreferrer" aria-label="Open directions to ${restaurant.shortName} in Google Maps">
+      <span>Tap map for directions ↗</span>
+    </a>`;
+  visitMain.append(mapPreview);
+}
 
 const phoneLink = document.querySelector<HTMLAnchorElement>('#phone-link');
 if (phoneLink) {
