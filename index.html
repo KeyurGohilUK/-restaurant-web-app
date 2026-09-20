@@ -76,58 +76,66 @@
           <span class="nav-toggle-line" aria-hidden="true"></span>
         </button>
         <nav id="primary-navigation" aria-label="Primary navigation">
-          <a href="#home">Home</a><a href="#menu">Menu</a><a href="#dietary">Dietary</a><a href="#catering">Catering</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
+          <a href="#home">Home</a><a href="#menu">Menu</a><a href="#catering">Catering</a><a href="#reviews">Reviews</a><a href="#contact">Visit</a>
         </nav>
       </div>
     </header>
 
     <main id="main-content">
-      <section class="hero" id="home">
+      <section class="hero" id="home" aria-labelledby="hero-title">
+        <img id="hero-food-image" class="hero-image" alt="" decoding="async" fetchpriority="high" />
+        <div class="hero-overlay" aria-hidden="true"></div>
         <div class="hero-copy">
-          <p class="eyebrow">Bristol · Indian street food</p>
-          <h1>Big flavour. Street-food soul.</h1>
-          <p class="hero-intro">Chaat, Indian café favourites and comforting classics made for casual meals, celebrations and catering across Bristol.</p>
-          <div class="hero-actions"><a class="button button-primary" href="#menu">Explore the menu</a></div>
+          <p class="eyebrow hero-eyebrow">Bristol · Indian street food</p>
+          <h1 id="hero-title">Masala Munch</h1>
+          <p class="hero-intro">Indian street food. Made in Bristol.</p>
+          <a class="button button-light" href="#menu">Explore menu</a>
         </div>
-        <figure class="hero-media">
-          <img id="hero-food-image" alt="" decoding="async" fetchpriority="high" />
-          <figcaption><strong>Masala Munch by Shreeji Food</strong><span>Food image from the restaurant’s current website</span></figcaption>
-        </figure>
+      </section>
+
+      <section class="section favourites-section" aria-labelledby="favourites-title">
+        <div class="compact-heading"><div><p class="eyebrow">Our favourites</p><h2 id="favourites-title">Start here.</h2></div><a class="text-link" href="#menu">Full menu →</a></div>
+        <div class="favourites-grid" id="favourites-grid"></div>
       </section>
 
       <section class="section menu-section" id="menu" aria-labelledby="menu-title">
-        <div class="section-heading"><div><p class="eyebrow">Full menu</p><h2 id="menu-title">Explore by category.</h2></div><p>Browse the current menu by category. Prices are shown for reference and may change.</p></div>
+        <div class="compact-heading"><div><p class="eyebrow">Menu</p><h2 id="menu-title">Pick your favourites.</h2></div></div>
         <div class="menu-toolbar" aria-label="Menu categories"><button class="menu-filter is-active" type="button" data-menu-filter="all" aria-pressed="true">All</button><div id="menu-filters"></div></div>
-        <p class="menu-note">Allergies or dietary requirements? <a href="#dietary">Read our dietary guidance</a> and speak to the restaurant before choosing food.</p>
+        <aside class="dietary-note" aria-label="Dietary information">
+          <strong>Dietary information</strong>
+          <span>Tell us about allergies or dietary requirements before choosing food.</span>
+          <a id="dietary-phone-link">Call us</a>
+        </aside>
         <div id="menu-categories" class="menu-categories" aria-live="polite"></div>
       </section>
 
-      <section class="section dietary-section" id="dietary" aria-labelledby="dietary-title">
-        <div class="section-heading"><div><p class="eyebrow">Allergies & dietary needs</p><h2 id="dietary-title">Check with us before you choose.</h2></div><div><p>We do not currently publish item-by-item allergen, vegan or other dietary badges unless that information has been specifically verified.</p><a class="button button-primary" id="dietary-phone-link">Call about dietary requirements</a></div></div>
-        <div class="dietary-grid"><article class="dietary-card"><h3>Before you visit</h3><p>Tell us about any allergy, intolerance or dietary requirement so the team can confirm current ingredients and suitability.</p></article><article class="dietary-card"><h3>At the restaurant</h3><p>Recipes, garnishes and preparation can change. Please confirm your requirements again when choosing your food.</p></article><article class="dietary-card"><h3>Website labels</h3><p>No dietary badge on this website should be treated as an allergen-safety guarantee. Unverified labels are intentionally not shown.</p></article></div>
-      </section>
-
       <section class="section catering-section" id="catering" aria-labelledby="catering-title">
-        <div class="section-heading"><div><p class="eyebrow">Catering & events</p><h2 id="catering-title">Plan food for your occasion.</h2></div><div><p>From family celebrations to larger group meals, tell us what you are planning and we can discuss suitable options from the current menu.</p><div class="catering-actions"><a class="button button-primary" id="catering-phone-link">Call about catering</a><a class="button button-secondary" href="#menu">Browse current menu</a></div></div></div>
-        <div class="catering-grid" id="catering-occasions"></div>
-        <div class="catering-detail-grid"><div class="catering-panel"><p class="eyebrow">How to plan</p><h3>Three useful details to start with.</h3><ol id="catering-steps"></ol></div><div class="catering-panel"><p class="eyebrow">Menu ideas</p><h3>Flexible starting points.</h3><div id="catering-menu-ideas"></div></div></div>
-        <p class="catering-notice" id="catering-notice"></p>
+        <div class="visual-feature">
+          <img id="catering-image" alt="Indian food arranged for sharing" loading="lazy" decoding="async" />
+          <div class="visual-feature-overlay" aria-hidden="true"></div>
+          <div class="visual-feature-copy">
+            <p class="eyebrow hero-eyebrow">Catering & events</p>
+            <h2 id="catering-title">Food worth gathering for.</h2>
+            <a class="button button-light" id="catering-phone-link">Call about catering</a>
+          </div>
+        </div>
+        <div class="occasion-strip" id="catering-occasions"></div>
       </section>
 
       <section class="section reviews-section" id="reviews" aria-labelledby="reviews-title">
-        <div class="section-heading"><div><p class="eyebrow">Reviews</p><h2 id="reviews-title">Trusted feedback, clearly sourced.</h2></div><p>External ratings are shown with their source and checked date. Individual review text is only published when verified and approved.</p></div>
+        <div class="compact-heading"><div><p class="eyebrow">Reviews</p><h2 id="reviews-title">What people are saying.</h2></div></div>
         <div class="rating-grid" id="external-ratings" aria-label="External review ratings"></div>
-        <div class="reviews-browser"><div><h3>Browse by occasion</h3><p class="review-helper">Restaurant, catering, events and large-order feedback stay separate so visitors can find what is relevant to them.</p></div><div class="review-filter-list" id="review-filters" aria-label="Review categories"></div></div>
+        <div class="review-filter-list" id="review-filters" aria-label="Review categories"></div>
         <div id="review-results" class="review-results" aria-live="polite"></div>
       </section>
 
       <section class="visit-section" id="contact" aria-labelledby="visit-title">
-        <div class="visit-main"><p class="eyebrow">Visit us</p><h2 id="visit-title">Find Masala Munch in Bristol.</h2><p class="address" id="restaurant-address"></p><div class="contact-actions"><a class="button button-primary" id="map-link" target="_blank" rel="noreferrer">Get directions</a><a class="button button-secondary" id="phone-link">Call us</a></div></div>
+        <div class="visit-main"><p class="eyebrow">Visit</p><h2 id="visit-title">Find us in Bristol.</h2><p class="address" id="restaurant-address"></p><div class="contact-actions"><a class="button button-primary" id="map-link" target="_blank" rel="noreferrer">Directions</a><a class="button button-secondary" id="phone-link">Call</a></div></div>
         <div class="hours-card"><h3>Opening hours</h3><dl id="opening-hours"></dl></div>
       </section>
     </main>
 
-    <footer class="site-footer"><div><strong>Masala Munch by Shreeji Food</strong><p>Indian street food, chaat, catering and comfort classics in Bristol.</p></div><div class="footer-links"><a href="#dietary">Dietary guidance</a><a href="#home">Back to top ↑</a></div></footer>
+    <footer class="site-footer"><strong>Masala Munch by Shreeji Food</strong><div class="footer-links"><a href="#menu">Menu</a><a href="#contact">Visit</a><a href="#home">Top ↑</a></div></footer>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
