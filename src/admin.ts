@@ -194,21 +194,26 @@ const importBundledMenu = async () => {
 
 const renderCategories = () => {
   if (!adminContent || !content) return;
-  const importButton = content.categories.length === 0
-    ? '<button id="import-menu" class="admin-secondary" type="button">Import current menu</button>'
-    : '';
+  const importButton =
+    content.categories.length === 0
+      ? '<button id="import-menu" class="admin-secondary" type="button">Import current menu</button>'
+      : '';
   adminContent.innerHTML = `
     <div class="admin-section-head"><div><h2>Menu categories</h2><p class="admin-muted">Rename, reorder, hide or add menu sections.</p></div><div class="admin-actions">${importButton}<button id="add-category" class="admin-primary" type="button">Add category</button></div></div>
-    <div class="admin-grid">${content.categories.length === 0 ? '<div class="admin-empty">No managed categories yet. Import the current menu or add one.</div>' : content.categories
-      .map(
-        (row) => `<form class="admin-card admin-form category-form" data-id="${escapeHtml(row.id)}">
+    <div class="admin-grid">${
+      content.categories.length === 0
+        ? '<div class="admin-empty">No managed categories yet. Import the current menu or add one.</div>'
+        : content.categories
+            .map(
+              (row) => `<form class="admin-card admin-form category-form" data-id="${escapeHtml(row.id)}">
           <div class="admin-row">${field('ID', 'id', row.id, 'text', 'readonly')}${field('Name', 'name', row.name)}</div>
           ${field('Order', 'sort_order', row.sort_order, 'number')}
           ${checkbox('Visible', 'is_active', row.is_active)}
           <div class="admin-actions"><button class="admin-primary" type="submit">Save</button><button class="admin-danger category-delete" type="button">Delete</button></div>
         </form>`,
-      )
-      .join('')}</div>`;
+            )
+            .join('')
+    }</div>`;
 
   document.querySelector<HTMLButtonElement>('#import-menu')?.addEventListener('click', () => {
     void runAction(async () => {
@@ -221,7 +226,10 @@ const renderCategories = () => {
     if (!content || !accessToken) return;
     const name = window.prompt('Category name')?.trim();
     if (!name) return;
-    const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const id = name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
     const next: MenuCategoryRecord = {
       id,
       name,
@@ -273,12 +281,18 @@ const renderItems = () => {
   if (!adminContent || !content) return;
   adminContent.innerHTML = `
     <div class="admin-section-head"><div><h2>Menu items</h2><p class="admin-muted">Manage prices, descriptions, visibility, images and homepage favourites.</p></div><button id="add-item" class="admin-primary" type="button">Add item</button></div>
-    <div class="admin-grid">${content.items.length === 0 ? '<div class="admin-empty">No managed menu items yet.</div>' : content.items
-      .map(
-        (row) => `<form class="admin-card admin-form item-form" data-id="${row.id}">
+    <div class="admin-grid">${
+      content.items.length === 0
+        ? '<div class="admin-empty">No managed menu items yet.</div>'
+        : content.items
+            .map(
+              (row) => `<form class="admin-card admin-form item-form" data-id="${row.id}">
           <div class="admin-row">${field('Name', 'name', row.name)}${field('Price', 'price', row.price)}</div>
           <label>Category<select name="category_id">${content!.categories
-            .map((category) => `<option value="${escapeHtml(category.id)}" ${category.id === row.category_id ? 'selected' : ''}>${escapeHtml(category.name)}</option>`)
+            .map(
+              (category) =>
+                `<option value="${escapeHtml(category.id)}" ${category.id === row.category_id ? 'selected' : ''}>${escapeHtml(category.name)}</option>`,
+            )
             .join('')}</select></label>
           ${textarea('Description', 'description', row.description)}
           ${field('Image URL', 'image_url', row.image_url ?? '', 'url')}
@@ -286,8 +300,9 @@ const renderItems = () => {
           <div class="admin-row">${checkbox('Visible', 'is_active', row.is_active)}${checkbox('Featured on homepage', 'is_featured', row.is_featured)}</div>
           <div class="admin-actions"><button class="admin-primary" type="submit">Save</button><button class="admin-danger item-delete" type="button">Delete</button></div>
         </form>`,
-      )
-      .join('')}</div>`;
+            )
+            .join('')
+    }</div>`;
 
   document.querySelector<HTMLButtonElement>('#add-item')?.addEventListener('click', () => {
     if (!content || !accessToken || content.categories.length === 0) {
@@ -354,9 +369,12 @@ const renderReviews = () => {
   if (!adminContent || !content) return;
   adminContent.innerHTML = `
     <div class="admin-section-head"><div><h2>Reviews</h2><p class="admin-muted">Only publish reviews you have permission to reproduce.</p></div><button id="add-review" class="admin-primary" type="button">Add review</button></div>
-    <div class="admin-grid">${content.reviews.length === 0 ? '<div class="admin-empty">No managed reviews yet.</div>' : content.reviews
-      .map(
-        (row) => `<form class="admin-card admin-form review-form" data-id="${row.id}">
+    <div class="admin-grid">${
+      content.reviews.length === 0
+        ? '<div class="admin-empty">No managed reviews yet.</div>'
+        : content.reviews
+            .map(
+              (row) => `<form class="admin-card admin-form review-form" data-id="${row.id}">
           <label>Category<select name="category"><option value="restaurant" ${row.category === 'restaurant' ? 'selected' : ''}>Restaurant</option><option value="catering" ${row.category === 'catering' ? 'selected' : ''}>Catering</option><option value="events" ${row.category === 'events' ? 'selected' : ''}>Events</option><option value="large-orders" ${row.category === 'large-orders' ? 'selected' : ''}>Large orders</option></select></label>
           ${textarea('Review', 'quote', row.quote)}
           <div class="admin-row">${field('Customer name', 'customer_name', row.customer_name)}${field('Source', 'source', row.source)}</div>
@@ -365,8 +383,9 @@ const renderReviews = () => {
           ${checkbox('Visible', 'is_active', row.is_active)}
           <div class="admin-actions"><button class="admin-primary" type="submit">Save</button><button class="admin-danger review-delete" type="button">Delete</button></div>
         </form>`,
-      )
-      .join('')}</div>`;
+            )
+            .join('')
+    }</div>`;
 
   document.querySelector<HTMLButtonElement>('#add-review')?.addEventListener('click', () => {
     if (!content || !accessToken) return;

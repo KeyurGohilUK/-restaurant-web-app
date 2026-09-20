@@ -87,12 +87,7 @@ export const getSupabaseConfig = (): SupabaseConfig | null => {
   return { url: trimTrailingSlash(url), anonKey, adminEmail: adminEmail ?? '' };
 };
 
-const request = async <T>(
-  path: string,
-  init: RequestInit = {},
-  accessToken?: string,
-  prefer?: string,
-): Promise<T> => {
+const request = async <T>(path: string, init: RequestInit = {}, accessToken?: string, prefer?: string): Promise<T> => {
   const config = getSupabaseConfig();
   if (!config) throw new Error('Supabase is not configured.');
 
@@ -144,13 +139,27 @@ export const loadManagedContent = async (accessToken?: string): Promise<ManagedC
 };
 
 export const upsertRows = async <T extends object>(table: string, rows: T | T[], accessToken: string) =>
-  request<T[]>(`/rest/v1/${table}?on_conflict=${table === 'site_settings' ? 'id' : table === 'opening_hours' ? 'day_of_week' : 'id'}`, {
-    method: 'POST',
-    body: JSON.stringify(rows),
-  }, accessToken, 'resolution=merge-duplicates,return=representation');
+  request<T[]>(
+    `/rest/v1/${table}?on_conflict=${table === 'site_settings' ? 'id' : table === 'opening_hours' ? 'day_of_week' : 'id'}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(rows),
+    },
+    accessToken,
+    'resolution=merge-duplicates,return=representation',
+  );
 
 export const insertRows = async <T extends object>(table: string, rows: T | T[], accessToken: string) =>
-  request<T[]>(`/rest/v1/${table}`, { method: 'POST', body: JSON.stringify(rows) }, accessToken, 'return=representation');
+  request<T[]>(
+    `/rest/v1/${table}`,
+    { method: 'POST', body: JSON.stringify(rows) },
+    accessToken,
+    'return=representation',
+  );
 
 export const deleteRow = async (table: string, column: string, value: string | number, accessToken: string) =>
-  request<void>(`/rest/v1/${table}?${column}=eq.${encodeURIComponent(String(value))}`, { method: 'DELETE' }, accessToken);
+  request<void>(
+    `/rest/v1/${table}?${column}=eq.${encodeURIComponent(String(value))}`,
+    { method: 'DELETE' },
+    accessToken,
+  );
