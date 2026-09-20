@@ -51,7 +51,9 @@ test('clearly highlights the current section in primary navigation', async ({ pa
   await expect(homeLink).not.toHaveCSS('background-color', 'rgb(197, 34, 31)');
 });
 
-test('positions selected sections directly below the navigation instead of showing the previous section', async ({ page }) => {
+test('positions selected sections directly below the navigation instead of showing the previous section', async ({
+  page,
+}) => {
   await page.goto('./');
 
   const navToggle = page.locator('#nav-toggle');
@@ -62,7 +64,9 @@ test('positions selected sections directly below the navigation instead of showi
 
   const position = await page.locator('#menu').evaluate((section) => ({
     top: section.getBoundingClientRect().top,
-    scrollPaddingTop: Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop),
+    scrollPaddingTop: Number.parseFloat(
+      getComputedStyle(document.documentElement).scrollPaddingTop,
+    ),
   }));
 
   expect(position.top).toBeGreaterThanOrEqual(position.scrollPaddingTop - 2);
