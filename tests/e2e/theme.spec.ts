@@ -82,7 +82,9 @@ test('positions selected sections directly below the navigation instead of showi
   expect(position.top).toBeLessThanOrEqual(position.scrollPaddingTop + 24);
 });
 
-test('uses the brand colour for back to top and stops just below the absolute page top', async ({ page }) => {
+test('uses the brand colour for back to top and stops just below the absolute page top', async ({
+  page,
+}) => {
   await page.goto('./');
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
 
@@ -93,9 +95,7 @@ test('uses the brand colour for back to top and stops just below the absolute pa
 
   await backToTop.click();
   await expect(page).toHaveURL(/#home$/);
-  await expect
-    .poll(() => page.evaluate(() => window.scrollY))
-    .toBeLessThan(480);
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(480);
 
   expect(await page.evaluate(() => window.scrollY)).toBeGreaterThanOrEqual(40);
 });
