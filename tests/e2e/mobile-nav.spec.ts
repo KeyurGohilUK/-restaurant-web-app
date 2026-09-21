@@ -27,7 +27,10 @@ test('uses an animated hamburger menu on phone-sized screens', async ({ page }) 
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
   await expect(toggle).toHaveAccessibleName('Close navigation menu');
   await expect(navigation).toBeVisible();
-  await expect(navigation.getByRole('link', { name: 'Menu' })).toBeVisible();
+  const menuLink = navigation.getByRole('link', { name: 'Menu' });
+  await expect(menuLink).toBeVisible();
+  await expect(menuLink).toHaveCSS('justify-content', 'center');
+  await expect(menuLink).toHaveCSS('text-align', 'center');
   await expect(lines.nth(1)).toHaveCSS('opacity', '0');
   await waitForNavigationAnimation(page);
 
