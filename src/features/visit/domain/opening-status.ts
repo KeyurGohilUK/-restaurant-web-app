@@ -22,10 +22,7 @@ const toMinutes = (time: string) => {
   return hours * 60 + minutes;
 };
 
-export const getOpeningStatus = (
-  openingHours: readonly OpeningHoursEntry[],
-  at: Date = new Date(),
-): OpeningStatus => {
+export const getOpeningStatus = (openingHours: readonly OpeningHoursEntry[], at: Date = new Date()): OpeningStatus => {
   const parts = londonClock.formatToParts(at);
   const day = parts.find(({ type }) => type === 'weekday')?.value;
   const hour = Number(parts.find(({ type }) => type === 'hour')?.value);
