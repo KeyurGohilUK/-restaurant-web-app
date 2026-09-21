@@ -186,13 +186,13 @@ if (address) address.textContent = restaurant.address;
 
 const visitMain = document.querySelector<HTMLElement>('.visit-main');
 if (visitMain) {
-  const encodedAddress = encodeURIComponent(restaurant.address);
+  const encodedMapQuery = encodeURIComponent(restaurant.mapQuery);
   const mapPreview = document.createElement('div');
   mapPreview.className = 'visit-map';
   mapPreview.innerHTML = `
     <iframe
       title="Map showing ${restaurant.shortName} on Fishponds Road"
-      src="https://www.google.com/maps?q=${encodedAddress}&output=embed"
+      src="https://www.google.com/maps?q=${encodedMapQuery}&output=embed"
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
       tabindex="-1"
