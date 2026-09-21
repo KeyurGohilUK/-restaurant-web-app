@@ -59,6 +59,27 @@ test('supports keyboard access and avoids horizontal page overflow', async ({ pa
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
 });
 
+test('stops iPad scrolling at the page footer', async ({ page }) => {
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await page.goto('./');
+
+  await expect(page.locator('html')).toHaveCSS('overscroll-behavior-y', 'none');
+  await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }));
+
+  await expect
+    .poll(() =>
+      page.evaluate(() => document.documentElement.scrollHeight - window.innerHeight - window.scrollY),
+    )
+    .toBeLessThanOrEqual(1);
+
+  const spaceAfterFooter = await page.locator('.site-footer').evaluate(
+    (footer) =>
+      document.documentElement.scrollHeight -
+      (footer.getBoundingClientRect().bottom + window.scrollY),
+  );
+  expect(spaceAfterFooter).toBeLessThanOrEqual(1);
+});
+
 test('shows a compact footer with a current copyright year', async ({ page }) => {
   await page.goto('./');
 
