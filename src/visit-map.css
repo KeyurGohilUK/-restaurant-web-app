@@ -36,6 +36,22 @@
   gap: 0.55rem;
 }
 
+@media (min-width: 40.01rem) {
+  .visit-section {
+    align-items: stretch;
+  }
+
+  .visit-main {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+  }
+
+  .visit-map {
+    flex: 1 1 auto;
+  }
+}
+
 @media (max-width: 40rem) {
   .visit-map {
     min-height: 13.5rem;
