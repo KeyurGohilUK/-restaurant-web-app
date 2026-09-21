@@ -169,41 +169,81 @@
   }
 
   .rating-card {
-    gap: 0.8rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'brand arrow'
+      'score meta';
+    align-items: center;
+    gap: 0.85rem 1rem;
+    min-height: 0;
     padding: 1.05rem;
     border-radius: 1.1rem;
   }
 
+  .rating-card-brand {
+    grid-area: brand;
+    min-width: 0;
+    padding-right: 0;
+  }
+
   .rating-icon-wrap {
-    width: 3.15rem;
-    height: 3.15rem;
+    width: 3rem;
+    height: 3rem;
     border-radius: 0.8rem;
   }
 
   .rating-platform-icon {
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 1.75rem;
+    height: 1.75rem;
   }
 
   .rating-platform {
+    overflow: hidden;
     font-size: 0.98rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .rating-score-row {
+    grid-area: score;
+    align-self: center;
   }
 
   .rating-score-row strong {
-    font-size: 3.35rem;
+    font-size: clamp(2.8rem, 15vw, 3.4rem);
+  }
+
+  .rating-scale {
+    font-size: 0.95rem;
   }
 
   .rating-card-footer {
-    align-items: center;
+    grid-area: meta;
+    display: block;
+    min-width: 8.5rem;
+    margin-top: 0;
+    text-align: right;
+  }
+
+  .rating-card-footer > div {
+    justify-items: end;
+  }
+
+  .rating-card-footer b {
+    font-size: 0.86rem;
   }
 
   .rating-card-footer small {
-    max-width: 9rem;
+    max-width: 8.5rem;
+    font-size: 0.7rem;
   }
 
   .rating-card-arrow {
-    top: 0.9rem;
-    right: 0.9rem;
+    position: static;
+    grid-area: arrow;
+    justify-self: end;
+    width: 2.2rem;
+    height: 2.2rem;
   }
 }
 
