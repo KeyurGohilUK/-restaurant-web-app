@@ -106,7 +106,7 @@ test('shows streamlined visit actions, clickable map and current opening hours',
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
 
-  await expect(page.getByText('664 Fishponds Rd, Bristol BS16 3HJ')).toBeVisible();
+  await expect(page.getByText('Masala Munch by Shreeji Food', { exact: true })).toBeVisible();
   await expect(page.locator('.visit-map iframe')).toHaveAttribute(
     'src',
     /google\.com\/maps\?q=Masala%20Munch%20by%20Shreeji%20Food.*664%20Fishponds.*output=embed/,
