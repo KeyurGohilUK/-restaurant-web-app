@@ -16,6 +16,56 @@ import { getOpeningStatus } from './features/visit/domain/opening-status';
 
 const navToggle = document.querySelector<HTMLButtonElement>('#nav-toggle');
 const primaryNavigation = document.querySelector<HTMLElement>('#primary-navigation');
+const navigationLinks = Array.from(primaryNavigation?.querySelectorAll<HTMLAnchorElement>('a[href^="#"]') ?? []);
+const navigationSections = navigationLinks.flatMap((link) => {
+  const section = document.querySelector<HTMLElement>(link.hash);
+  return section ? [{ link, section }] : [];
+});
+
+const setActiveNavigationSection = (activeSection: HTMLElement) => {
+  navigationSections.forEach(({ link, section }) => {
+    if (section === activeSection) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+};
+
+const updateActiveNavigationSection = () => {
+  if (navigationSections.length === 0) return;
+
+  if (window.scrollY <= 1) {
+    setActiveNavigationSection(navigationSections[0].section);
+    return;
+  }
+
+  const isAtPageEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+  if (isAtPageEnd) {
+    setActiveNavigationSection(navigationSections.at(-1)!.section);
+    return;
+  }
+
+  const scrollPaddingTop = Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+  const activeSection = navigationSections.reduce(
+    (current, candidate) =>
+      candidate.section.getBoundingClientRect().top <= scrollPaddingTop + 1 ? candidate : current,
+    navigationSections[0],
+  );
+  setActiveNavigationSection(activeSection.section);
+};
+
+let navigationUpdateRequested = false;
+const requestNavigationUpdate = () => {
+  if (navigationUpdateRequested) return;
+  navigationUpdateRequested = true;
+  window.requestAnimationFrame(() => {
+    updateActiveNavigationSection();
+    navigationUpdateRequested = false;
+  });
+};
+
+updateActiveNavigationSection();
+window.addEventListener('scroll', requestNavigationUpdate, { passive: true });
+window.addEventListener('resize', requestNavigationUpdate);
+window.addEventListener('hashchange', requestNavigationUpdate);
 
 const setNavigationOpen = (isOpen: boolean) => {
   if (!navToggle || !primaryNavigation) return;
@@ -34,6 +84,7 @@ primaryNavigation?.addEventListener('click', async (event) => {
   const wasOpen = navToggle?.getAttribute('aria-expanded') === 'true';
   const destination = document.querySelector<HTMLElement>(event.target.hash);
   setNavigationOpen(false);
+  if (destination) setActiveNavigationSection(destination);
 
   if (!phoneNavigation.matches || !wasOpen || !destination) return;
 

@@ -43,12 +43,19 @@ test('clearly highlights the current section in primary navigation', async ({ pa
 
   await expect(homeLink).toHaveCSS('background-color', 'rgb(197, 34, 31)');
   await expect(homeLink).toHaveCSS('color', 'rgb(255, 255, 255)');
+  await expect(homeLink).toHaveAttribute('aria-current', 'page');
 
   await reviewsLink.click();
   await expect(page).toHaveURL(/#reviews$/);
   await expect(reviewsLink).toHaveCSS('background-color', 'rgb(197, 34, 31)');
   await expect(reviewsLink).toHaveCSS('color', 'rgb(255, 255, 255)');
+  await expect(reviewsLink).toHaveAttribute('aria-current', 'page');
   await expect(homeLink).not.toHaveCSS('background-color', 'rgb(197, 34, 31)');
+
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect(homeLink).toHaveAttribute('aria-current', 'page');
+  await expect(reviewsLink).not.toHaveAttribute('aria-current', 'page');
+  await expect(homeLink).toHaveCSS('background-color', 'rgb(197, 34, 31)');
 });
 
 test('keeps the open mobile navigation compact and uses full-width menu rows', async ({ page }) => {
