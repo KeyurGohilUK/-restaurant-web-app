@@ -112,6 +112,22 @@ test('shows streamlined visit actions, clickable map and current opening hours',
   await expect(page.getByRole('heading', { name: 'Opening hours' })).toBeVisible();
   await expect(page.getByText('14:00–22:00')).toBeVisible();
   await expect(page.getByText('17:00–22:00')).toHaveCount(5);
+
+  const status = page.locator('#opening-status');
+  await expect(status).toHaveAttribute('data-state', /open|closed/);
+  await expect(page.locator('#opening-status-label')).toHaveText(/Open now|Closed now/);
+
+  const hoursCard = page.locator('.hours-card');
+  await expect(hoursCard).toContainText('Last orders 15 minutes before closing.');
+  await expect(hoursCard.getByRole('link', { name: 'Call Masala Munch for click and collect' })).toHaveAttribute(
+    'href',
+    'tel:+447733849772',
+  );
+  await expect(hoursCard.locator('.visit-highlight')).toHaveCount(3);
+  await expect(hoursCard).toContainText('Walk-ins');
+  await expect(hoursCard).toContainText('Cards & Apple Pay');
+  await expect(hoursCard).toContainText('100% Pure Vegetarian');
+
   await expect(page.getByRole('heading', { name: 'Chaat', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Mumbai Special', exact: true })).toBeVisible();
 });
