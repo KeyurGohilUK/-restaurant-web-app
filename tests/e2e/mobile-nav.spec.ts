@@ -12,6 +12,7 @@ test('uses an animated hamburger menu on phone-sized screens', async ({ page }) 
   const lines = toggle.locator('.nav-toggle-line');
   const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
   const hero = page.locator('#home');
+  const header = page.locator('.site-header');
 
   await expect(toggle).toBeVisible();
   await expect(lines).toHaveCount(3);
@@ -22,7 +23,8 @@ test('uses an animated hamburger menu on phone-sized screens', async ({ page }) 
   await expect(toggle).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
   await expect(toggle).toHaveCSS('box-shadow', 'none');
   await expect(navigation).not.toBeVisible();
-  await expect(page.locator('.site-header')).toHaveCSS('position', 'relative');
+  await expect(header).toHaveCSS('position', 'sticky');
+  await expect(header).not.toHaveClass(/is-compact/);
 
   const heroTopClosed = await hero.evaluate((element) => element.getBoundingClientRect().top);
 
@@ -59,6 +61,16 @@ test('uses an animated hamburger menu on phone-sized screens', async ({ page }) 
   await expect(toggle).toHaveAccessibleName('Open navigation menu');
   await expect(toggle).toBeFocused();
   await expect(navigation).not.toBeVisible();
+
+  const expandedHeaderHeight = await header.evaluate((element) => element.getBoundingClientRect().height);
+  await page.evaluate(() => window.scrollTo(0, 160));
+  await expect(header).toHaveClass(/is-compact/);
+  await expect
+    .poll(() => header.evaluate((element) => element.getBoundingClientRect().height))
+    .toBeLessThan(expandedHeaderHeight);
+
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect(header).not.toHaveClass(/is-compact/);
 });
 
 test('closes the phone menu after selecting a navigation item', async ({ page }) => {
