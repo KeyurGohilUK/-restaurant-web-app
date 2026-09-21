@@ -2,7 +2,7 @@ export const restaurant = {
   name: 'Masala Munch by Shreeji Food',
   shortName: 'Masala Munch',
   tagline: 'Indian street food, chaat and comfort classics in Bristol.',
-  address: 'Masala Munch by Shreeji Food',
+  address: 'Masala Munch by Shreeji Food, Fishponds Rd, Bristol BS16 3HJ',
   locationAddress: '664 Fishponds Rd, Bristol BS16 3HJ',
   phoneDisplay: '07733 849772',
   phoneHref: 'tel:+447733849772',
