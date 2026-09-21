@@ -26,6 +26,22 @@ test('uses an animated hamburger menu on phone-sized screens', async ({ page }) 
   await expect(header).toHaveCSS('position', 'sticky');
   await expect(header).not.toHaveClass(/is-compact/);
 
+  const closedHeaderAlignment = await page.evaluate(() => {
+    const headerBounds = document.querySelector<HTMLElement>('.site-header')?.getBoundingClientRect();
+    const logoBounds = document.querySelector<HTMLElement>('.brand')?.getBoundingClientRect();
+    const toggleBounds = document.querySelector<HTMLElement>('#nav-toggle')?.getBoundingClientRect();
+    if (!headerBounds || !logoBounds || !toggleBounds) return null;
+    const headerCentre = headerBounds.top + headerBounds.height / 2;
+    return {
+      logoOffset: Math.abs(logoBounds.top + logoBounds.height / 2 - headerCentre),
+      toggleOffset: Math.abs(toggleBounds.top + toggleBounds.height / 2 - headerCentre),
+    };
+  });
+
+  expect(closedHeaderAlignment).not.toBeNull();
+  expect(closedHeaderAlignment?.logoOffset).toBeLessThanOrEqual(1);
+  expect(closedHeaderAlignment?.toggleOffset).toBeLessThanOrEqual(1);
+
   const heroTopClosed = await hero.evaluate((element) => element.getBoundingClientRect().top);
 
   await toggle.click();

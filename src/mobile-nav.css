@@ -134,7 +134,8 @@
     min-height: 5.5rem;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    gap: 0.55rem;
+    column-gap: 0.55rem;
+    row-gap: 0;
     padding-block: 0;
     transition: min-height 240ms cubic-bezier(0.22, 1, 0.36, 1);
   }
