@@ -1,5 +1,4 @@
-export const imagePlaceholder =
-  'https://consumer-component-library.roocdn.com/36.2.1/static/images/placeholder-restaurant-light.svg';
+export const imagePlaceholder = '/restaurant-placeholder.svg';
 
 export const restaurantMedia = {
   hero: {
