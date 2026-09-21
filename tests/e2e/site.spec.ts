@@ -102,6 +102,35 @@ test('publishes canonical metadata and Restaurant structured data', async ({ pag
   expect(structuredData).toContain('"image": "https://masalamunchbyshreejifood.com/');
 });
 
+test('publishes branded browser and mobile shortcut icons', async ({ page }) => {
+  await page.goto('./');
+
+  await expect(page.locator('link[rel="icon"][sizes="32x32"]')).toHaveAttribute(
+    'href',
+    '/restaurant-web-app/favicon-32.png',
+  );
+  await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute(
+    'href',
+    '/restaurant-web-app/apple-touch-icon.png',
+  );
+  await expect(page.locator('link[rel="manifest"]')).toHaveAttribute(
+    'href',
+    '/restaurant-web-app/site.webmanifest',
+  );
+
+  const manifestResponse = await page.request.get('./site.webmanifest');
+  expect(manifestResponse.ok()).toBe(true);
+  const manifest = (await manifestResponse.json()) as {
+    name: string;
+    icons: Array<{ src: string; sizes: string }>;
+  };
+  expect(manifest.name).toBe('Masala Munch by Shreeji Food');
+  expect(manifest.icons).toEqual([
+    { src: '/restaurant-web-app/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+    { src: '/restaurant-web-app/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+  ]);
+});
+
 test('shows streamlined visit actions, clickable map and current opening hours', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
