@@ -119,10 +119,11 @@
   .header-inner {
     position: relative;
     display: grid;
+    min-height: 5.5rem;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 0.55rem;
-    padding-block: 0.55rem;
+    padding-block: 0;
   }
 
   .brand {
@@ -132,12 +133,16 @@
     align-items: center;
     justify-content: center;
     align-self: center;
+    justify-self: start;
+    overflow: visible;
   }
 
   .brand-logo {
     width: 4rem;
     height: 4rem;
     object-fit: contain;
+    transform: scale(1.22);
+    transform-origin: center;
   }
 
   .nav-toggle {
