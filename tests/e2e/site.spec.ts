@@ -5,6 +5,7 @@ test('loads the visual homepage and exposes accessible primary navigation', asyn
   await page.goto('./');
 
   await expect(page.getByRole('heading', { level: 1, name: 'Masala Munch' })).toBeVisible();
+  await expect(page.getByText('100% Pure Vegetarian', { exact: true })).toBeVisible();
   const brand = page.getByRole('link', { name: 'Masala Munch by Shreeji Food home' });
   await expect(brand).toBeVisible();
   await expect(brand.locator('.brand-logo')).toHaveCount(1);
@@ -72,6 +73,7 @@ test('publishes canonical metadata and Restaurant structured data', async ({ pag
   const structuredData = await page.locator('script[type="application/ld+json"]').textContent();
   expect(structuredData).toContain('"@type": "Restaurant"');
   expect(structuredData).toContain('"telephone": "+447733849772"');
+  expect(structuredData).toContain('"servesCuisine": ["Indian", "Vegetarian"]');
   expect(structuredData).toContain('"postalCode": "BS16 3HJ"');
   expect(structuredData).toContain('"image": "https://masalamunchbyshreejifood.com/');
 });
