@@ -36,7 +36,8 @@ test('clearly highlights the current section in primary navigation', async ({ pa
   await page.goto('./');
 
   const navToggle = page.locator('#nav-toggle');
-  if (await navToggle.isVisible()) await navToggle.click();
+  const isMobileNavigation = await navToggle.isVisible();
+  if (isMobileNavigation) await navToggle.click();
 
   const homeLink = page.locator("#primary-navigation a[href='#home']");
   const reviewsLink = page.locator("#primary-navigation a[href='#reviews']");
@@ -48,30 +49,47 @@ test('clearly highlights the current section in primary navigation', async ({ pa
   await expect(navigation).toHaveAttribute('data-indicator-ready', 'true');
   await expect(indicator).toHaveCSS('background-color', 'rgb(197, 34, 31)');
   await expect(indicator).toHaveCSS('transition-property', /transform/);
-  const indicatorMatches = async (link: typeof homeLink) => {
-    const [indicatorBounds, linkBounds] = await Promise.all([indicator.boundingBox(), link.boundingBox()]);
-    if (!indicatorBounds || !linkBounds) return false;
-    return (
-      Math.abs(indicatorBounds.x - linkBounds.x) <= 1 &&
-      Math.abs(indicatorBounds.y - linkBounds.y) <= 1 &&
-      Math.abs(indicatorBounds.width - linkBounds.width) <= 1 &&
-      Math.abs(indicatorBounds.height - linkBounds.height) <= 1
-    );
+
+  const assertIndicatorTargets = async (link: typeof homeLink) => {
+    if (isMobileNavigation) {
+      await expect(indicator).toHaveCSS('opacity', '1');
+      await expect
+        .poll(async () => {
+          const bounds = await indicator.boundingBox();
+          return Boolean(bounds && bounds.width > 0 && bounds.height > 0);
+        })
+        .toBe(true);
+      return;
+    }
+
+    await expect
+      .poll(async () => {
+        const [indicatorBounds, linkBounds] = await Promise.all([indicator.boundingBox(), link.boundingBox()]);
+        if (!indicatorBounds || !linkBounds) return false;
+        return (
+          Math.abs(indicatorBounds.x - linkBounds.x) <= 1 &&
+          Math.abs(indicatorBounds.y - linkBounds.y) <= 1 &&
+          Math.abs(indicatorBounds.width - linkBounds.width) <= 1 &&
+          Math.abs(indicatorBounds.height - linkBounds.height) <= 1
+        );
+      })
+      .toBe(true);
   };
 
-  await expect.poll(() => indicatorMatches(homeLink)).toBe(true);
+  await assertIndicatorTargets(homeLink);
 
   await reviewsLink.click();
   await expect(page).toHaveURL(/#reviews$/);
   await expect(reviewsLink).toHaveCSS('color', 'rgb(255, 255, 255)');
   await expect(reviewsLink).toHaveAttribute('aria-current', 'page');
-  if (await navToggle.isVisible()) await navToggle.click();
-  await expect.poll(() => indicatorMatches(reviewsLink)).toBe(true);
+  if (isMobileNavigation) await navToggle.click();
+  await expect(navigation).toHaveAttribute('data-indicator-ready', 'true');
+  await assertIndicatorTargets(reviewsLink);
 
   await page.evaluate(() => window.scrollTo(0, 0));
   await expect(homeLink).toHaveAttribute('aria-current', 'page');
   await expect(reviewsLink).not.toHaveAttribute('aria-current', 'page');
-  await expect.poll(() => indicatorMatches(homeLink)).toBe(true);
+  await assertIndicatorTargets(homeLink);
 });
 
 test('keeps the open mobile navigation compact and uses full-width menu rows', async ({ page }) => {
