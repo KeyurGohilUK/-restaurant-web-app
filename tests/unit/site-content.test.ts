@@ -3,7 +3,7 @@ import { openingHours, restaurant, reviewCategories } from '../../src/content/si
 
 describe('site content', () => {
   it('keeps the core restaurant contact details available', () => {
-    expect(restaurant.address).toBe('Masala Munch by Shreeji Food');
+    expect(restaurant.address).toBe('Masala Munch by Shreeji Food, Fishponds Rd, Bristol BS16 3HJ');
     expect(restaurant.locationAddress).toContain('Bristol BS16 3HJ');
     expect(restaurant.phoneHref).toBe('tel:+447733849772');
     expect(restaurant.mapQuery).toContain('Masala Munch by Shreeji Food');
