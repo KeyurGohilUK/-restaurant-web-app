@@ -6,23 +6,13 @@
     transform 160ms ease;
 }
 
-body:not(:has(section:target)) #primary-navigation a[href='#home'],
-body:has(#home:target) #primary-navigation a[href='#home'],
-body:has(#menu:target) #primary-navigation a[href='#menu'],
-body:has(#catering:target) #primary-navigation a[href='#catering'],
-body:has(#reviews:target) #primary-navigation a[href='#reviews'],
-body:has(#contact:target) #primary-navigation a[href='#contact'] {
+#primary-navigation a[aria-current='page'] {
   background: var(--primary, #c5221f);
   color: var(--white, #ffffff);
   box-shadow: 0 0.45rem 1rem rgb(197 34 31 / 0.22);
 }
 
-body:not(:has(section:target)) #primary-navigation a[href='#home']:hover,
-body:has(#home:target) #primary-navigation a[href='#home']:hover,
-body:has(#menu:target) #primary-navigation a[href='#menu']:hover,
-body:has(#catering:target) #primary-navigation a[href='#catering']:hover,
-body:has(#reviews:target) #primary-navigation a[href='#reviews']:hover,
-body:has(#contact:target) #primary-navigation a[href='#contact']:hover {
+#primary-navigation a[aria-current='page']:hover {
   background: var(--primary, #c5221f);
   color: var(--white, #ffffff);
 }
@@ -166,12 +156,7 @@ body:has(#contact:target) #primary-navigation a[href='#contact']:hover {
     box-shadow: none;
   }
 
-  body:not(:has(section:target)) #primary-navigation a[href='#home'],
-  body:has(#home:target) #primary-navigation a[href='#home'],
-  body:has(#menu:target) #primary-navigation a[href='#menu'],
-  body:has(#catering:target) #primary-navigation a[href='#catering'],
-  body:has(#reviews:target) #primary-navigation a[href='#reviews'],
-  body:has(#contact:target) #primary-navigation a[href='#contact'] {
+  #primary-navigation a[aria-current='page'] {
     background: var(--primary, #c5221f);
     color: var(--white, #ffffff);
     box-shadow: none;
