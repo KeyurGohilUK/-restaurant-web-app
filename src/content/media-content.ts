@@ -1,7 +1,14 @@
+export const imagePlaceholder =
+  'https://consumer-component-library.roocdn.com/36.2.1/static/images/placeholder-restaurant-light.svg';
+
 export const restaurantMedia = {
   hero: {
     src: 'https://masalamunchbyshreejifood.com/cf-cgi/families/43185/resource-types/background.png?fit=cover&format=auto&height=2160&quality=90&width=3840',
     alt: 'Indian dishes, rice and naan from the existing Masala Munch website',
+  },
+  catering: {
+    src: '/catering-food-spread.jpg',
+    alt: 'Indian dishes arranged for catering and events at Masala Munch by Shreeji Food',
   },
   menuImages: {
     'Samosa Chaat': 'https://masalamunchbyshreejifood.com/cf-cgi/resource-types/menu-items/80737_5e36d4a5c76d8c7eaa2c4c225006a14a.png',
@@ -16,4 +23,4 @@ export const restaurantMedia = {
 export type MediaMenuItemName = keyof typeof restaurantMedia.menuImages;
 
 export const getMenuImage = (name: string) =>
-  restaurantMedia.menuImages[name as MediaMenuItemName] ?? null;
+  restaurantMedia.menuImages[name as MediaMenuItemName] ?? imagePlaceholder;
