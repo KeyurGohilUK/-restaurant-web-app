@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Restaurant image placeholder</title>
+  <desc id="desc">A simple light placeholder illustration used when a menu item has no real photo.</desc>
+  <rect width="640" height="420" rx="24" fill="#f5f3ef"/>
+  <circle cx="320" cy="188" r="92" fill="#ffffff" stroke="#d8d3ca" stroke-width="10"/>
+  <circle cx="320" cy="188" r="54" fill="#ece8e1"/>
+  <path d="M210 112v150M190 112v62c0 24 40 24 40 0v-62M450 112v150M430 112c0 46 40 46 40 0" fill="none" stroke="#aaa398" stroke-width="12" stroke-linecap="round"/>
+  <path d="M244 318h152" stroke="#d8d3ca" stroke-width="10" stroke-linecap="round"/>
+</svg>
