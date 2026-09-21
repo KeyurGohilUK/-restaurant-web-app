@@ -115,6 +115,11 @@
     scroll-padding-top: 4.5rem;
   }
 
+  .section,
+  .visit-section {
+    scroll-margin-top: 1.5rem;
+  }
+
   .site-header {
     position: sticky;
     top: 0;
