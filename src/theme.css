@@ -392,11 +392,6 @@ nav a:active {
   color: var(--primary);
 }
 
-.rating-card a {
-  color: var(--primary);
-  font-weight: 750;
-}
-
 .review-card {
   border-left: 0.28rem solid var(--tertiary);
 }
@@ -454,15 +449,14 @@ main > .visit-section:last-child {
 }
 
 .nav-toggle {
-  border-color: var(--line);
-  background: var(--surface-soft);
+  border: 0;
+  background: transparent;
   color: var(--neutral);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
 }
 
 .nav-toggle:hover {
-  border-color: rgb(197 34 31 / 0.35);
-  background: var(--surface-strong);
+  background: rgb(197 34 31 / 0.07);
 }
 
 .cookie-consent {
