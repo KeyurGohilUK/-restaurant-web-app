@@ -121,7 +121,10 @@ if (heroFoodImage) {
 }
 
 const cateringImage = document.querySelector<HTMLImageElement>('#catering-image');
-if (cateringImage) cateringImage.src = restaurantMedia.hero.src;
+if (cateringImage) {
+  cateringImage.src = restaurantMedia.catering.src;
+  cateringImage.alt = restaurantMedia.catering.alt;
+}
 
 const favouriteNames = ['Samosa Chaat', 'Dahi Puri', 'Mattar Paneer'];
 const favouritesGrid = document.querySelector<HTMLDivElement>('#favourites-grid');
