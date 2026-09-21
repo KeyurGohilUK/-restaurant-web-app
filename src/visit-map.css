@@ -63,6 +63,10 @@
 }
 
 @media (max-width: 40rem) {
+  .visit-section {
+    gap: 1rem;
+  }
+
   .visit-map {
     min-height: 13.5rem;
     margin-top: 1.5rem;
