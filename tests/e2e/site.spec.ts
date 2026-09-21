@@ -5,7 +5,10 @@ test('loads the visual homepage and exposes accessible primary navigation', asyn
   await page.goto('./');
 
   await expect(page.getByRole('heading', { level: 1, name: 'Masala Munch' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Masala Munch by Shreeji Food home' })).toBeVisible();
+  const brand = page.getByRole('link', { name: 'Masala Munch by Shreeji Food home' });
+  await expect(brand).toBeVisible();
+  await expect(brand.locator('.brand-logo')).toHaveCount(1);
+  expect(await brand.evaluate((element) => getComputedStyle(element, '::before').backgroundImage)).toBe('none');
 
   const navigation = page.getByRole('navigation', { name: 'Primary navigation' });
   await expect(navigation).toBeVisible();
