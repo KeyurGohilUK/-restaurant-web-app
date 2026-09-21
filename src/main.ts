@@ -44,11 +44,9 @@ const updateNavigationIndicator = () => {
   const activeLink = navigationLinks.find((link) => link.getAttribute('aria-current') === 'page');
   if (!activeLink) return;
 
-  const navigationBounds = primaryNavigation.getBoundingClientRect();
-  const linkBounds = activeLink.getBoundingClientRect();
-  navigationIndicator.style.width = `${linkBounds.width}px`;
-  navigationIndicator.style.height = `${linkBounds.height}px`;
-  navigationIndicator.style.transform = `translate3d(${linkBounds.left - navigationBounds.left}px, ${linkBounds.top - navigationBounds.top}px, 0)`;
+  navigationIndicator.style.width = `${activeLink.offsetWidth}px`;
+  navigationIndicator.style.height = `${activeLink.offsetHeight}px`;
+  navigationIndicator.style.transform = `translate3d(${activeLink.offsetLeft}px, ${activeLink.offsetTop}px, 0)`;
   primaryNavigation.setAttribute('data-indicator-ready', 'true');
 };
 
