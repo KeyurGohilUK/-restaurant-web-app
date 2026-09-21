@@ -10,14 +10,6 @@
   justify-content: center;
 }
 
-.brand::before {
-  content: '';
-  display: block;
-  width: 4rem;
-  height: 4rem;
-  background: url('/restaurant-web-app/masala-munch-logo.png') center / contain no-repeat;
-}
-
 .brand-wordmark {
   position: absolute;
   width: 1px;
