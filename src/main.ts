@@ -16,6 +16,14 @@ import { getOpeningStatus } from './features/visit/domain/opening-status';
 
 const navToggle = document.querySelector<HTMLButtonElement>('#nav-toggle');
 const primaryNavigation = document.querySelector<HTMLElement>('#primary-navigation');
+const copyrightYear = document.querySelector<HTMLTimeElement>('#copyright-year');
+
+if (copyrightYear) {
+  const currentYear = String(new Date().getFullYear());
+  copyrightYear.dateTime = currentYear;
+  copyrightYear.textContent = currentYear;
+}
+
 const navigationLinks = Array.from(primaryNavigation?.querySelectorAll<HTMLAnchorElement>('a[href^="#"]') ?? []);
 const navigationSections = navigationLinks.flatMap((link) => {
   const section = document.querySelector<HTMLElement>(link.hash);
@@ -216,9 +224,10 @@ const ratingSummary = document.querySelector<HTMLDivElement>('#external-ratings'
 if (ratingSummary) {
   ratingSummary.innerHTML = externalRatings
     .map(
-      (rating) => `<article class="rating-card rating-card--${rating.id}">
+      (rating) => `<a class="rating-card rating-card--${rating.id}" href="${rating.href}" target="_blank" rel="noreferrer" aria-label="View ${rating.platform} reviews">
+        <span class="rating-card-arrow" aria-hidden="true">↗</span>
         <div class="rating-card-brand">
-          <span class="rating-icon-wrap"><img class="rating-platform-icon" src="${ratingIcons[rating.id]}" alt="" width="30" height="30" loading="lazy" /></span>
+          <span class="rating-icon-wrap"><img class="rating-platform-icon" src="${ratingIcons[rating.id]}" alt="" width="36" height="36" loading="lazy" /></span>
           <span class="rating-platform">${rating.platform}</span>
         </div>
         <div class="rating-score-row">
@@ -226,9 +235,8 @@ if (ratingSummary) {
         </div>
         <div class="rating-card-footer">
           <div><b>${rating.reviewCount} reviews</b><small>Checked ${rating.checkedDate}</small></div>
-          <a href="${rating.href}" target="_blank" rel="noreferrer" aria-label="View ${rating.platform} reviews">View reviews <span aria-hidden="true">↗</span></a>
         </div>
-      </article>`,
+      </a>`,
     )
     .join('');
 }

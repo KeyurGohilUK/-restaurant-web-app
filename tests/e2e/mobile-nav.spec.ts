@@ -18,6 +18,9 @@ test('uses an animated hamburger menu on phone-sized screens', async ({ page }) 
   await expect(lines.first()).toBeVisible();
   await expect(toggle).toHaveAccessibleName('Open navigation menu');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(toggle).toHaveCSS('border-top-width', '0px');
+  await expect(toggle).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+  await expect(toggle).toHaveCSS('box-shadow', 'none');
   await expect(navigation).not.toBeVisible();
   await expect(page.locator('.site-header')).toHaveCSS('position', 'relative');
 

@@ -59,6 +59,28 @@ test('supports keyboard access and avoids horizontal page overflow', async ({ pa
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
 });
 
+test('shows a compact footer with a current copyright year', async ({ page }) => {
+  await page.goto('./');
+
+  const footer = page.locator('.site-footer');
+  const currentYear = String(new Date().getFullYear());
+
+  await expect(footer).toContainText('Masala Munch by Shreeji Food');
+  await expect(footer).toContainText(`© ${currentYear} Masala Munch by Shreeji Food. All rights reserved.`);
+  await expect(footer.locator('#copyright-year')).toHaveAttribute('datetime', currentYear);
+
+  const dividers = await page.evaluate(() => {
+    const visit = document.querySelector<HTMLElement>('.visit-section');
+    const footer = document.querySelector<HTMLElement>('.site-footer');
+    return {
+      visitBottom: visit ? getComputedStyle(visit).borderBottomWidth : '',
+      footerTop: footer ? getComputedStyle(footer).borderTopWidth : '',
+    };
+  });
+
+  expect(dividers).toEqual({ visitBottom: '0px', footerTop: '1px' });
+});
+
 test('publishes canonical metadata and Restaurant structured data', async ({ page }) => {
   await page.goto('./');
 
@@ -174,8 +196,14 @@ test('shows modern external rating cards without review category placeholders', 
   await expect(page.getByText('75 reviews')).toBeVisible();
   await expect(page.getByText('32 reviews')).toBeVisible();
   await expect(page.locator('.rating-platform-icon')).toHaveCount(2);
-  await expect(page.getByRole('link', { name: 'View Google reviews' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'View Deliveroo reviews' })).toBeVisible();
+  const googleCard = page.getByRole('link', { name: 'View Google reviews' });
+  const deliverooCard = page.getByRole('link', { name: 'View Deliveroo reviews' });
+  await expect(googleCard).toHaveClass(/rating-card/);
+  await expect(deliverooCard).toHaveClass(/rating-card/);
+  await expect(googleCard).toContainText('75 reviews');
+  await expect(deliverooCard).toContainText('32 reviews');
+  await expect(page.getByText('View reviews', { exact: true })).toHaveCount(0);
+  await expect(page.locator('.rating-card-arrow')).toHaveCount(2);
   await expect(page.locator('#review-filters')).toHaveCount(0);
   await expect(page.locator('#review-results')).toHaveCount(0);
   await expect(page.getByText('Verified feedback coming soon.')).toHaveCount(0);

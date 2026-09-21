@@ -469,6 +469,8 @@ main {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--white);
+  color: inherit;
+  text-decoration: none;
 }
 
 .rating-card strong,
@@ -692,6 +694,18 @@ main {
 .footer-links {
   display: flex;
   gap: 1rem;
+}
+
+.footer-copy {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.footer-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 
 :focus-visible {
