@@ -46,9 +46,10 @@
     align-self: stretch;
   }
 
-  .visit-main {
+  .visit-section > .visit-main {
     display: grid;
     min-height: 0;
+    padding-bottom: 0;
     grid-template-rows: auto auto auto auto minmax(15rem, 1fr);
   }
 
@@ -66,7 +67,7 @@
 }
 
 @media (max-width: 40rem) {
-  .visit-section {
+  main > .visit-section#contact {
     gap: 1rem;
   }
 
