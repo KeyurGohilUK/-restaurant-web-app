@@ -125,24 +125,32 @@ test('positions selected sections directly below the navigation instead of showi
   await page.locator("#primary-navigation a[href='#menu']").click();
   await expect(page).toHaveURL(/#menu$/);
 
-  const menuSection = page.locator('#menu');
   const readPosition = () =>
-    menuSection.evaluate((section) => ({
-      top: section.getBoundingClientRect().top,
-      scrollPaddingTop: Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop),
-    }));
+    page.evaluate(() => {
+      const section = document.querySelector<HTMLElement>('#menu');
+      const header = document.querySelector<HTMLElement>('.site-header');
+      if (!section || !header) return null;
+
+      return {
+        top: section.getBoundingClientRect().top,
+        headerBottom: header.getBoundingClientRect().bottom,
+      };
+    });
 
   await expect
     .poll(async () => {
       const position = await readPosition();
-      return position.top - position.scrollPaddingTop;
+      if (!position) return Number.POSITIVE_INFINITY;
+      return position.top - position.headerBottom;
     })
     .toBeLessThanOrEqual(24);
 
   const position = await readPosition();
+  expect(position).not.toBeNull();
+  if (!position) return;
 
-  expect(position.top).toBeGreaterThanOrEqual(position.scrollPaddingTop - 2);
-  expect(position.top).toBeLessThanOrEqual(position.scrollPaddingTop + 24);
+  expect(position.top).toBeGreaterThanOrEqual(position.headerBottom - 2);
+  expect(position.top).toBeLessThanOrEqual(position.headerBottom + 24);
 });
 
 test('uses the brand colour for back to top and returns to the absolute page top', async ({ page }) => {

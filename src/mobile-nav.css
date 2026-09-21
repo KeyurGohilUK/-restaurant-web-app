@@ -111,18 +111,32 @@
 }
 
 @media (max-width: 40rem) {
+  html {
+    scroll-padding-top: 4.5rem;
+  }
+
+  .section,
+  .visit-section {
+    scroll-margin-top: 1.5rem;
+  }
+
   .site-header {
-    position: relative;
-    top: auto;
+    position: sticky;
+    top: 0;
+    transition:
+      background 220ms ease,
+      box-shadow 220ms ease;
   }
 
   .header-inner {
     position: relative;
     display: grid;
+    min-height: 5.5rem;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 0.55rem;
-    padding-block: 0.55rem;
+    padding-block: 0;
+    transition: min-height 240ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .brand {
@@ -132,12 +146,23 @@
     align-items: center;
     justify-content: center;
     align-self: center;
+    justify-self: start;
+    overflow: visible;
+    transition:
+      width 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      height 240ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .brand-logo {
     width: 4rem;
     height: 4rem;
     object-fit: contain;
+    transform: scale(1.22);
+    transform-origin: center;
+    transition:
+      width 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      height 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .nav-toggle {
@@ -147,6 +172,34 @@
     align-self: center;
     justify-self: end;
     border-radius: 0.8rem;
+    transition:
+      width 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      height 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .site-header.is-compact {
+    background: rgb(255 247 244 / 0.96);
+    box-shadow: 0 0.5rem 1.5rem rgb(44 20 14 / 0.1);
+  }
+
+  .site-header.is-compact .header-inner {
+    min-height: 4.25rem;
+  }
+
+  .site-header.is-compact .brand {
+    width: 3.3rem;
+    height: 3.3rem;
+  }
+
+  .site-header.is-compact .brand-logo {
+    width: 3.15rem;
+    height: 3.15rem;
+    transform: scale(1.08);
+  }
+
+  .site-header.is-compact .nav-toggle {
+    width: 2.55rem;
+    height: 2.55rem;
   }
 
   #primary-navigation {
@@ -218,7 +271,12 @@
   .nav-active-indicator,
   .nav-toggle-line,
   #primary-navigation,
-  #primary-navigation.is-open {
+  #primary-navigation.is-open,
+  .site-header,
+  .header-inner,
+  .brand,
+  .brand-logo,
+  .nav-toggle {
     transition: none;
   }
 }
