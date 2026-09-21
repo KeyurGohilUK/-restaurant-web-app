@@ -85,10 +85,13 @@ test('shows streamlined visit actions, clickable map and current opening hours',
   await page.goto('./');
 
   await expect(page.getByText('664 Fishponds Rd, Bristol BS16 3HJ')).toBeVisible();
-  await expect(page.locator('.visit-map iframe')).toHaveAttribute('src', /google\.com\/maps\?q=.*664.*Fishponds.*output=embed/);
+  await expect(page.locator('.visit-map iframe')).toHaveAttribute(
+    'src',
+    /google\.com\/maps\?q=Masala%20Munch%20by%20Shreeji%20Food.*664%20Fishponds.*output=embed/,
+  );
   await expect(page.getByRole('link', { name: 'Open directions to Masala Munch in Google Maps' })).toHaveAttribute(
     'href',
-    /google\.com\/maps\/search\/\?api=1&query=664\+Fishponds\+Rd\+Bristol\+BS16\+3HJ/,
+    /google\.com\/maps\/search\/\?api=1&query=Masala\+Munch\+by\+Shreeji\+Food.*664\+Fishponds.*BS16\+3HJ/,
   );
   await expect(page.getByText('Tap map for directions ↗')).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Directions', exact: true })).toHaveCount(0);
