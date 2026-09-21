@@ -41,15 +41,18 @@
     align-items: stretch;
   }
 
-  .visit-main {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
+  .visit-main,
+  .hours-card {
     align-self: stretch;
   }
 
+  .visit-main {
+    display: grid;
+    min-height: 0;
+    grid-template-rows: auto auto auto auto minmax(15rem, 1fr);
+  }
+
   .visit-map {
-    flex: 1 1 0;
     min-height: 15rem;
   }
 
