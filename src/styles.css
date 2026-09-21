@@ -548,7 +548,50 @@ main {
 }
 
 .hours-card h3 {
-  margin-top: 0;
+  margin: 0;
+}
+
+.hours-card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.opening-status {
+  display: inline-flex;
+  min-height: 2.25rem;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.4rem 0.65rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.opening-status[data-state='open'] {
+  background: #ecfdf3;
+  color: #18733a;
+}
+
+.opening-status[data-state='closed'] {
+  background: #fff0ef;
+  color: #b42318;
+}
+
+.opening-status-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 0.2rem color-mix(in srgb, currentColor 16%, transparent);
+}
+
+#opening-status-detail:not(:empty)::before {
+  content: '·';
+  margin-right: 0.42rem;
 }
 
 .hours-card dl {
@@ -570,6 +613,72 @@ main {
 .hours-card dd {
   margin: 0;
   font-weight: 750;
+}
+
+.last-orders-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin: 1.15rem 0 0;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.last-orders-note a {
+  color: var(--accent-dark);
+  font-weight: 800;
+  text-underline-offset: 0.18em;
+}
+
+.last-orders-icon {
+  display: inline-flex;
+  width: 1.35rem;
+  height: 1.35rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 850;
+}
+
+.visit-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+}
+
+.visit-highlight {
+  display: flex;
+  min-width: 0;
+  min-height: 7.5rem;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.85rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  text-align: center;
+}
+
+.visit-highlight-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.visit-highlight strong {
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+.visit-highlight > span:last-child:not(.visit-highlight-icon) {
+  color: var(--muted);
+  font-size: 0.82rem;
 }
 
 .site-footer {
