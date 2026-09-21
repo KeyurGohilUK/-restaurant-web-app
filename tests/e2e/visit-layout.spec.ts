@@ -1,8 +1,11 @@
 import { expect, test } from '@playwright/test';
 
-test.beforeEach((fixtures, testInfo) => {
-  void fixtures;
-  test.skip(testInfo.project.name !== 'desktop-chromium', 'Visit layout viewports are covered explicitly in this spec.');
+test.beforeEach(({ page }, testInfo) => {
+  void page;
+  test.skip(
+    testInfo.project.name !== 'desktop-chromium',
+    'Visit layout viewports are covered explicitly in this spec.',
+  );
 });
 
 for (const viewport of [
