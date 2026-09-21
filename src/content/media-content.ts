@@ -1,4 +1,4 @@
-const publicAsset = (filename: string) => `${import.meta.env.BASE_URL}${filename}`;
+const publicAsset = (filename: string) => `/restaurant-web-app/${filename}`;
 
 export const imagePlaceholder = publicAsset('placeholder-restaurant-light.svg');
 
