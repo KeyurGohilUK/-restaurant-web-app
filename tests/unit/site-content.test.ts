@@ -5,6 +5,8 @@ describe('site content', () => {
   it('keeps the core restaurant contact details available', () => {
     expect(restaurant.address).toContain('Bristol BS16 3HJ');
     expect(restaurant.phoneHref).toBe('tel:+447733849772');
+    expect(restaurant.mapQuery).toContain('Masala Munch by Shreeji Food');
+    expect(restaurant.mapHref).toContain('query=Masala+Munch+by+Shreeji+Food');
   });
 
   it('defines one current opening-hours entry per day', () => {

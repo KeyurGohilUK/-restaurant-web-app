@@ -5,6 +5,9 @@ test('loads the visual homepage and exposes accessible primary navigation', asyn
   await page.goto('./');
 
   await expect(page.getByRole('heading', { level: 1, name: 'Masala Munch' })).toBeVisible();
+  const vegetarianBadge = page.locator('.hero-vegetarian-badge');
+  await expect(vegetarianBadge).toBeVisible();
+  await expect(vegetarianBadge).toContainText('100% Pure Vegetarian');
   const brand = page.getByRole('link', { name: 'Masala Munch by Shreeji Food home' });
   await expect(brand).toBeVisible();
   await expect(brand.locator('.brand-logo')).toHaveCount(1);
@@ -72,6 +75,7 @@ test('publishes canonical metadata and Restaurant structured data', async ({ pag
   const structuredData = await page.locator('script[type="application/ld+json"]').textContent();
   expect(structuredData).toContain('"@type": "Restaurant"');
   expect(structuredData).toContain('"telephone": "+447733849772"');
+  expect(structuredData).toContain('"servesCuisine": ["Indian", "Vegetarian"]');
   expect(structuredData).toContain('"postalCode": "BS16 3HJ"');
   expect(structuredData).toContain('"image": "https://masalamunchbyshreejifood.com/');
 });
@@ -81,10 +85,13 @@ test('shows streamlined visit actions, clickable map and current opening hours',
   await page.goto('./');
 
   await expect(page.getByText('664 Fishponds Rd, Bristol BS16 3HJ')).toBeVisible();
-  await expect(page.locator('.visit-map iframe')).toHaveAttribute('src', /google\.com\/maps\?q=.*664.*Fishponds.*output=embed/);
+  await expect(page.locator('.visit-map iframe')).toHaveAttribute(
+    'src',
+    /google\.com\/maps\?q=Masala%20Munch%20by%20Shreeji%20Food.*664%20Fishponds.*output=embed/,
+  );
   await expect(page.getByRole('link', { name: 'Open directions to Masala Munch in Google Maps' })).toHaveAttribute(
     'href',
-    /google\.com\/maps\/search\/\?api=1&query=664\+Fishponds\+Rd\+Bristol\+BS16\+3HJ/,
+    /google\.com\/maps\/search\/\?api=1&query=Masala\+Munch\+by\+Shreeji\+Food.*664\+Fishponds.*BS16\+3HJ/,
   );
   await expect(page.getByText('Tap map for directions ↗')).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Directions', exact: true })).toHaveCount(0);
@@ -105,6 +112,22 @@ test('shows streamlined visit actions, clickable map and current opening hours',
   await expect(page.getByRole('heading', { name: 'Opening hours' })).toBeVisible();
   await expect(page.getByText('14:00–22:00')).toBeVisible();
   await expect(page.getByText('17:00–22:00')).toHaveCount(5);
+
+  const status = page.locator('#opening-status');
+  await expect(status).toHaveAttribute('data-state', /open|closed/);
+  await expect(page.locator('#opening-status-label')).toHaveText(/Open now|Closed now/);
+
+  const hoursCard = page.locator('.hours-card');
+  await expect(hoursCard).toContainText('Last orders 15 minutes before closing.');
+  await expect(hoursCard.getByRole('link', { name: 'Call Masala Munch for click and collect' })).toHaveAttribute(
+    'href',
+    'tel:+447733849772',
+  );
+  await expect(hoursCard.locator('.visit-highlight')).toHaveCount(3);
+  await expect(hoursCard).toContainText('Walk-ins');
+  await expect(hoursCard).toContainText('Cards & Apple Pay');
+  await expect(hoursCard).toContainText('100% Pure Vegetarian');
+
   await expect(page.getByRole('heading', { name: 'Chaat', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Mumbai Special', exact: true })).toBeVisible();
 });

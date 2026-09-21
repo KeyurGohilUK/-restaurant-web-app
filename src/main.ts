@@ -12,6 +12,7 @@ import { getMenuImage, restaurantMedia } from './content/media-content';
 import { menuCategories } from './content/menu-content';
 import { externalRatings } from './content/review-content';
 import { openingHours, restaurant } from './content/site-content';
+import { getOpeningStatus } from './features/visit/domain/opening-status';
 
 const navToggle = document.querySelector<HTMLButtonElement>('#nav-toggle');
 const primaryNavigation = document.querySelector<HTMLElement>('#primary-navigation');
@@ -186,13 +187,13 @@ if (address) address.textContent = restaurant.address;
 
 const visitMain = document.querySelector<HTMLElement>('.visit-main');
 if (visitMain) {
-  const encodedAddress = encodeURIComponent(restaurant.address);
+  const encodedMapQuery = encodeURIComponent(restaurant.mapQuery);
   const mapPreview = document.createElement('div');
   mapPreview.className = 'visit-map';
   mapPreview.innerHTML = `
     <iframe
       title="Map showing ${restaurant.shortName} on Fishponds Road"
-      src="https://www.google.com/maps?q=${encodedAddress}&output=embed"
+      src="https://www.google.com/maps?q=${encodedMapQuery}&output=embed"
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
       tabindex="-1"
@@ -209,7 +210,31 @@ if (phoneLink) {
   phoneLink.setAttribute('aria-label', `Call ${restaurant.shortName} on ${restaurant.phoneDisplay}`);
 }
 
+const clickCollectPhoneLink = document.querySelector<HTMLAnchorElement>('#click-collect-phone-link');
+if (clickCollectPhoneLink) {
+  clickCollectPhoneLink.href = restaurant.phoneHref;
+  clickCollectPhoneLink.setAttribute('aria-label', `Call ${restaurant.shortName} for click and collect`);
+}
+
 const hoursContainer = document.querySelector<HTMLDListElement>('#opening-hours');
 if (hoursContainer) {
   hoursContainer.innerHTML = openingHours.map(({ day, hours }) => `<div><dt>${day}</dt><dd>${hours}</dd></div>`).join('');
+}
+
+const openingStatus = document.querySelector<HTMLElement>('#opening-status');
+const openingStatusLabel = document.querySelector<HTMLElement>('#opening-status-label');
+const openingStatusDetail = document.querySelector<HTMLElement>('#opening-status-detail');
+
+const updateOpeningStatus = () => {
+  if (!openingStatus || !openingStatusLabel || !openingStatusDetail) return;
+
+  const status = getOpeningStatus(openingHours);
+  openingStatus.dataset.state = status.isOpen ? 'open' : 'closed';
+  openingStatusLabel.textContent = status.label;
+  openingStatusDetail.textContent = status.detail;
+};
+
+if (openingStatus) {
+  updateOpeningStatus();
+  window.setInterval(updateOpeningStatus, 60_000);
 }
