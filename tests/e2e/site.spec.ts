@@ -5,7 +5,9 @@ test('loads the visual homepage and exposes accessible primary navigation', asyn
   await page.goto('./');
 
   await expect(page.getByRole('heading', { level: 1, name: 'Masala Munch' })).toBeVisible();
-  await expect(page.getByText('100% Pure Vegetarian', { exact: true })).toBeVisible();
+  const vegetarianBadge = page.locator('.hero-vegetarian-badge');
+  await expect(vegetarianBadge).toBeVisible();
+  await expect(vegetarianBadge).toContainText('100% Pure Vegetarian');
   const brand = page.getByRole('link', { name: 'Masala Munch by Shreeji Food home' });
   await expect(brand).toBeVisible();
   await expect(brand.locator('.brand-logo')).toHaveCount(1);
