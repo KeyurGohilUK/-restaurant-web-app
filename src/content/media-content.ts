@@ -1,4 +1,6 @@
-export const imagePlaceholder = '/placeholder-restaurant-light.svg';
+const publicAsset = (filename: string) => `${import.meta.env.BASE_URL}${filename}`;
+
+export const imagePlaceholder = publicAsset('placeholder-restaurant-light.svg');
 
 export const restaurantMedia = {
   hero: {
@@ -6,7 +8,7 @@ export const restaurantMedia = {
     alt: 'Indian dishes, rice and naan from the existing Masala Munch website',
   },
   catering: {
-    src: '/catering-food-spread.jpg.jpeg',
+    src: publicAsset('catering-food-spread.jpg.jpeg'),
     alt: 'Indian dishes arranged for catering and events at Masala Munch by Shreeji Food',
   },
   menuImages: {
