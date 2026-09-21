@@ -71,6 +71,10 @@
     gap: 1rem;
   }
 
+  .visit-section > .visit-main {
+    padding-bottom: 0;
+  }
+
   .visit-map {
     min-height: 13.5rem;
     margin-top: 1.5rem;
