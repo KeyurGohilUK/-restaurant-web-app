@@ -121,7 +121,10 @@ if (heroFoodImage) {
 }
 
 const cateringImage = document.querySelector<HTMLImageElement>('#catering-image');
-if (cateringImage) cateringImage.src = restaurantMedia.hero.src;
+if (cateringImage) {
+  cateringImage.src = restaurantMedia.catering.src;
+  cateringImage.alt = restaurantMedia.catering.alt;
+}
 
 const favouriteNames = ['Samosa Chaat', 'Dahi Puri', 'Mattar Paneer'];
 const favouritesGrid = document.querySelector<HTMLDivElement>('#favourites-grid');
@@ -130,9 +133,9 @@ if (favouritesGrid) {
     .map((name) => {
       const item = menuCategories.flatMap((category) => category.items).find((menuItem) => menuItem.name === name);
       const image = getMenuImage(name);
-      if (!item || !image) return '';
+      if (!item) return '';
       return `<article class="favourite-card">
-        <img src="${image}?fit=cover&format=auto&width=900&quality=88" alt="${name} from Masala Munch by Shreeji Food" loading="lazy" decoding="async" />
+        <img src="${image}" alt="${name} from Masala Munch by Shreeji Food" loading="lazy" decoding="async" />
         <div><h3>${name}</h3><strong>${item.price}</strong></div>
       </article>`;
     })
@@ -156,8 +159,8 @@ const renderMenu = (categoryId = 'all') => {
               .map((item) => {
                 const image = getMenuImage(item.name);
                 return `
-                  <article class="menu-item-card${image ? ' has-image' : ''}">
-                    ${image ? `<img class="menu-item-image" src="${image}?fit=cover&format=auto&width=640&quality=85" alt="${item.name} from Masala Munch by Shreeji Food" loading="lazy" decoding="async" />` : ''}
+                  <article class="menu-item-card has-image">
+                    <img class="menu-item-image" src="${image}" alt="${item.name} from Masala Munch by Shreeji Food" loading="lazy" decoding="async" />
                     <div class="menu-item-card-copy">
                       <div class="menu-item-title-row"><h4>${item.name}</h4><strong>${item.price}</strong></div>
                       <p>${item.description}</p>
