@@ -429,6 +429,10 @@ nav a:active {
   color: var(--neutral);
 }
 
+main > .visit-section:last-child {
+  border-bottom: 0;
+}
+
 .site-footer::before {
   content: '';
   position: absolute;

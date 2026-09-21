@@ -16,6 +16,14 @@ import { getOpeningStatus } from './features/visit/domain/opening-status';
 
 const navToggle = document.querySelector<HTMLButtonElement>('#nav-toggle');
 const primaryNavigation = document.querySelector<HTMLElement>('#primary-navigation');
+const copyrightYear = document.querySelector<HTMLTimeElement>('#copyright-year');
+
+if (copyrightYear) {
+  const currentYear = String(new Date().getFullYear());
+  copyrightYear.dateTime = currentYear;
+  copyrightYear.textContent = currentYear;
+}
+
 const navigationLinks = Array.from(primaryNavigation?.querySelectorAll<HTMLAnchorElement>('a[href^="#"]') ?? []);
 const navigationSections = navigationLinks.flatMap((link) => {
   const section = document.querySelector<HTMLElement>(link.hash);

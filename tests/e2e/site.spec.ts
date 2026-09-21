@@ -59,6 +59,28 @@ test('supports keyboard access and avoids horizontal page overflow', async ({ pa
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
 });
 
+test('shows a compact footer with a current copyright year', async ({ page }) => {
+  await page.goto('./');
+
+  const footer = page.locator('.site-footer');
+  const currentYear = String(new Date().getFullYear());
+
+  await expect(footer).toContainText('Masala Munch by Shreeji Food');
+  await expect(footer).toContainText(`© ${currentYear} Masala Munch by Shreeji Food. All rights reserved.`);
+  await expect(footer.locator('#copyright-year')).toHaveAttribute('datetime', currentYear);
+
+  const dividers = await page.evaluate(() => {
+    const visit = document.querySelector<HTMLElement>('.visit-section');
+    const footer = document.querySelector<HTMLElement>('.site-footer');
+    return {
+      visitBottom: visit ? getComputedStyle(visit).borderBottomWidth : '',
+      footerTop: footer ? getComputedStyle(footer).borderTopWidth : '',
+    };
+  });
+
+  expect(dividers).toEqual({ visitBottom: '0px', footerTop: '1px' });
+});
+
 test('publishes canonical metadata and Restaurant structured data', async ({ page }) => {
   await page.goto('./');
 
