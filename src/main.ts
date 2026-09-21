@@ -16,6 +16,7 @@ import { getOpeningStatus } from './features/visit/domain/opening-status';
 
 const navToggle = document.querySelector<HTMLButtonElement>('#nav-toggle');
 const primaryNavigation = document.querySelector<HTMLElement>('#primary-navigation');
+const siteHeader = document.querySelector<HTMLElement>('.site-header');
 const copyrightYear = document.querySelector<HTMLTimeElement>('#copyright-year');
 const phoneNavigation = window.matchMedia('(max-width: 40rem)');
 
@@ -83,9 +84,11 @@ const updateActiveNavigationSection = () => {
   }
 
   const scrollPaddingTop = Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+  const headerBottom = siteHeader?.getBoundingClientRect().bottom ?? 0;
+  const activationLine = Math.max(scrollPaddingTop, headerBottom) + 24;
   const activeSection = navigationSections.reduce(
     (current, candidate) =>
-      candidate.section.getBoundingClientRect().top <= scrollPaddingTop + 1 ? candidate : current,
+      candidate.section.getBoundingClientRect().top <= activationLine + 1 ? candidate : current,
     navigationSections[0],
   );
   setActiveNavigationSection(activeSection.section);
@@ -132,6 +135,7 @@ primaryNavigation?.addEventListener('click', async (event) => {
   await Promise.allSettled(primaryNavigation.getAnimations().map((animation) => animation.finished));
   window.location.hash = event.target.hash;
   destination.scrollIntoView();
+  requestNavigationUpdate();
 });
 
 document.addEventListener('keydown', (event) => {
@@ -144,8 +148,13 @@ document.addEventListener('keydown', (event) => {
 phoneNavigation.addEventListener('change', (event) => {
   if (!event.matches) setNavigationOpen(false);
   requestNavigationIndicatorUpdate();
+  requestNavigationUpdate();
 });
-primaryNavigation?.addEventListener('transitionend', requestNavigationIndicatorUpdate);
+primaryNavigation?.addEventListener('transitionend', () => {
+  requestNavigationIndicatorUpdate();
+  requestNavigationUpdate();
+});
+siteHeader?.addEventListener('transitionend', requestNavigationUpdate);
 
 const heroFoodImage = document.querySelector<HTMLImageElement>('#hero-food-image');
 if (heroFoodImage) {
