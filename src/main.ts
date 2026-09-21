@@ -17,6 +17,7 @@ import { getOpeningStatus } from './features/visit/domain/opening-status';
 const navToggle = document.querySelector<HTMLButtonElement>('#nav-toggle');
 const primaryNavigation = document.querySelector<HTMLElement>('#primary-navigation');
 const copyrightYear = document.querySelector<HTMLTimeElement>('#copyright-year');
+const phoneNavigation = window.matchMedia('(max-width: 40rem)');
 
 if (copyrightYear) {
   const currentYear = String(new Date().getFullYear());
@@ -29,12 +30,44 @@ const navigationSections = navigationLinks.flatMap((link) => {
   const section = document.querySelector<HTMLElement>(link.hash);
   return section ? [{ link, section }] : [];
 });
+const navigationIndicator = document.createElement('span');
+navigationIndicator.className = 'nav-active-indicator';
+navigationIndicator.setAttribute('aria-hidden', 'true');
+primaryNavigation?.prepend(navigationIndicator);
+
+const updateNavigationIndicator = () => {
+  if (!primaryNavigation || (phoneNavigation.matches && !primaryNavigation.classList.contains('is-open'))) {
+    primaryNavigation?.removeAttribute('data-indicator-ready');
+    return;
+  }
+
+  const activeLink = navigationLinks.find((link) => link.getAttribute('aria-current') === 'page');
+  if (!activeLink) return;
+
+  const navigationBounds = primaryNavigation.getBoundingClientRect();
+  const linkBounds = activeLink.getBoundingClientRect();
+  navigationIndicator.style.width = `${linkBounds.width}px`;
+  navigationIndicator.style.height = `${linkBounds.height}px`;
+  navigationIndicator.style.transform = `translate3d(${linkBounds.left - navigationBounds.left}px, ${linkBounds.top - navigationBounds.top}px, 0)`;
+  primaryNavigation.setAttribute('data-indicator-ready', 'true');
+};
+
+let indicatorUpdateRequested = false;
+const requestNavigationIndicatorUpdate = () => {
+  if (indicatorUpdateRequested) return;
+  indicatorUpdateRequested = true;
+  window.requestAnimationFrame(() => {
+    updateNavigationIndicator();
+    indicatorUpdateRequested = false;
+  });
+};
 
 const setActiveNavigationSection = (activeSection: HTMLElement) => {
   navigationSections.forEach(({ link, section }) => {
     if (section === activeSection) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
   });
+  requestNavigationIndicatorUpdate();
 };
 
 const updateActiveNavigationSection = () => {
@@ -80,6 +113,7 @@ const setNavigationOpen = (isOpen: boolean) => {
   navToggle.setAttribute('aria-expanded', String(isOpen));
   navToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
   primaryNavigation.classList.toggle('is-open', isOpen);
+  requestNavigationIndicatorUpdate();
 };
 
 navToggle?.addEventListener('click', () => {
@@ -109,10 +143,11 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
-const phoneNavigation = window.matchMedia('(max-width: 40rem)');
 phoneNavigation.addEventListener('change', (event) => {
   if (!event.matches) setNavigationOpen(false);
+  requestNavigationIndicatorUpdate();
 });
+primaryNavigation?.addEventListener('transitionend', requestNavigationIndicatorUpdate);
 
 const heroFoodImage = document.querySelector<HTMLImageElement>('#hero-food-image');
 if (heroFoodImage) {

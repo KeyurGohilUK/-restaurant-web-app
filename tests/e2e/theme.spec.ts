@@ -40,22 +40,26 @@ test('clearly highlights the current section in primary navigation', async ({ pa
 
   const homeLink = page.locator("#primary-navigation a[href='#home']");
   const reviewsLink = page.locator("#primary-navigation a[href='#reviews']");
+  const navigation = page.locator('#primary-navigation');
+  const indicator = page.locator('.nav-active-indicator');
 
-  await expect(homeLink).toHaveCSS('background-color', 'rgb(197, 34, 31)');
   await expect(homeLink).toHaveCSS('color', 'rgb(255, 255, 255)');
   await expect(homeLink).toHaveAttribute('aria-current', 'page');
+  await expect(navigation).toHaveAttribute('data-indicator-ready', 'true');
+  await expect(indicator).toHaveCSS('background-color', 'rgb(197, 34, 31)');
+  await expect(indicator).toHaveCSS('transition-property', /transform/);
+  const homeTransform = await indicator.evaluate((element) => getComputedStyle(element).transform);
 
   await reviewsLink.click();
   await expect(page).toHaveURL(/#reviews$/);
-  await expect(reviewsLink).toHaveCSS('background-color', 'rgb(197, 34, 31)');
   await expect(reviewsLink).toHaveCSS('color', 'rgb(255, 255, 255)');
   await expect(reviewsLink).toHaveAttribute('aria-current', 'page');
-  await expect(homeLink).not.toHaveCSS('background-color', 'rgb(197, 34, 31)');
+  await expect.poll(() => indicator.evaluate((element) => getComputedStyle(element).transform)).not.toBe(homeTransform);
 
   await page.evaluate(() => window.scrollTo(0, 0));
   await expect(homeLink).toHaveAttribute('aria-current', 'page');
   await expect(reviewsLink).not.toHaveAttribute('aria-current', 'page');
-  await expect(homeLink).toHaveCSS('background-color', 'rgb(197, 34, 31)');
+  await expect.poll(() => indicator.evaluate((element) => getComputedStyle(element).transform)).toBe(homeTransform);
 });
 
 test('keeps the open mobile navigation compact and uses full-width menu rows', async ({ page }) => {

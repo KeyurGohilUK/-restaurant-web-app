@@ -1,20 +1,45 @@
+#primary-navigation {
+  position: relative;
+}
+
 #primary-navigation a {
+  position: relative;
+  z-index: 1;
   transition:
-    background 160ms ease,
     color 160ms ease,
-    box-shadow 160ms ease,
     transform 160ms ease;
 }
 
 #primary-navigation a[aria-current='page'] {
-  background: var(--primary, #c5221f);
+  background: transparent;
   color: var(--white, #ffffff);
-  box-shadow: 0 0.45rem 1rem rgb(197 34 31 / 0.22);
 }
 
 #primary-navigation a[aria-current='page']:hover {
-  background: var(--primary, #c5221f);
+  background: transparent;
   color: var(--white, #ffffff);
+}
+
+.nav-active-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  border-radius: 999px;
+  background: var(--primary, #c5221f);
+  box-shadow: 0 0.45rem 1rem rgb(197 34 31 / 0.22);
+  opacity: 0;
+  pointer-events: none;
+  will-change: width, height, transform;
+  transition:
+    width 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 140ms ease;
+}
+
+#primary-navigation[data-indicator-ready='true'] .nav-active-indicator {
+  opacity: 1;
 }
 
 .nav-toggle {
@@ -157,8 +182,13 @@
   }
 
   #primary-navigation a[aria-current='page'] {
-    background: var(--primary, #c5221f);
+    background: transparent;
     color: var(--white, #ffffff);
+    box-shadow: none;
+  }
+
+  .nav-active-indicator {
+    border-radius: 0.75rem;
     box-shadow: none;
   }
 
@@ -169,6 +199,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   #primary-navigation a,
+  .nav-active-indicator,
   .nav-toggle-line,
   #primary-navigation,
   #primary-navigation.is-open {
