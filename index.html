@@ -130,7 +130,36 @@
 
       <section class="visit-section" id="contact" aria-labelledby="visit-title">
         <div class="visit-main"><p class="eyebrow">Visit</p><h2 id="visit-title">Find us in Bristol.</h2><p class="address" id="restaurant-address"></p><div class="contact-actions"><a class="button button-primary" id="phone-link">Call</a></div></div>
-        <div class="hours-card"><h3>Opening hours</h3><dl id="opening-hours"></dl></div>
+        <div class="hours-card">
+          <div class="hours-card-heading">
+            <h3>Opening hours</h3>
+            <div class="opening-status" id="opening-status" role="status" aria-live="polite" data-state="closed">
+              <span class="opening-status-dot" aria-hidden="true"></span>
+              <strong id="opening-status-label">Checking…</strong>
+              <span id="opening-status-detail"></span>
+            </div>
+          </div>
+          <dl id="opening-hours"></dl>
+          <p class="last-orders-note">
+            <span class="last-orders-icon" aria-hidden="true">i</span>
+            <span>Last orders 15 minutes before closing. Walk-ins are always welcome. <a id="click-collect-phone-link">Call us</a> for click &amp; collect.</span>
+          </p>
+          <div class="visit-highlights" aria-label="Cafe services">
+            <article class="visit-highlight">
+              <span class="visit-highlight-icon" aria-hidden="true">🚶</span>
+              <strong>Walk-ins</strong>
+              <span>Welcome</span>
+            </article>
+            <article class="visit-highlight">
+              <span class="visit-highlight-icon" aria-hidden="true">◉</span>
+              <strong>Cards &amp; Apple Pay</strong>
+            </article>
+            <article class="visit-highlight">
+              <span class="visit-highlight-icon" aria-hidden="true">🌿</span>
+              <strong>100% Pure Vegetarian</strong>
+            </article>
+          </div>
+        </div>
       </section>
     </main>
 
