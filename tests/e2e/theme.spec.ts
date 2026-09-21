@@ -48,18 +48,30 @@ test('clearly highlights the current section in primary navigation', async ({ pa
   await expect(navigation).toHaveAttribute('data-indicator-ready', 'true');
   await expect(indicator).toHaveCSS('background-color', 'rgb(197, 34, 31)');
   await expect(indicator).toHaveCSS('transition-property', /transform/);
-  const homeTransform = await indicator.evaluate((element) => getComputedStyle(element).transform);
+  const indicatorMatches = async (link: typeof homeLink) => {
+    const [indicatorBounds, linkBounds] = await Promise.all([indicator.boundingBox(), link.boundingBox()]);
+    if (!indicatorBounds || !linkBounds) return false;
+    return (
+      Math.abs(indicatorBounds.x - linkBounds.x) <= 1 &&
+      Math.abs(indicatorBounds.y - linkBounds.y) <= 1 &&
+      Math.abs(indicatorBounds.width - linkBounds.width) <= 1 &&
+      Math.abs(indicatorBounds.height - linkBounds.height) <= 1
+    );
+  };
+
+  await expect.poll(() => indicatorMatches(homeLink)).toBe(true);
 
   await reviewsLink.click();
   await expect(page).toHaveURL(/#reviews$/);
   await expect(reviewsLink).toHaveCSS('color', 'rgb(255, 255, 255)');
   await expect(reviewsLink).toHaveAttribute('aria-current', 'page');
-  await expect.poll(() => indicator.evaluate((element) => getComputedStyle(element).transform)).not.toBe(homeTransform);
+  if (await navToggle.isVisible()) await navToggle.click();
+  await expect.poll(() => indicatorMatches(reviewsLink)).toBe(true);
 
   await page.evaluate(() => window.scrollTo(0, 0));
   await expect(homeLink).toHaveAttribute('aria-current', 'page');
   await expect(reviewsLink).not.toHaveAttribute('aria-current', 'page');
-  await expect.poll(() => indicator.evaluate((element) => getComputedStyle(element).transform)).toBe(homeTransform);
+  await expect.poll(() => indicatorMatches(homeLink)).toBe(true);
 });
 
 test('keeps the open mobile navigation compact and uses full-width menu rows', async ({ page }) => {
