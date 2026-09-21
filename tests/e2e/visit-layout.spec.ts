@@ -1,5 +1,9 @@
 import { expect, test } from '@playwright/test';
 
+test.beforeEach(({}, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium', 'Visit layout viewports are covered explicitly in this spec.');
+});
+
 for (const viewport of [
   { name: 'iPad', width: 1024, height: 768 },
   { name: 'desktop', width: 1440, height: 900 },
