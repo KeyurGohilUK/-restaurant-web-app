@@ -27,33 +27,30 @@ jobs:
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: 22
+          cache: npm
 
-      - name: Upgrade Vitest and lockfile
-        if: github.event_name == 'pull_request'
-        run: npm install --save-dev vitest@^5.0.1 --no-audit --no-fund
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
 
-      - name: Apply safe DOM migration
+      - name: Clean generated DOM helper duplication
         if: github.event_name == 'pull_request'
-        run: node scripts/apply-p2-hardening.mjs
+        run: node scripts/fix-p2-output.mjs
 
       - name: Format generated changes
         if: github.event_name == 'pull_request'
-        run: npx prettier --write package.json package-lock.json src/main.ts
+        run: npx prettier --write src/main.ts
 
       - name: Commit generated changes
         if: github.event_name == 'pull_request'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add package.json package-lock.json src/main.ts
+          git add src/main.ts
           if git diff --cached --quiet; then
             exit 0
           fi
-          git commit -m 'chore: complete P2 code and dependency hardening'
+          git commit -m 'chore: clean P2 DOM migration output'
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
-
-      - name: Install dependencies
-        run: npm ci --no-audit --no-fund
 
       - name: Audit dependencies
         run: npm audit --audit-level=moderate
