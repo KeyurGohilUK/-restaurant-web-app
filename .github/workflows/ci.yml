@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   quality:
@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -29,12 +31,16 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Emit generated lockfile for bootstrap
+      - name: Commit generated lockfile
+        if: github.event_name == 'pull_request'
         run: |
-          echo 'LOCKFILE_GZIP_BASE64_BEGIN'
-          gzip -c package-lock.json | base64 -w0
-          echo
-          echo 'LOCKFILE_GZIP_BASE64_END'
+          if git status --short package-lock.json | grep -q .; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add package-lock.json
+            git commit -m 'chore: add npm lockfile'
+            git push origin HEAD:${{ github.event.pull_request.head.ref }}
+          fi
 
       - name: Lint
         run: npm run lint
