@@ -17,7 +17,7 @@
     "test:browser:install": "playwright install --with-deps chromium"
   },
   "devDependencies": {
-    "@eslint/js": "^9.36.0",
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.55.0",
     "@types/node": "^24.5.2",
     "eslint": "^9.36.0",
