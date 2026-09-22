@@ -411,6 +411,28 @@ main {
   font-size: 1.03rem;
 }
 
+.menu-item-name {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.55rem;
+  align-items: center;
+}
+
+.menu-item-popular {
+  display: inline-flex;
+  min-height: 1.55rem;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgb(234 163 21 / 0.18);
+  color: var(--accent-dark);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
 .menu-item-card p {
   margin: 0.4rem 0 0;
   color: var(--muted);

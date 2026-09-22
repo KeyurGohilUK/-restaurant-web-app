@@ -204,7 +204,10 @@ const renderMenu = (categoryId = 'all') => {
                   <article class="menu-item-card${image ? ' has-image' : ''}">
                     ${image ? `<img class="menu-item-image" src="${image}?fit=cover&format=auto&width=640&quality=85" alt="${item.name} from Masala Munch by Shreeji Food" loading="lazy" decoding="async" />` : ''}
                     <div class="menu-item-card-copy">
-                      <div class="menu-item-title-row"><h4>${item.name}</h4><strong>${item.price}</strong></div>
+                      <div class="menu-item-title-row">
+                        <div class="menu-item-name"><h4>${item.name}</h4>${item.popular ? '<span class="menu-item-popular">Popular</span>' : ''}</div>
+                        <strong>${item.price}</strong>
+                      </div>
                       <p>${item.description}</p>
                     </div>
                   </article>`;

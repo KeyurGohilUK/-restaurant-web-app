@@ -23,4 +23,13 @@ describe('menu content', () => {
   it('tracks a non-empty full menu', () => {
     expect(menuItemCount).toBeGreaterThan(30);
   });
+
+  it('identifies the items marked as popular by Deliveroo', () => {
+    const popularItems = menuCategories
+      .flatMap((category) => category.items)
+      .filter((item) => item.popular)
+      .map((item) => item.name);
+
+    expect(popularItems).toEqual(['Sev Puri', 'Paneer Tikka Masala', 'Mattar Paneer', 'Paneer Bhurji']);
+  });
 });

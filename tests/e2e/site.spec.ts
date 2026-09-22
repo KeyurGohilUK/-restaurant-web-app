@@ -214,6 +214,18 @@ test('filters the menu by category', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Mumbai Special', exact: true })).toHaveAttribute('aria-pressed', 'true');
 });
 
+test('highlights Deliveroo popular menu items', async ({ page }) => {
+  await page.goto('./');
+
+  const popularItems = ['Sev Puri', 'Paneer Tikka Masala', 'Mattar Paneer', 'Paneer Bhurji'];
+  await expect(page.locator('.menu-item-popular')).toHaveCount(popularItems.length);
+
+  for (const itemName of popularItems) {
+    const card = page.locator('.menu-item-card').filter({ has: page.getByRole('heading', { name: itemName, exact: true }) });
+    await expect(card.getByText('Popular', { exact: true })).toBeVisible();
+  }
+});
+
 test('keeps dietary guidance inside the menu instead of a separate section', async ({ page }) => {
   await page.goto('./');
 
