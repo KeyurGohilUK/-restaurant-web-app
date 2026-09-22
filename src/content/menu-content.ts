@@ -2,6 +2,7 @@ export type MenuItem = {
   name: string;
   price: string;
   description: string;
+  popular?: true;
 };
 
 export type MenuCategory = {
@@ -31,7 +32,7 @@ export const menuCategories: readonly MenuCategory[] = [
     id: 'chaat',
     name: 'Chaat',
     items: [
-      { name: 'Sev Puri', price: '£5.20', description: 'Crisp puris with potato, chutneys and crunchy sev.' },
+      { name: 'Sev Puri', price: '£5.20', description: 'Crisp puris with potato, chutneys and crunchy sev.', popular: true },
       { name: 'Dahi Puri', price: '£5.20', description: 'Crisp puris filled with potato, chickpeas, yogurt and chutneys.' },
       { name: 'Pani Puri (6)', price: '£3.90', description: 'Six crisp puris with spiced filling and tangy pani.' },
       { name: 'Samosa Chaat', price: '£6.50', description: 'Samosa, chickpea curry, yogurt, chutneys and sev.' },
@@ -70,10 +71,10 @@ export const menuCategories: readonly MenuCategory[] = [
     id: 'punjabi-curries',
     name: 'North India Curries',
     items: [
-      { name: 'Paneer Tikka Masala', price: '£9.05', description: 'Paneer in a rich tomato-based masala gravy.' },
-      { name: 'Mattar Paneer', price: '£7.75', description: 'Paneer and green peas in a gently spiced gravy.' },
+      { name: 'Paneer Tikka Masala', price: '£9.05', description: 'Paneer in a rich tomato-based masala gravy.', popular: true },
+      { name: 'Mattar Paneer', price: '£7.75', description: 'Paneer and green peas in a gently spiced gravy.', popular: true },
       { name: 'Paneer Frankie', price: '£7.50', description: 'Marinated paneer, salad, sauces and cheese in a wrap.' },
-      { name: 'Paneer Bhurji', price: '£8.45', description: 'Crumbled paneer cooked with onion, tomato and spices.' },
+      { name: 'Paneer Bhurji', price: '£8.45', description: 'Crumbled paneer cooked with onion, tomato and spices.', popular: true },
       { name: 'Dal Fry', price: '£5.15', description: 'Cooked lentils finished with a savoury tempering.' },
       { name: 'Dal Tadka', price: '£5.85', description: 'Lentils finished with an aromatic hot tadka.' },
       { name: 'Steam Rice', price: '£2.60', description: 'Light steamed long-grain rice.' },
