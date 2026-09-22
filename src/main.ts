@@ -182,6 +182,20 @@ const createElement = <K extends keyof HTMLElementTagNameMap>(tagName: K, option
   return element;
 };
 
+type ElementOptions = {
+  className?: string;
+  text?: string;
+  attributes?: Record<string, string>;
+};
+
+const createElement = <K extends keyof HTMLElementTagNameMap>(tagName: K, options: ElementOptions = {}) => {
+  const element = document.createElement(tagName);
+  if (options.className) element.className = options.className;
+  if (options.text !== undefined) element.textContent = options.text;
+  Object.entries(options.attributes ?? {}).forEach(([name, value]) => element.setAttribute(name, value));
+  return element;
+};
+
 const favouriteNames = ['Samosa Chaat', 'Dahi Puri', 'Mattar Paneer'];
 const favouritesGrid = document.querySelector<HTMLDivElement>('#favourites-grid');
 if (favouritesGrid) {
