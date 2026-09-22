@@ -4,10 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 const html = readFileSync(new URL('../../index.html', import.meta.url), 'utf8');
 
-const contentSecurityPolicy = html.match(
-  /<meta\s+http-equiv="Content-Security-Policy"\s+content="([^"]+)"\s*\/>/,
-)?.[1];
-
+const contentSecurityPolicy = html.match(/<meta\s+http-equiv="Content-Security-Policy"\s+content="([^"]+)"\s*\/>/)?.[1];
 const jsonLdScript = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
 
 describe('content security policy', () => {
