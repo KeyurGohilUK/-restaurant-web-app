@@ -5,11 +5,11 @@ describe('menu content', () => {
   it('contains the expected public menu categories', () => {
     expect(menuCategories.map((category) => category.name)).toEqual([
       'Combos',
-      'Salad',
       'Chaat',
       'Sandwich Special',
       'Mumbai Special',
       'North India Curries',
+      'Salad',
       'Drink',
       'Sweet',
     ]);
