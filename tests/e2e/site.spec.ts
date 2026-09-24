@@ -214,6 +214,26 @@ test('filters the menu by category', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Mumbai Special', exact: true })).toHaveAttribute('aria-pressed', 'true');
 });
 
+test('loads each locally hosted menu image on its matching card', async ({ page }) => {
+  await page.goto('./');
+
+  const localMenuImages = page.locator('#menu-categories .menu-item-image[src*="/images/menu/"]');
+  await expect(localMenuImages).toHaveCount(21);
+  await expect(
+    page
+      .locator('.menu-item-card')
+      .filter({ has: page.getByRole('heading', { name: 'Vada Pav', exact: true }) })
+      .getByRole('img'),
+  ).toHaveAttribute('src', '/restaurant-web-app/images/menu/vada-pav.webp');
+
+  for (const image of await localMenuImages.all()) {
+    await image.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() => image.evaluate((element) => element instanceof HTMLImageElement && element.complete && element.naturalWidth > 0))
+      .toBe(true);
+  }
+});
+
 test('highlights Deliveroo popular menu items', async ({ page }) => {
   await page.goto('./');
 
