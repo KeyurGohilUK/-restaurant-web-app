@@ -193,7 +193,7 @@ if (favouritesGrid) {
     const article = createElement('article', { className: 'favourite-card' });
     const imageElement = createElement('img', {
       attributes: {
-        src: `${image}?fit=cover&format=auto&width=900&quality=88`,
+        src: image,
         alt: `${name} from Masala Munch by Shreeji Food`,
         loading: 'lazy',
         decoding: 'async',
@@ -221,7 +221,7 @@ const createMenuItemCard = (item: MenuItem) => {
       createElement('img', {
         className: 'menu-item-image',
         attributes: {
-          src: `${image}?fit=cover&format=auto&width=640&quality=85`,
+          src: image,
           alt: `${item.name} from Masala Munch by Shreeji Food`,
           loading: 'lazy',
           decoding: 'async',
