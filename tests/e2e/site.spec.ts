@@ -218,7 +218,7 @@ test('loads each locally hosted menu image on its matching card', async ({ page 
   await page.goto('./');
 
   const localMenuImages = page.locator('#menu-categories .menu-item-image[src*="/images/menu/"]');
-  await expect(localMenuImages).toHaveCount(38);
+  await expect(localMenuImages).toHaveCount(37);
   await expect(
     page
       .locator('.menu-item-card')
@@ -231,6 +231,12 @@ test('loads each locally hosted menu image on its matching card', async ({ page 
       .filter({ has: page.getByRole('heading', { name: 'Dahi Puri', exact: true }) })
       .getByRole('img'),
   ).toHaveAttribute('src', '/restaurant-web-app/images/menu/dahi-puri.webp');
+  await expect(
+    page
+      .locator('.menu-item-card')
+      .filter({ has: page.getByRole('heading', { name: 'Indori / Raj Kachori Chaat', exact: true }) })
+      .getByRole('img'),
+  ).toHaveAttribute('src', '/restaurant-web-app/images/menu/raj-kachori-chaat.webp');
 
   for (const image of await localMenuImages.all()) {
     await image.scrollIntoViewIfNeeded();
