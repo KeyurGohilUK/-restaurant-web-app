@@ -21,14 +21,6 @@ export const menuCategories: readonly MenuCategory[] = [
     ],
   },
   {
-    id: 'salad',
-    name: 'Salad',
-    items: [
-      { name: 'Chana Salad (Black)', price: '£5.20', description: 'Black chickpeas with fresh vegetables and a bright, spiced dressing.' },
-      { name: 'Sweetcorn Salad', price: '£3.90', description: 'Sweetcorn, crisp vegetables, lime and savoury spices.' },
-    ],
-  },
-  {
     id: 'chaat',
     name: 'Chaat',
     items: [
@@ -38,8 +30,7 @@ export const menuCategories: readonly MenuCategory[] = [
       { name: 'Samosa Chaat', price: '£6.50', description: 'Samosa, chickpea curry, yogurt, chutneys and sev.' },
       { name: 'Bhel', price: '£5.20', description: 'A light, crunchy Mumbai-style chaat.' },
       { name: 'Ragada Patties', price: '£6.50', description: 'Potato patties served with white-pea ragada and chutneys.' },
-      { name: 'Indori Kachori Chaat', price: '£6.50', description: 'Crisp kachori layered with yogurt, chutneys and colourful toppings.' },
-      { name: 'Raj Kachori Chaat', price: '£6.50', description: 'Large crisp kachori filled and finished with yogurt and chutneys.' },
+      { name: 'Indori / Raj Kachori Chaat', price: '£6.50', description: 'Crisp kachori layered with yogurt, chutneys and colourful toppings.' },
     ],
   },
   {
@@ -79,6 +70,14 @@ export const menuCategories: readonly MenuCategory[] = [
       { name: 'Dal Tadka', price: '£5.85', description: 'Lentils finished with an aromatic hot tadka.' },
       { name: 'Steam Rice', price: '£2.60', description: 'Light steamed long-grain rice.' },
       { name: 'Jeera Rice', price: '£3.25', description: 'Rice flavoured with toasted cumin and aromatics.' },
+    ],
+  },
+  {
+    id: 'salad',
+    name: 'Salad',
+    items: [
+      { name: 'Chana Salad (Black)', price: '£5.20', description: 'Black chickpeas with fresh vegetables and a bright, spiced dressing.' },
+      { name: 'Sweetcorn Salad', price: '£3.90', description: 'Sweetcorn, crisp vegetables, lime and savoury spices.' },
     ],
   },
   {
