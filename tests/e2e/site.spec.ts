@@ -226,10 +226,12 @@ test('loads each locally hosted menu image on its matching card', async ({ page 
       .getByRole('img'),
   ).toHaveAttribute('src', '/restaurant-web-app/images/menu/vada-pav.webp');
 
-  const failedImages = await localMenuImages.evaluateAll((images) =>
-    images.filter((image) => !(image instanceof HTMLImageElement) || !image.complete || image.naturalWidth === 0).length,
-  );
-  expect(failedImages).toBe(0);
+  for (const image of await localMenuImages.all()) {
+    await image.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() => image.evaluate((element) => element instanceof HTMLImageElement && element.complete && element.naturalWidth > 0))
+      .toBe(true);
+  }
 });
 
 test('highlights Deliveroo popular menu items', async ({ page }) => {
