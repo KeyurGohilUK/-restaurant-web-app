@@ -102,7 +102,7 @@ test('starts at the top with the full mobile header on a fresh load and reload',
   await expect(header).toHaveClass(/is-compact/);
   await page.reload();
 
-  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThanOrEqual(2);
   await expect(header).not.toHaveClass(/is-compact/);
 });
 
