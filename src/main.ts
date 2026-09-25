@@ -5,6 +5,7 @@ import './media.css';
 import './mobile-nav.css';
 import './cookie-consent.css';
 import './visit-map.css';
+import './initial-scroll';
 import './back-to-top';
 import './cookie-consent';
 import { cateringOccasions } from './content/catering-content';
