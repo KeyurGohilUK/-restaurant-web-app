@@ -89,6 +89,31 @@ test('uses an animated hamburger menu on phone-sized screens', async ({ page }) 
   await expect(header).not.toHaveClass(/is-compact/);
 });
 
+test('starts at the top with the full mobile header on a fresh load and reload', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./#home');
+
+  const header = page.locator('.site-header');
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+  await expect(header).not.toHaveClass(/is-compact/);
+  await expect(page).toHaveURL(/restaurant-web-app\/$/);
+
+  await page.evaluate(() => window.scrollTo(0, 160));
+  await expect(header).toHaveClass(/is-compact/);
+  await page.reload();
+
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThanOrEqual(2);
+  await expect(header).not.toHaveClass(/is-compact/);
+});
+
+test('preserves intentional section deep links on page load', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('./#menu');
+
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+  await expect(page.locator('#menu')).toBeInViewport();
+});
+
 test('closes the phone menu after selecting a navigation item', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('./');
